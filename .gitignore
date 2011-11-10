@@ -1,5 +1,5 @@
 .project
 .settings
 .classpath
-build
-
+build/
+dist/
