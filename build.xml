@@ -1,5 +1,5 @@
 
-<project name="Jass bulid.xml" default="dist" basedir=".">
+<project name="Jass build.xml" default="dist" basedir=".">
 
 	<!-- ===================== Property Definitions =========================== -->
 
