@@ -2,9 +2,9 @@ Projekt Zeitvertreib @ BFH
 
 LIBRARIES
  - jsf 2.0 (myfaces-bund-2.0.9.jar = api und impl, found @ apache)
- - jstl-*-1.2.jar (found @ oreicl) <-- wird evtl. später benötigt
+ - jstl-*-1.2.jar (found @ öreicl) <-- wird evtl. später benötigt
  - das commons-* zeugs wird von myfaces benötigt
  
-TIPS:
+TIPPS:
  - eclipse fügt die libraries im web-inf verzeichnis automatisch zum classpath hinzu!
  - ohne das hier dreht man fast durch: http://stackoverflow.com/questions/2136218/eclipse-autocomplete-content-assist-with-facelets-jsf-and-xhtml
