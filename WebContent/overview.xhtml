@@ -1,0 +1,17 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<f:loadBundle basename="ch.frickler.jass.res.UI" var="UI" />
+<!--  TODO: this should not be the loginbean...  -->
+<f:view contentType="text/html" locale="#{loginBean.locale}" />
+<h:head>
+</h:head>
+<h:body>
+	<div class="content">
+		<h:outputText
+			value="#{UI.welcometext}" /> 
+	</div>
+</h:body>
+</html>
