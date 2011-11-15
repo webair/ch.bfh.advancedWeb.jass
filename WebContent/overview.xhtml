@@ -5,13 +5,24 @@
 	xmlns:f="http://java.sun.com/jsf/core">
 <f:loadBundle basename="ch.frickler.jass.res.UI" var="UI" />
 <!--  TODO: this should not be the loginbean...  -->
-<f:view contentType="text/html" locale="#{loginBean.locale}" />
+<f:view contentType="text/html" locale="#{localeBean.locale}" />
 <h:head>
 </h:head>
+<h:outputStylesheet library="css" name="style.css"  />
+
 <h:body>
-	<div class="content">
-		<h:outputText
-			value="#{UI.welcometext}" /> 
-	</div>
+	<div id="Page">
+	<h:form>
+	<h:commandLink value="show" action="#{gameOverviewBean.getGames}">
+        <f:ajax render="games"/>
+    </h:commandLink>
+	<h:panelGroup id="games">
+	
+        <h:dataTable var="game" value="#{gameOverviewBean.games}">
+        	 <h:column>#{game.name}</h:column>
+        </h:dataTable>
+    </h:panelGroup>
+    </h:form>
+    </div>
 </h:body>
 </html>
