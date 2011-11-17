@@ -1,4 +1,4 @@
-package ch.fricker.jass.test;
+package ch.frickler.jass.test;
 
 import static org.junit.Assert.*;
 
