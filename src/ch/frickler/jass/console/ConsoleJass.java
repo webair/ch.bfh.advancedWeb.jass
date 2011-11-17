@@ -1,7 +1,14 @@
-package ch.frickler.jass.logic;
+package ch.frickler.jass.console;
 
 import ch.frickler.jass.definitions.ISpielart;
+import ch.frickler.jass.logic.Card;
+import ch.frickler.jass.logic.KartenVerteilAction;
+import ch.frickler.jass.logic.Runde;
+import ch.frickler.jass.logic.Spiel;
+import ch.frickler.jass.logic.Spieler;
+import ch.frickler.jass.logic.Spielfeld;
 import ch.frickler.jass.logic.Trumpf;
+import ch.frickler.jass.logic.Card.CardFamily;
 
 public class ConsoleJass {
 
