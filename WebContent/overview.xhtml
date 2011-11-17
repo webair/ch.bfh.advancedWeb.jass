@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<f:loadBundle basename="ch.frickler.jass.res.UI" var="UI" />
+<!--  TODO: this should not be the loginbean...  -->
+<f:view contentType="text/html" locale="#{localeBean.locale}" />
+<h:head>
+</h:head>
+<h:outputStylesheet library="css" name="style.css"  />
+
+<h:body>
+	<div id="Page">
+	<h:form>
+	<h:commandLink value="show" action="#{gameOverviewBean.getGames}">
+        <f:ajax render="games"/>
+    </h:commandLink>
+	<h:panelGroup id="games">
+	
+        <h:dataTable var="game" value="#{gameOverviewBean.games}">
+        	 <h:column>#{game.name}</h:column>
+        </h:dataTable>
+    </h:panelGroup>
+    </h:form>
+    </div>
+</h:body>
+</html>
