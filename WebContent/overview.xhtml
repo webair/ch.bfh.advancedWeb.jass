@@ -9,11 +9,12 @@
 <h:head>
 </h:head>
 <h:outputStylesheet library="css" name="style.css"  />
+<h:outputScript library="js" name="overview/overview.js" />
 
 <h:body>
 	<div id="Page">
-	<h:form>
-	<h:commandLink value="show" action="#{gameOverviewBean.getGames}">
+	<h:form id="OverviewForm">
+	<h:commandLink value="show" id="GameLink">
         <f:ajax render="games"/>
     </h:commandLink>
 	<h:panelGroup id="games">
