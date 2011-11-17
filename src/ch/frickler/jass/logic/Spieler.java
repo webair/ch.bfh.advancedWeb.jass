@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.SortedMap;
 import java.util.SortedSet;
 
+import ch.frickler.jass.definitions.IUserAction;
+
 public class Spieler {
 
 	protected String name;
@@ -32,21 +34,21 @@ public class Spieler {
 		return cards;
 	}
 		
-	public Card forcePlay(Spielfeld spielfeld){
+	public IUserAction forcePlay(Round round) throws Exception{
 		
 		// if a card is laying 
-		if(spielfeld.getCards().size() > 0){
+		if(round.getCards().size() > 0){
 			//play one of the same family	
 			for(int i = 0;i < cards.size();i++){
 				
-				if(cards.get(i).getCardFamily() == spielfeld.getCards().get(0).getCardFamily()){
-					return  cards.remove(i);
+				if(cards.get(i).getCardFamily() == round.getCards().get(0).getCardFamily()){
+					return new JUALayCard(cards.remove(i));
 				}
 			}
 		}
 		
 		// else play the first card.
-		return cards.remove(0);
+		return  new JUALayCard(cards.remove(0));
 	}
 	public String getName() {
 		return this.name;

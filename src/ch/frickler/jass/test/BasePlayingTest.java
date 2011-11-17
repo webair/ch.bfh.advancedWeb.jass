@@ -20,10 +20,10 @@ public class BasePlayingTest {
 	public void EveryPlayerOneCard() throws Exception {
 	
 		Spiel p = GetVerteiltesSpiel(new Obenabe());
-		Spielfeld f = p.getSpielfeld();
+		Round f = p.getRound();
 		
 		for(Spieler spl : p.getAllSpieler()){
-			Card c = spl.forcePlay(f);
+			Card c =((JUALayCard)spl.forcePlay(f)).getCard();
 			f.addCard(c);
 		}
 		
@@ -40,11 +40,11 @@ public class BasePlayingTest {
 	
 		Spiel p = GetVerteiltesSpiel(new Obenabe());
 		
-		Spielfeld f = p.getSpielfeld();
+		Round f = p.getRound();
 		
 		for(int i = 0;i < 9;i++){
 			for(Spieler spl : p.getAllSpieler()){
-				Card c = spl.forcePlay(f);
+				Card c = ((JUALayCard)spl.forcePlay(f)).getCard();
 				f.addCard(c);
 			}
 			p.placeStich(f.getCards());
@@ -62,7 +62,7 @@ public class BasePlayingTest {
 	@Test
 	public void StichAfterOneRound1() throws Exception{
 		Spiel p = GetSpiel(new Obenabe());
-		Spielfeld f = p.getSpielfeld();
+		Round f = p.getRound();
 		
 		List<Spieler> sp =	p.getAllSpieler();
 		sp.get(0).addCard(new Card(CardValue.Neun,CardFamily.Herz));
@@ -71,7 +71,7 @@ public class BasePlayingTest {
 		sp.get(3).addCard(new Card(CardValue.Ass,CardFamily.Herz));
 		
 		for(Spieler spl : p.getAllSpieler()){
-			Card c = spl.forcePlay(f);
+			Card c = ((JUALayCard)spl.forcePlay(f)).getCard();
 			f.addCard(c);
 		}
 		
@@ -87,7 +87,7 @@ public class BasePlayingTest {
 	@Test
 	public void StichAfterOneRound2() throws Exception{
 		Spiel p = GetSpiel(new Trumpf(CardFamily.Herz));
-		Spielfeld f = p.getSpielfeld();
+		Round f = p.getRound();
 		
 		List<Spieler> sp =	p.getAllSpieler();
 		sp.get(0).addCard(new Card(CardValue.Sieben,CardFamily.Herz));
@@ -96,7 +96,7 @@ public class BasePlayingTest {
 		sp.get(3).addCard(new Card(CardValue.Bauer,CardFamily.Herz));
 		
 		for(Spieler spl : p.getAllSpieler()){
-			Card c = spl.forcePlay(f);
+			Card c = ((JUALayCard)spl.forcePlay(f)).getCard();
 			f.addCard(c);
 		}
 		
@@ -113,8 +113,7 @@ public class BasePlayingTest {
 	
 	public Spiel GetSpiel(ISpielart spielart) throws Exception{
 		Spiel p = new Spiel();
-		Runde round = new Runde();
-		round.SetSpielart(spielart);
+		Round round = new Round(spielart);
 		p.SetRound(round);
 		Spieler p1 = new Spieler();
 		Spieler p2 = new Spieler();
@@ -143,7 +142,7 @@ public class BasePlayingTest {
 	@Test
 	public void AusspielerTest() throws Exception{
 		Spiel p = GetSpiel(new Obenabe());
-		Spielfeld f = p.getSpielfeld();
+		Round f = p.getRound();
 		
 		List<Spieler> sp =	p.getAllSpieler();
 		sp.get(0).addCard(new Card(CardValue.Neun,CardFamily.Herz));
@@ -157,7 +156,7 @@ public class BasePlayingTest {
 		sp.get(3).addCard(new Card(CardValue.Sechs,CardFamily.Egge));
 		
 		for(Spieler spl : p.getAllSpielerSorted(null)){
-			Card c = spl.forcePlay(f);
+			Card c = ((JUALayCard)spl.forcePlay(f)).getCard();
 			f.addCard(c);
 		}
 		
@@ -166,7 +165,7 @@ public class BasePlayingTest {
 		Assert.assertEquals(sp.get(3), pSticher);
 		
 		for(Spieler spl : p.getAllSpielerSorted(pSticher)){
-			Card c = spl.forcePlay(f);
+			Card c = ((JUALayCard)spl.forcePlay(f)).getCard();
 			f.addCard(c);
 		}
 		
