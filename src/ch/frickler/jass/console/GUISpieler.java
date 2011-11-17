@@ -1,6 +1,10 @@
-package ch.frickler.jass.logic;
+package ch.frickler.jass.console;
 
 import javax.swing.JOptionPane;
+
+import ch.frickler.jass.logic.Card;
+import ch.frickler.jass.logic.Spieler;
+import ch.frickler.jass.logic.Spielfeld;
 
 public class GUISpieler extends Spieler {
 
