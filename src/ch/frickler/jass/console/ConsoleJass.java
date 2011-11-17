@@ -1,6 +1,7 @@
 package ch.frickler.jass.console;
 
 import ch.frickler.jass.definitions.ISpielart;
+import ch.frickler.jass.definitions.ISpieler;
 import ch.frickler.jass.logic.Card;
 import ch.frickler.jass.logic.KartenVerteilAction;
 import ch.frickler.jass.logic.Round;
@@ -9,17 +10,18 @@ import ch.frickler.jass.logic.Spieler;
 import ch.frickler.jass.logic.Spielfeld;
 import ch.frickler.jass.logic.Trumpf;
 import ch.frickler.jass.logic.Card.CardFamily;
+import ch.frickler.jass.logic.Round.RoundResult;
 
 public class ConsoleJass {
 
-	static public void main(String [] argv){
+	static public void main(String[] argv) {
 		ISpielart spielart = new Trumpf(Card.CardFamily.Egge);
 		Spiel game = new Spiel();
 		Round round = new Round(spielart);
 		game.SetRound(round);
 		Spieler p1 = new Spieler("Tom Chiller");
 		Spieler p2 = new Spieler("Krugi");
-		Spieler p3 = new GUISpieler("Aschax");
+		ISpieler p3 = new GUISpieler("Aschax");
 		Spieler p4 = new Spieler("Blöffer aka Webair");
 
 		try {
@@ -30,15 +32,19 @@ public class ConsoleJass {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		KartenVerteilAction kva = new KartenVerteilAction();
-		kva.doAction(game);
-		for(Spieler spl : game.getAllSpieler()){
-			System.out.println("Karten Spieler "+spl.getName()+" : "+spl.getCards());
+
+		boolean gamefinished = false;
+
+		while (!gamefinished) {
+			RoundResult r = game.playRound();
+			if (r == RoundResult.QuitGame)
+				gamefinished = true;
+			
+			if(game.getLeadingTeam().getPoints()>game.getWinPoints()){
+				
+			}
+			
+			
 		}
-		
-		
-		game.playRound();
-		}
-		
 	}
+}

@@ -3,6 +3,7 @@ package ch.frickler.jass.logic;
 import java.util.ArrayList;
 import java.util.List;
 import ch.frickler.jass.definitions.*;
+import ch.frickler.jass.logic.Round.RoundResult;
 
 public class Spiel {
 
@@ -10,7 +11,8 @@ public class Spiel {
 	private List<Team> teams = new ArrayList<Team>();
 	private Round currentRound;
 	private int gewinnPunkte = 500;
-	private int maxSpieler = 4;
+	private int maxISpieler = 4;
+	private int ansager;
 
 	public Spiel() {
 
@@ -20,50 +22,50 @@ public class Spiel {
 		return teams;
 	}
 
-	public List<Spieler> getAllSpieler() {
-		List<Spieler> alleSpieler = new ArrayList<Spieler>();
+	public List<ISpieler> getAllSpieler() {
+		List<ISpieler> alleISpieler = new ArrayList<ISpieler>();
 		for (Team t : teams) {
-			alleSpieler.addAll(t.getSpieler());
+			alleISpieler.addAll(t.getSpieler());
 		}
-		return alleSpieler;
+		return alleISpieler;
 	}
 
 	/*
 	 * 
 	 */
-	public List<Spieler> getAllSpielerSorted(Spieler beginner) {
-		List<Spieler> alleSpieler = getAllSpieler();
+	public List<ISpieler> getAllSpielerSorted(ISpieler beginner) {
+		List<ISpieler> alleISpieler = getAllSpieler();
 
-		if (alleSpieler.size() == 0)
-			return alleSpieler;
+		if (alleISpieler.size() == 0)
+			return alleISpieler;
 
-		List<Spieler> tempSpieler = new ArrayList<Spieler>();
+		List<ISpieler> tempISpieler = new ArrayList<ISpieler>();
 
-		int totalspieler = alleSpieler.size();
-		int spielerproteam = totalspieler / teams.size();
-		for (int i = 0; i < spielerproteam; i++) {
+		int totalISpieler = alleISpieler.size();
+		int ISpielerproteam = totalISpieler / teams.size();
+		for (int i = 0; i < ISpielerproteam; i++) {
 			for (Team t : teams) {
-				tempSpieler.add(t.getSpieler().get(i));
+				tempISpieler.add(t.getSpieler().get(i));
 			}
 		}
 
 		int beginId = 0;
 		if (beginner != null) {
-			beginId = tempSpieler.indexOf(beginner);
+			beginId = tempISpieler.indexOf(beginner);
 			if (beginId < 0)
 				beginId = 0;
 		}
-		List<Spieler> tempSpieler2 = new ArrayList<Spieler>();
-		for (int i = beginId; i < beginId + totalspieler; i++) {
-			tempSpieler2.add(tempSpieler.get(i % totalspieler));
+		List<ISpieler> tempISpieler2 = new ArrayList<ISpieler>();
+		for (int i = beginId; i < beginId + totalISpieler; i++) {
+			tempISpieler2.add(tempISpieler.get(i % totalISpieler));
 		}
 
-		return tempSpieler2;
+		return tempISpieler2;
 	}
 
-	public void addSpieler(Spieler spieler) throws Exception {
-		if (getAllSpieler().size() >= maxSpieler)
-			throw new Exception("wft zu viele Spieler");
+	public void addSpieler(ISpieler spieler) throws Exception {
+		if (getAllSpieler().size() >= maxISpieler)
+			throw new Exception("wft zu viele ISpieler");
 
 		if (teams.size() < 2) {
 			Team team = new Team(spieler);
@@ -80,9 +82,9 @@ public class Spiel {
 
 	/*
 	 * Der Stich geht zum Team mit der höchsten Karte die Methode gibt den
-	 * Spieler zurück der den Stich gemacht hat.
+	 * ISpieler zurück der den Stich gemacht hat.
 	 */
-	public Spieler placeStich(List<Card> cards) {
+	public ISpieler placeStich(List<Card> cards) {
 
 		int highestCard = 0;
 		for (int i = 1; i < cards.size(); i++) {
@@ -92,18 +94,18 @@ public class Spiel {
 			}
 
 		}
-		List<Spieler> spielers = getAllSpielerSorted(this.getRound()
+		List<ISpieler> spieler = getAllSpielerSorted(this.getRound()
 				.getAusspieler());
-		Spieler spieler = spielers.get(highestCard % spielers.size());
-		addCardsToTeam(spieler, cards);
+		ISpieler spl = spieler.get(highestCard % spieler.size());
+		addCardsToTeam(spl, cards);
 
-		// der spieler der die höchste karte hatte darf als nächstes auspielen.
-		currentRound.setAusspieler(spieler);
+		// der ISpieler der die höchste karte hatte darf als nächstes auspielen.
+		currentRound.setAusspieler(spl);
 
-		return spieler;
+		return spl;
 	}
 
-	private void addCardsToTeam(Spieler spieler, List<Card> cards) {
+	private void addCardsToTeam(ISpieler spieler, List<Card> cards) {
 
 		Team t = getTeamOf(spieler);
 		t.addCard(cards);
@@ -113,9 +115,9 @@ public class Spiel {
 						+ spieler.getName());
 	}
 
-	private Team getTeamOf(Spieler spieler) {
+	private Team getTeamOf(ISpieler ISpieler) {
 		for (Team t : teams) {
-			if (t.getSpieler().contains(spieler)) {
+			if (t.getSpieler().contains(ISpieler)) {
 				return t;
 			}
 		}
@@ -135,22 +137,31 @@ public class Spiel {
 		return null; // new Spielfeld(currentRound.getSpielart());
 	}
 
-	public int playRound() {
+	public RoundResult playRound() {
+		
+		this.getAllSpielerSorted(null).get(ansager);
+		
+		KartenVerteilAction kva = new KartenVerteilAction();
+		kva.doAction(this);
+		for(ISpieler spl : this.getAllSpieler()){
+			System.out.println("Karten ISpieler "+spl.getName()+" : "+spl.getCards());
+		}
+		
 		try {
 			Round r = this.getRound();
 
 			for (int i = 0; i < 9; i++) {
-				for (Spieler spl : this.getAllSpielerSorted(this.getRound()
+				for (ISpieler spl : this.getAllSpielerSorted(this.getRound()
 						.getAusspieler())) {
-					boolean nextSpielersTurn = true;
+					boolean nextISpielersTurn = true;
 
-					while (!nextSpielersTurn) {
+					while (!nextISpielersTurn) {
 						IUserAction uc = spl.forcePlay(r);
 						// user played a card
 						if (uc instanceof JUALayCard) {
 							Card layedCard = ((JUALayCard) uc).getCard();
 							if (isPlayedCardValid(spl, layedCard, r)) {
-								nextSpielersTurn = true;
+								nextISpielersTurn = true;
 								r.addCard(layedCard);
 							} else {
 								// not valid card at it to the users hand again
@@ -158,6 +169,7 @@ public class Spiel {
 							}
 						}else if (uc instanceof JUAQuit) {
 							// todo quit action 
+							return RoundResult.QuitGame;
 							
 						}else if (uc instanceof JUASchieben) {
 							// todo schieben action 
@@ -175,7 +187,7 @@ public class Spiel {
 
 				}
 			}
-			Spieler stichMaker = this.placeStich(r.getCards());
+			ISpieler stichMaker = this.placeStich(r.getCards());
 			this.getRound().setAusspieler(stichMaker);
 			r.removeCards();
 			int pointsTeam1 = currentRound.getSpielart().getPoints(
@@ -189,13 +201,29 @@ public class Spiel {
 			System.out.print(ex.getMessage());
 
 		}
-		
-		return 0;
+		this.ansager = ++this.ansager % this.getAllSpieler().size();
+		return RoundResult.Finshed;
 	}
 
-	private boolean isPlayedCardValid(Spieler spl, Card layedCard, Round r) {
+	private boolean isPlayedCardValid(ISpieler spl, Card layedCard, Round r) {
 		
 		
 		return false;
+	}
+
+	public int getWinPoints() {
+		
+		return gewinnPunkte;
+	}
+
+	public Team getLeadingTeam() {
+		// TODO Auto-generated method stub
+		Team leading = null;
+		for(Team t : teams){
+			if(leading == null || leading.getPoints() < t.getPoints()){
+				leading = t;
+			}
+		}
+		return leading;
 	}
 }

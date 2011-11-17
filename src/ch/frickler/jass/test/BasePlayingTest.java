@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import ch.frickler.jass.*;
 import ch.frickler.jass.definitions.ISpielart;
+import ch.frickler.jass.definitions.ISpieler;
 import ch.frickler.jass.logic.*;
 import ch.frickler.jass.logic.Card.CardFamily;
 import ch.frickler.jass.logic.Card.CardValue;
@@ -22,12 +23,12 @@ public class BasePlayingTest {
 		Spiel p = GetVerteiltesSpiel(new Obenabe());
 		Round f = p.getRound();
 		
-		for(Spieler spl : p.getAllSpieler()){
+		for(ISpieler spl : p.getAllSpieler()){
 			Card c =((JUALayCard)spl.forcePlay(f)).getCard();
 			f.addCard(c);
 		}
 		
-		for(Spieler spl : p.getAllSpieler()){
+		for(ISpieler spl : p.getAllSpieler()){
 			Assert.assertEquals(8,spl.getCards().size());
 		}
 		
@@ -43,7 +44,7 @@ public class BasePlayingTest {
 		Round f = p.getRound();
 		
 		for(int i = 0;i < 9;i++){
-			for(Spieler spl : p.getAllSpieler()){
+			for(ISpieler spl : p.getAllSpieler()){
 				Card c = ((JUALayCard)spl.forcePlay(f)).getCard();
 				f.addCard(c);
 			}
@@ -51,7 +52,7 @@ public class BasePlayingTest {
 		}
 		
 		
-		for(Spieler spl : p.getAllSpieler()){
+		for(ISpieler spl : p.getAllSpieler()){
 			Assert.assertEquals(0,spl.getCards().size());
 		}
 		
@@ -64,13 +65,13 @@ public class BasePlayingTest {
 		Spiel p = GetSpiel(new Obenabe());
 		Round f = p.getRound();
 		
-		List<Spieler> sp =	p.getAllSpieler();
+		List<ISpieler> sp =	p.getAllSpieler();
 		sp.get(0).addCard(new Card(CardValue.Neun,CardFamily.Herz));
 		sp.get(1).addCard(new Card(CardValue.Sechs,CardFamily.Herz));
 		sp.get(2).addCard(new Card(CardValue.Koenig,CardFamily.Herz));
 		sp.get(3).addCard(new Card(CardValue.Ass,CardFamily.Herz));
 		
-		for(Spieler spl : p.getAllSpieler()){
+		for(ISpieler spl : p.getAllSpieler()){
 			Card c = ((JUALayCard)spl.forcePlay(f)).getCard();
 			f.addCard(c);
 		}
@@ -89,13 +90,13 @@ public class BasePlayingTest {
 		Spiel p = GetSpiel(new Trumpf(CardFamily.Herz));
 		Round f = p.getRound();
 		
-		List<Spieler> sp =	p.getAllSpieler();
+		List<ISpieler> sp =	p.getAllSpieler();
 		sp.get(0).addCard(new Card(CardValue.Sieben,CardFamily.Herz));
 		sp.get(1).addCard(new Card(CardValue.Ass,CardFamily.Herz));
 		sp.get(2).addCard(new Card(CardValue.Sechs,CardFamily.Herz));
 		sp.get(3).addCard(new Card(CardValue.Bauer,CardFamily.Herz));
 		
-		for(Spieler spl : p.getAllSpieler()){
+		for(ISpieler spl : p.getAllSpieler()){
 			Card c = ((JUALayCard)spl.forcePlay(f)).getCard();
 			f.addCard(c);
 		}
@@ -144,7 +145,7 @@ public class BasePlayingTest {
 		Spiel p = GetSpiel(new Obenabe());
 		Round f = p.getRound();
 		
-		List<Spieler> sp =	p.getAllSpieler();
+		List<ISpieler> sp =	p.getAllSpieler();
 		sp.get(0).addCard(new Card(CardValue.Neun,CardFamily.Herz));
 		sp.get(1).addCard(new Card(CardValue.Sechs,CardFamily.Herz));
 		sp.get(2).addCard(new Card(CardValue.Koenig,CardFamily.Herz));
@@ -155,21 +156,21 @@ public class BasePlayingTest {
 		sp.get(2).addCard(new Card(CardValue.Koenig,CardFamily.Egge));
 		sp.get(3).addCard(new Card(CardValue.Sechs,CardFamily.Egge));
 		
-		for(Spieler spl : p.getAllSpielerSorted(null)){
+		for(ISpieler spl : p.getAllSpielerSorted(null)){
 			Card c = ((JUALayCard)spl.forcePlay(f)).getCard();
 			f.addCard(c);
 		}
 		
-		Spieler pSticher = p.placeStich(f.getCards());
+		ISpieler pSticher = p.placeStich(f.getCards());
 		f.removeCards();
 		Assert.assertEquals(sp.get(3), pSticher);
 		
-		for(Spieler spl : p.getAllSpielerSorted(pSticher)){
+		for(ISpieler spl : p.getAllSpielerSorted(pSticher)){
 			Card c = ((JUALayCard)spl.forcePlay(f)).getCard();
 			f.addCard(c);
 		}
 		
-		Spieler pSticher2 = p.placeStich(f.getCards());
+		ISpieler pSticher2 = p.placeStich(f.getCards());
 		f.removeCards();
 		
 		Assert.assertEquals(sp.get(2), pSticher2);

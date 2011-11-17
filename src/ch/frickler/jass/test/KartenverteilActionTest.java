@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import ch.frickler.jass.*;
 import ch.frickler.jass.definitions.ISpielart;
+import ch.frickler.jass.definitions.ISpieler;
 import ch.frickler.jass.logic.*;
 import ch.frickler.jass.logic.Card.CardFamily;
 import ch.frickler.jass.logic.Card.CardValue;
@@ -44,7 +45,7 @@ public class KartenverteilActionTest {
 
 		kva.doAction(p);
 		assertEquals(p.getAllSpieler().size(), 4);
-		for (Spieler player : p.getAllSpieler()) {
+		for (ISpieler player : p.getAllSpieler()) {
 			assertEquals(9, player.getCards().size());
 			System.out.println(player.getCards());
 		}
