@@ -5,6 +5,7 @@ import java.util.List;
 
 import ch.frickler.jass.*;
 import ch.frickler.jass.definitions.ISpielart;
+import ch.frickler.jass.definitions.ISpieler;
 
 public class Ungeufe extends ISpielart {
 
@@ -49,6 +50,25 @@ public class Ungeufe extends ISpielart {
 		}
 		return false;
 	}
+
+	@Override
+	public boolean isPlayedCardVaild(ISpieler spl, Card layedCard, Round r) {
+		
+		if(r.getCards().size() == 0)
+			return true;
+		
+		Card firstcard = r.getCards().get(0);
+		
+		if(firstcard.getCardFamily() == layedCard.getCardFamily())
+			return true;
+		
+		
+		if(spl.hasCardOfFamily(firstcard.getCardFamily()))
+				return false;
+		
+		return true;
+	}
+	
 	
 	public String toString(){
 		 return "Spielart: Ungeufe";

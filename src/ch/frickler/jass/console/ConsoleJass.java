@@ -29,22 +29,21 @@ public class ConsoleJass {
 			game.addSpieler(p2);
 			game.addSpieler(p3);
 			game.addSpieler(p4);
+
+			boolean gamefinished = false;
+
+			while (!gamefinished) {
+				RoundResult r = game.playRound();
+				if (r == RoundResult.QuitGame)
+					gamefinished = true;
+
+				if (game.getLeadingTeam().getPoints() > game.getWinPoints()) {
+					gamefinished = true;
+				}
+
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-
-		boolean gamefinished = false;
-
-		while (!gamefinished) {
-			RoundResult r = game.playRound();
-			if (r == RoundResult.QuitGame)
-				gamefinished = true;
-			
-			if(game.getLeadingTeam().getPoints()>game.getWinPoints()){
-				
-			}
-			
-			
 		}
 	}
 }

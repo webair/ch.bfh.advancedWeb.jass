@@ -10,6 +10,7 @@ import java.util.SortedSet;
 import ch.frickler.jass.definitions.ISpielart;
 import ch.frickler.jass.definitions.IUserAction;
 import ch.frickler.jass.logic.Card;
+import ch.frickler.jass.logic.Card.CardFamily;
 import ch.frickler.jass.logic.Round;
 
 public abstract class ISpieler {
@@ -51,6 +52,17 @@ public abstract class ISpieler {
 	
 	public boolean equals(ISpieler s){
 		return  s.name == this.name;
+	}
+	public boolean hasCardOfFamily(CardFamily cardFamily) {
+		
+		if(this.cards == null || this.cards.size() == 0)
+			return false;		
+		
+		for(Card c : cards){
+			if(c.getCardFamily() == cardFamily)
+				return true;
+		}
+		return false;
 	}
 	
 

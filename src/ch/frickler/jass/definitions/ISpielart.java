@@ -10,6 +10,7 @@ public abstract class ISpielart {
 	protected abstract int getPoint(Card cards);
 	private String name;
 	public abstract boolean isSecondCardHigher(Card highestCard, Card card);
+	public abstract boolean isPlayedCardVaild(ISpieler spl, Card layedCard, Round r);
 	
 		
 }
