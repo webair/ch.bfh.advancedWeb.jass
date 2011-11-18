@@ -23,7 +23,7 @@ public class ConsoleJass {
 		Spieler p1 = new Spieler("Tom Chiller");
 		Spieler p2 = new Spieler("Krugi");
 		ISpieler p3 = new GUISpieler("Aschax");
-		Spieler p4 = new Spieler("Blöffer aka Webair");
+		Spieler p4 = new Spieler("Bloeffer aka Webair");
 
 		try {
 			game.addSpieler(p1);

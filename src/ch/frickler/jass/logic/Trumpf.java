@@ -163,13 +163,13 @@ public class Trumpf extends ISpielart {
 			for (int i = 1; i < r.getCards().size(); i++) {
 				if (r.getCards().get(i).isSameFamily(trumpf)
 						&& getTrumpfOrderValue(r.getCards().get(i)) > getTrumpfOrderValue(layedCard)) {
-					// user hat spieler i unter trumpft, nicht gültig
+					// user hat spieler i unter trumpft, nicht gueltig
 					return false;
 				}
 			}
 		}
 
-		// todo sind das alle ausspiel regeln für trumpf
+		// todo sind das alle ausspiel regeln fuer trumpf
 
 		return true;
 	}

@@ -31,7 +31,7 @@ public class GUISpieler  extends ISpieler {
 	public IUserAction forcePlay(Round spielfeld) throws Exception{
 			int amountCards = this.getCards().size();
 			System.out.println("laying card: "+spielfeld.getCards().toString());
-			String[] options =  { "Wies" , "Stöck", "Schieben" , "Quit"  };
+			String[] options =  { "Wies" , "Stoeck", "Schieben" , "Quit"  };
 			String[] cards = new String[amountCards+options.length];
 			int i = 0;
 			for(Card c : this.getCards()){

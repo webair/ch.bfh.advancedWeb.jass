@@ -81,8 +81,8 @@ public class Spiel {
 	}
 
 	/*
-	 * Der Stich geht zum Team mit der höchsten Karte die Methode gibt den
-	 * ISpieler zurück der den Stich gemacht hat.
+	 * Der Stich geht zum Team mit der hoechsten Karte die Methode gibt den
+	 * ISpieler zurueck der den Stich gemacht hat.
 	 */
 	public ISpieler placeStich(List<Card> cards) {
 
@@ -99,7 +99,7 @@ public class Spiel {
 		ISpieler spl = spieler.get(highestCard % spieler.size());
 		addCardsToTeam(spl, cards);
 
-		// der ISpieler der die höchste karte hatte darf als nächstes auspielen.
+		// der ISpieler der die hoechste karte hatte darf als naechstes auspielen.
 		currentRound.setAusspieler(spl);
 
 		return spl;
@@ -151,7 +151,7 @@ public class Spiel {
 		ISpieler spAnsager = this.getAllSpielerSorted(null).get(ansager);
 
 		ISpielart spielart = spAnsager.sayTrumpf(true);
-		if (spielart == null) // todo nicht so schön
+		if (spielart == null) // todo nicht so schoen
 		{
 			int nextansager = (getTeamOf(spAnsager).getSpieler().indexOf(
 					spAnsager) + 1)
@@ -162,7 +162,7 @@ public class Spiel {
 			spielart = spAnsagerGschobe.sayTrumpf(false);
 			if (spielart == null) {
 				throw new Exception(
-						"Spielart null, darf nicht möglich sein. Nachdem geschoben wurde");
+						"Spielart null, darf nicht moeglich sein. Nachdem geschoben wurde");
 			}
 		}
 		this.SetRound(new Round(spielart));
@@ -222,7 +222,7 @@ public class Spiel {
 				if(getTeamOf(spAnsager).equals(t)){
 					pointsTeam += 5;
 				}
-				System.out.println("Punkte diese Runde für " + t.getName()
+				System.out.println("Punkte diese Runde fuer " + t.getName()
 						+ ": " + pointsTeam);
 				t.addPoints(pointsTeam*currentRound.getSpielart().getQualifier());
 				t.clearCards();

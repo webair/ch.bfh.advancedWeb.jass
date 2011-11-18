@@ -51,7 +51,7 @@ public class Card implements Comparable<Card> {
 	}
 	@Override
 	/*
-	 * Sortiert die Karten für die richtige reihenfolge in der Hand
+	 * Sortiert die Karten fuer die richtige reihenfolge in der Hand
 	 *  Herz, Egge, Schaufel, Kreuz
 	 */
 	public int compareTo(Card card) {
