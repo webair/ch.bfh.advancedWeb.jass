@@ -17,6 +17,7 @@ public class ConsoleJass {
 	static public void main(String[] argv) {
 		ISpielart spielart = new Trumpf(Card.CardFamily.Egge);
 		Spiel game = new Spiel();
+		game.setWinPoints(1000);
 		Round round = new Round(spielart);
 		game.SetRound(round);
 		Spieler p1 = new Spieler("Tom Chiller");
@@ -38,6 +39,7 @@ public class ConsoleJass {
 					gamefinished = true;
 
 				if (game.getLeadingTeam().getPoints() > game.getWinPoints()) {
+					System.out.print("Spiel beendet winPoints "+game.getWinPoints()+" von team "+game.getLeadingTeam().getName()+" erreicht.("+game.getLeadingTeam().getPoints()+"). ");
 					gamefinished = true;
 				}
 

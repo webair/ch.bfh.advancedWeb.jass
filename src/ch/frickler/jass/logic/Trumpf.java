@@ -15,7 +15,7 @@ public class Trumpf extends ISpielart {
 	}
 
 	@Override
-	public int getPoints(List<Card> cards) {
+	protected int getPointsOfSpielart(List<Card> cards) {
 		int points = 0;
 		for (Card c : cards)
 			points += getPoint(c);
@@ -172,6 +172,12 @@ public class Trumpf extends ISpielart {
 		// todo sind das alle ausspiel regeln für trumpf
 
 		return true;
+	}
+
+	@Override
+	public int getQualifier() {
+		//schwarz doppelt, rot einfach
+		return (this.trumpf == Card.CardFamily.Schaufel || this.trumpf == Card.CardFamily.Kreuz) ? 2 : 1;
 	}
 
 }

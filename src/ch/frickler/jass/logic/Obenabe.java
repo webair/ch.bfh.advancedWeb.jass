@@ -3,14 +3,13 @@ package ch.frickler.jass.logic;
 
 import java.util.List;
 
-import ch.frickler.jass.*;
 import ch.frickler.jass.definitions.ISpielart;
 import ch.frickler.jass.definitions.ISpieler;
 
 public class Obenabe extends ISpielart {
 
 	@Override
-	public int getPoints(List<Card> cards) {
+	protected int getPointsOfSpielart(List<Card> cards) {
 		int points = 0;
 		for(Card c  : cards) points += getPoint(c);	
 		return points;
@@ -73,5 +72,9 @@ public class Obenabe extends ISpielart {
 		return true;
 	}
 	
+	@Override
+	public int getQualifier() {
+		return 3; 
+	}
 
 }

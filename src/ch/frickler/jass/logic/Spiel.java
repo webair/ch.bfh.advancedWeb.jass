@@ -138,30 +138,37 @@ public class Spiel {
 	}
 
 	public RoundResult playRound() throws Exception {
-	
+
+		
+		
 		KartenVerteilAction kva = new KartenVerteilAction();
 		kva.doAction(this);
-		for(ISpieler spl : this.getAllSpieler()){
-			System.out.println("Karten ISpieler "+spl.getName()+" : "+spl.getCards());
+		for (ISpieler spl : this.getAllSpieler()) {
+			System.out.println("Karten ISpieler " + spl.getName() + " : "
+					+ spl.getCards());
 		}
-		
+
 		ISpieler spAnsager = this.getAllSpielerSorted(null).get(ansager);
-		
-		ISpielart spielart =  spAnsager.sayTrumpf(true);
-		if(spielart == null) //todo nicht so schön
+
+		ISpielart spielart = spAnsager.sayTrumpf(true);
+		if (spielart == null) // todo nicht so schön
 		{
-			int nextansager = (getTeamOf(spAnsager).getSpieler().indexOf(spAnsager) + 1) % getTeamOf(spAnsager).getSpieler().size();
-			
-			ISpieler spAnsagerGschobe = getTeamOf(spAnsager).getSpieler().get(nextansager);
+			int nextansager = (getTeamOf(spAnsager).getSpieler().indexOf(
+					spAnsager) + 1)
+					% getTeamOf(spAnsager).getSpieler().size();
+
+			ISpieler spAnsagerGschobe = getTeamOf(spAnsager).getSpieler().get(
+					nextansager);
 			spielart = spAnsagerGschobe.sayTrumpf(false);
-			if(spielart == null){
-				throw new Exception("Spielart null, darf nicht möglich sein. Nachdem geschoben wurde");
+			if (spielart == null) {
+				throw new Exception(
+						"Spielart null, darf nicht möglich sein. Nachdem geschoben wurde");
 			}
 		}
 		this.SetRound(new Round(spielart));
 		// wer trumpf sagt spielt aus, auch wenn geschoben.
 		this.currentRound.setAusspieler(spAnsager);
-			
+		System.out.println("Begin round spielart is: "+currentRound.getSpielart().toString());
 		try {
 			Round r = this.getRound();
 
@@ -182,43 +189,50 @@ public class Spiel {
 								// not valid card at it to the users hand again
 								spl.addCard(layedCard);
 							}
-						}else if (uc instanceof JUAQuit) {
-							// todo quit action 
+						} else if (uc instanceof JUAQuit) {
+							// todo quit action
 							return RoundResult.QuitGame;
-							
-						}else if (uc instanceof JUASchieben) {
-							// todo schieben action 
-							
-						}else if (uc instanceof JUAStoeck) {
-							// todo stoeck action 
-							
-						}else if (uc instanceof JUAWies) {
-							// todo wies action 
-							
-						}else{
-							throw new Exception("not handled user action "+uc.getClass());
+
+						} else if (uc instanceof JUASchieben) {
+							// todo schieben action
+
+						} else if (uc instanceof JUAStoeck) {
+							// todo stoeck action
+
+						} else if (uc instanceof JUAWies) {
+							// todo wies action
+
+						} else {
+							throw new Exception("not handled user action "
+									+ uc.getClass());
 						}
 					}
 
 				}
 				// todo make it generic for more than two teams
-			ISpieler stichMaker = this.placeStich(r.getCards());
-			this.getRound().setAusspieler(stichMaker);
-			r.removeCards();
-			int pointsTeam1 = currentRound.getSpielart().getPoints(
-					this.getTeams().get(0).getCards());
-			int pointsTeam2 = currentRound.getSpielart().getPoints(
-					this.getTeams().get(1).getCards());
-			System.out.println("Punkte diese Runde Team 1 " + pointsTeam1);
-			System.out.println("Punkte diese Runde Team 2 " + pointsTeam2);
-			System.out.println("Total " + (pointsTeam2 + pointsTeam1));
-			this.getTeams().get(0).addPoints(pointsTeam1);
-			this.getTeams().get(1).addPoints(pointsTeam2);
-			
-			System.out.println("Punktestand Team 1 " + getTeams().get(0).getPoints());
-			System.out.println("Punktestand Team 2 " + getTeams().get(1).getPoints());
-			
+				spAnsager = this.placeStich(r.getCards());
+				this.getRound().setAusspieler(spAnsager);
+				r.removeCards();
 			}
+			//round finished place points
+			for (Team t : this.getTeams()) {
+				int pointsTeam = currentRound.getSpielart().getPoints(
+						t.getCards());
+				// team hat den letzten Stich gemacht
+				if(getTeamOf(spAnsager).equals(t)){
+					pointsTeam += 5;
+				}
+				System.out.println("Punkte diese Runde für " + t.getName()
+						+ ": " + pointsTeam);
+				t.addPoints(pointsTeam*currentRound.getSpielart().getQualifier());
+				t.clearCards();
+			}
+
+			for (Team t : this.getTeams()) {
+				System.out.println("Punktestand " + t.getName() + ": "
+						+ t.getPoints());
+			}
+
 		} catch (Exception ex) {
 			System.out.print(ex.getMessage());
 
@@ -228,22 +242,27 @@ public class Spiel {
 	}
 
 	private boolean isPlayedCardValid(ISpieler spl, Card layedCard, Round r) {
-		
-		return r.getSpielart().isPlayedCardVaild(spl,layedCard,r);
+
+		return r.getSpielart().isPlayedCardVaild(spl, layedCard, r);
 	}
 
 	public int getWinPoints() {
-		
+
 		return gewinnPunkte;
 	}
 
 	public Team getLeadingTeam() {
 		Team leading = null;
-		for(Team t : teams){
-			if(leading == null || leading.getPoints() < t.getPoints()){
+		for (Team t : teams) {
+			if (leading == null || leading.getPoints() < t.getPoints()) {
 				leading = t;
 			}
 		}
 		return leading;
+	}
+
+	public void setWinPoints(int winPoints) {
+		this.gewinnPunkte = winPoints;
+		
 	}
 }

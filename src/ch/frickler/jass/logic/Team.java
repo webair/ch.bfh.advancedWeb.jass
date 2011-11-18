@@ -2,7 +2,6 @@ package ch.frickler.jass.logic;
 
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import ch.frickler.jass.definitions.ISpieler;
@@ -45,10 +44,14 @@ public class Team {
 		return "Team: "+teamname+" Spieler: "+getSpieler();
 	}
 	public int getPoints() {
-		// TODO Auto-generated method stub
 		return totalpoints;
 	}
 	public void addPoints(int points){
 		this.totalpoints += points;
+	}
+	
+	public boolean equals(Team t){
+		// todo  compare with team id?
+		return (getName().equals(t.getName()));
 	}
 }
