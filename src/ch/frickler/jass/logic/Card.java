@@ -49,7 +49,7 @@ public class Card implements Comparable<Card> {
 		// TODO Auto-generated method stub
 		return this.getCardFamily().name().equals(trumpf.name());
 	}
-	@Override
+
 	/*
 	 * Sortiert die Karten fuer die richtige reihenfolge in der Hand
 	 *  Herz, Egge, Schaufel, Kreuz
