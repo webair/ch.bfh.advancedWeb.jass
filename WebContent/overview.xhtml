@@ -3,27 +3,26 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core">
-<f:loadBundle basename="ch.frickler.jass.res.UI" var="UI" />
-<!--  TODO: this should not be the loginbean...  -->
-<f:view contentType="text/html" locale="#{localeBean.locale}" />
-<h:head>
-</h:head>
-<h:outputStylesheet library="css" name="style.css"  />
-<h:outputScript library="js" name="overview/overview.js" />
+<f:view contentType="text/html" locale="#{localeBean.locale}">
+	<h:head>
+	</h:head>
+	<h:outputStylesheet library="css" name="style.css" />
+	<h:outputScript library="js" name="overview/overview.js" />
 
-<h:body>
-	<div id="Page">
-	<h:form id="OverviewForm">
-	<h:commandLink value="show" id="GameLink">
-        <f:ajax render="games"/>
-    </h:commandLink>
-	<h:panelGroup id="games">
-	
-        <h:dataTable var="game" value="#{gameOverviewBean.games}">
-        	 <h:column>#{game.name}</h:column>
-        </h:dataTable>
-    </h:panelGroup>
-    </h:form>
-    </div>
-</h:body>
+	<h:body>
+		<div id="Page">
+			<h:form id="OverviewForm">
+				<h:commandLink value="show" id="GameLink">
+					<f:ajax render="games" />
+				</h:commandLink>
+				<h:panelGroup id="games">
+
+					<h:dataTable var="game" value="#{gameOverviewBean.games}">
+						<h:column>#{game.name}</h:column>
+					</h:dataTable>
+				</h:panelGroup>
+			</h:form>
+		</div>
+	</h:body>
+</f:view>
 </html>
