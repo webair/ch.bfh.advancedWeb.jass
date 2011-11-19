@@ -10,7 +10,7 @@ public class LoginBean {
 
 	public String login() {
 		// TODO check user/pw, login and redirect to the overview page
-		return "overview";
+		return "overview?faces-redirect=true";
 	}
 
 	public void setLocale(String locale) {
