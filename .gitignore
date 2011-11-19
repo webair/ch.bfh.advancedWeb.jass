@@ -2,7 +2,4 @@
 .settings
 .classpath
 .metadata
-build/
-dist/
-build.xml
 target
