@@ -14,9 +14,16 @@
 				</h:commandLink>
 				<h:panelGroup id="games">
 
-					<h:dataTable var="game" value="#{gameOverviewBean.games}">
-						<h:column>#{game.name}</h:column>
+					<h:dataTable value="#{gameOverviewBean.games}">
+						<h:column>
+							#{game.name}
+						</h:column>
+						<h:column>
+							<h:commandButton value="#{UI.join_game}" action="#{loginBean.login}" />
+						
+						</h:column>
 					</h:dataTable>
+
 				</h:panelGroup>
 			</h:form>
 	</ui:define>
