@@ -1,8 +1,8 @@
 package ch.frickler.jass.logic;
 
-import ch.frickler.jass.definitions.ISpielart;
-import ch.frickler.jass.definitions.ISpieler;
-import ch.frickler.jass.definitions.IUserAction;
+import ch.frickler.jass.logic.definitions.ISpielart;
+import ch.frickler.jass.logic.definitions.ISpieler;
+import ch.frickler.jass.logic.definitions.IUserAction;
 
 public class Spieler extends ISpieler {
 

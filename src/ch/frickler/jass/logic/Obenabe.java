@@ -3,8 +3,8 @@ package ch.frickler.jass.logic;
 
 import java.util.List;
 
-import ch.frickler.jass.definitions.ISpielart;
-import ch.frickler.jass.definitions.ISpieler;
+import ch.frickler.jass.logic.definitions.ISpielart;
+import ch.frickler.jass.logic.definitions.ISpieler;
 
 public class Obenabe extends ISpielart {
 

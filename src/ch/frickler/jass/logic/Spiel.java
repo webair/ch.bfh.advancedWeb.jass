@@ -2,8 +2,8 @@ package ch.frickler.jass.logic;
 
 import java.util.ArrayList;
 import java.util.List;
-import ch.frickler.jass.definitions.*;
 import ch.frickler.jass.logic.Round.RoundResult;
+import ch.frickler.jass.logic.definitions.*;
 
 public class Spiel {
 

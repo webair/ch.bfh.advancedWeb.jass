@@ -1,6 +1,6 @@
 package ch.frickler.jass.logic;
 
-import ch.frickler.jass.definitions.*;
+import ch.frickler.jass.logic.definitions.*;
 
 public class JUALayCard implements IUserAction {
 
