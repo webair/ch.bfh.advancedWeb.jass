@@ -8,3 +8,6 @@ LIBRARIES
 TIPPS:
  - eclipse fügt die libraries im web-inf verzeichnis automatisch zum classpath hinzu!
  - ohne das hier dreht man fast durch: http://stackoverflow.com/questions/2136218/eclipse-autocomplete-content-assist-with-facelets-jsf-and-xhtml
+ 
+ witeri notize: 
+  - f:loadbundle isch jsf 1!...
