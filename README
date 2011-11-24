@@ -11,3 +11,9 @@ TIPPS:
  
  witeri notize: 
   - f:loadbundle isch jsf 1!...
+  
+ ####################
+ useful helper links
+ 
+ access beans:
+ http://stackoverflow.com/questions/2633112/jsf-get-managed-bean-by-name
