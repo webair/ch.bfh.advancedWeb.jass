@@ -31,12 +31,12 @@ public class PersistenceTest extends AbstractEntityTest {
 	/**
 	 * Assert that the EntityManager can open the connection
 	 */
-	//@Test
+	@Test
 	public void connectionTest() {
 		assertTrue("Can setup connection", getEm().isOpen());
 	}
 
-	//@Test
+	@Test
 	public void cardTest() {
 		Card c = new Card(CardFamily.HERZ, CardValue.BAUER);
 
@@ -47,7 +47,7 @@ public class PersistenceTest extends AbstractEntityTest {
 		assertInDb(Card.class, c.getId());
 	}
 
-	//@Test
+	@Test
 	public void gameTypeTest() {
 		GameType c = new GameType(GameKind.TOPDOWN, 3);
 
@@ -58,7 +58,7 @@ public class PersistenceTest extends AbstractEntityTest {
 		assertInDb(GameType.class, c.getId());
 	}
 
-	//@Test
+	@Test
 	public void userTest() {
 		User u = new User();
 		u.setName("Fridu Frickler");
@@ -72,7 +72,7 @@ public class PersistenceTest extends AbstractEntityTest {
 		assertInDb(User.class, u.getId());
 	}
 
-	//@Test
+	@Test
 	public void teamTest() {
 		User u1 = new User();
 		u1.setName("Fridu Frickler");
@@ -102,7 +102,7 @@ public class PersistenceTest extends AbstractEntityTest {
 	/**
 	 * Create a complete game
 	 */
-	//@Test
+	@Test
 	public void gameTest() {
 		// Create Team 1
 		User u1 = mergeObject(new User("fred", "Fred Frickler", "pw1"));
