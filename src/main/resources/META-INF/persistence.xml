@@ -5,13 +5,13 @@
 	<persistence-unit name="MyBuzzwordJass">
 
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-		<class>ch.frickler.buzzword.jass.persistance.Card</class>
-		<class>ch.frickler.buzzword.jass.persistance.RoundCard</class>
-		<class>ch.frickler.buzzword.jass.persistance.User</class>
-		<class>ch.frickler.buzzword.jass.persistance.Round</class>
-		<class>ch.frickler.buzzword.jass.persistance.GameType</class>
-		<class>ch.frickler.buzzword.jass.persistance.Game</class>
-		<class>ch.frickler.buzzword.jass.persistance.Team</class>
+		<class>ch.frickler.jass.entity.Card</class>
+		<class>ch.frickler.jass.entity.RoundCard</class>
+		<class>ch.frickler.jass.entity.User</class>
+		<class>ch.frickler.jass.entity.Round</class>
+		<class>ch.frickler.jass.entity.GameType</class>
+		<class>ch.frickler.jass.entity.Game</class>
+		<class>ch.frickler.jass.entity.Team</class>
 
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/jass" />
