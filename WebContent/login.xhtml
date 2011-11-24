@@ -16,8 +16,8 @@
 				<h:inputSecret id="password" value="#{userBean.password}"
 					required="true" />
 				<h:commandButton value="#{UI.text_login}" action="#{userBean.login}" />
-				<h:commandLink value="#{UI.text_register}"
-					action="register.jsf?faces-redirect=true" immediate="true" />
+				<h:link outcome="register.jsf?faces-redirect=true"
+					value="#{UI.text_register}" />
 			</h:panelGrid>
 			<h:messages />
 		</h:form>

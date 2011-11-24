@@ -1,0 +1,31 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/templates/main.xhtml">
+	<ui:define name="title">
+	#{UI.title_register}
+	</ui:define>
+	<ui:define name="content">
+		<h:form>
+			<h:panelGrid id="grid" columns="2">
+				<h:outputLabel value="#{UI.label_user}:" for="username" />
+				<h:inputText id="username" value="#{registerBean.username}"
+					required="true" />
+				<h:outputLabel value="#{UI.label_nick}:" for="nick" />
+				<h:inputText id="nick" value="#{registerBean.nick}" />
+				<h:outputLabel value="#{UI.label_password}:" for="password1" />
+				<h:inputSecret id="password1" value="#{registerBean.passwordOne}"
+					required="true" />
+				<h:outputLabel value="#{UI.label_password2}:" for="password2" />
+				<h:inputSecret id="password2" value="#{registerBean.passwordTwo}"
+					required="true" />
+				<h:commandButton value="#{UI.text_register}"
+					action="#{registerBean.register}" />
+			</h:panelGrid>
+			<h:messages />
+		</h:form>
+	</ui:define>
+</ui:composition>
+
+
