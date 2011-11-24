@@ -3,13 +3,13 @@ package ch.frickler.jass.logic;
 
 import java.util.List;
 
-import ch.frickler.jass.*;
-import ch.frickler.jass.definitions.ISpielart;
+import ch.frickler.jass.logic.definitions.ISpielart;
+import ch.frickler.jass.logic.definitions.ISpieler;
 
 public class Obenabe extends ISpielart {
 
 	@Override
-	public int getPoints(List<Card> cards) {
+	protected int getPointsOfSpielart(List<Card> cards) {
 		int points = 0;
 		for(Card c  : cards) points += getPoint(c);	
 		return points;
@@ -53,6 +53,28 @@ public class Obenabe extends ISpielart {
 	public String toString(){
 		 return "Spielart: Obename";
 		}
+
+	@Override
+	public boolean isPlayedCardVaild(ISpieler spl, Card layedCard, Round r) {
+		
+		if(r.getCards().size() == 0)
+			return true;
+		
+		Card firstcard = r.getCards().get(0);
+		
+		if(firstcard.getCardFamily() == layedCard.getCardFamily())
+			return true;
+		
+		
+		if(spl.hasCardOfFamily(firstcard.getCardFamily()))
+				return false;
+		
+		return true;
+	}
 	
+	@Override
+	public int getQualifier() {
+		return 3; 
+	}
 
 }

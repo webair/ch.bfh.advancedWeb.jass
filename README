@@ -1,11 +1,5 @@
 Projekt Zeitvertreib @ BFH
 
-TI
-
-I'm a git commiter now
-
-i'm a git commiter, too,
-=======
 LIBRARIES
  - jsf 2.0 (myfaces-bund-2.0.9.jar = api und impl, found @ apache)
  - jstl-*-1.2.jar (found @ öreicl) <-- wird evtl. später benötigt
@@ -14,3 +8,12 @@ LIBRARIES
 TIPPS:
  - eclipse fügt die libraries im web-inf verzeichnis automatisch zum classpath hinzu!
  - ohne das hier dreht man fast durch: http://stackoverflow.com/questions/2136218/eclipse-autocomplete-content-assist-with-facelets-jsf-and-xhtml
+ 
+ witeri notize: 
+  - f:loadbundle isch jsf 1!...
+  
+ ####################
+ useful helper links
+ 
+ access beans:
+ http://stackoverflow.com/questions/2633112/jsf-get-managed-bean-by-name

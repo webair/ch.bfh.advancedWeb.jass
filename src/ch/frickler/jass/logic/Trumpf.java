@@ -1,12 +1,10 @@
 package ch.frickler.jass.logic;
 
-
-
 import java.util.List;
 
-
-import ch.frickler.jass.definitions.ISpielart;
 import ch.frickler.jass.logic.Card.CardFamily;
+import ch.frickler.jass.logic.definitions.ISpielart;
+import ch.frickler.jass.logic.definitions.ISpieler;
 
 public class Trumpf extends ISpielart {
 
@@ -17,7 +15,7 @@ public class Trumpf extends ISpielart {
 	}
 
 	@Override
-	public int getPoints(List<Card> cards) {
+	protected int getPointsOfSpielart(List<Card> cards) {
 		int points = 0;
 		for (Card c : cards)
 			points += getPoint(c);
@@ -76,7 +74,7 @@ public class Trumpf extends ISpielart {
 			return false;
 		} else {
 			// beide kein trumpf
-			if (highestCard.getCardFamily() == card.getCardFamily()){
+			if (highestCard.getCardFamily() == card.getCardFamily()) {
 				// aber von der gleichen famile
 				if (highestCard.getOrderValue() < card.getOrderValue()) {
 					return true;
@@ -110,9 +108,76 @@ public class Trumpf extends ISpielart {
 		}
 		return 0;
 	}
-	
-	public String toString(){
-	 return "Spielart: Trumpf ("+trumpf.name()+")";
+
+	public String toString() {
+		return "Spielart: Trumpf (" + trumpf.name() + ")";
+	}
+
+	@Override
+	public boolean isPlayedCardVaild(ISpieler spl, Card layedCard, Round r) {
+
+		if (r.getCards().size() == 0)
+			return true;
+
+		Card firstcard = r.getCards().get(0);
+
+		if (firstcard.getCardFamily() == layedCard.getCardFamily())
+			return true;
+
+		// user hat nicht die gleiche karte gelegt wie ausgegben wurde
+		if (firstcard.isSameFamily(this.trumpf)) {
+			int anztrumpf = 0;
+			boolean hasBuur = false;
+			for (Card c : spl.getCards()) {
+				if (c.isSameFamily(this.trumpf)) {
+					anztrumpf++;
+					if (c.getCardValue() == Card.CardValue.Bauer) {
+						// user hat trumpfbauer
+						hasBuur = true;
+					}
+				}
+			}
+			if (anztrumpf == 1 && hasBuur) {
+				// user hat nur noch ein trumpf in der hand aber eine andere
+				// cardfamily gelegt
+				// dies ist ok, der bauer muss nicht lei gehaltet werden
+				return true;
+			} else if (anztrumpf > 1) {
+				// nicht lei gehaltet werden
+				return false;
+			} else {
+				return true;
+			}
+
+		}
+		// firstcard is not trumpf
+
+		// ausgespielte karte ist nicht trumpf und user hat cardfamily der
+		// ersten karte in der hat
+		// diese aber nicht gespielt und auch kein trumpf gespielt
+		if (spl.hasCardOfFamily(firstcard.getCardFamily())
+				&& !layedCard.isSameFamily(trumpf))
+			return false;
+		// falls er trumpf gespielt hat darf er nicht anderer spieler untertrumpfen
+		if (layedCard.isSameFamily(trumpf)) {
+			for (int i = 1; i < r.getCards().size(); i++) {
+				if (r.getCards().get(i).isSameFamily(trumpf)
+						&& getTrumpfOrderValue(r.getCards().get(i)) > getTrumpfOrderValue(layedCard)) {
+					// user hat spieler i unter trumpft, nicht gueltig
+					return false;
+				}
+			}
+		}
+
+		// todo sind das alle ausspiel regeln fuer trumpf
+
+		return true;
+	}
+
+	@Override
+	public int getQualifier() {
+		//schwarz doppelt, rot einfach
+		return (this.trumpf == Card.CardFamily.Schaufel || this.trumpf == Card.CardFamily.Kreuz) ? 2 : 1;
 	}
 
 }

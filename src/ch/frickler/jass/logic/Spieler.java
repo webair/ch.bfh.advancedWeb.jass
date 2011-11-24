@@ -1,39 +1,23 @@
 package ch.frickler.jass.logic;
 
+import ch.frickler.jass.logic.definitions.ISpielart;
+import ch.frickler.jass.logic.definitions.ISpieler;
+import ch.frickler.jass.logic.definitions.IUserAction;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.SortedMap;
-import java.util.SortedSet;
+public class Spieler extends ISpieler {
 
-import ch.frickler.jass.definitions.IUserAction;
-
-public class Spieler {
-
-	protected String name;
-	
-	//todo make sortable and sort the card @ addCard
-	private ArrayList<Card> cards;
-	public Spieler(String name) {
-		this.name = name;
-		System.out.println("Spieler created: "+name);
+	public Spieler(String string) {
+		super(string);
 	}
+
 	public Spieler() {
-		this("Fred "+(int)(Math.random()*2000)+1);
+		super();
 	}
-		
-	public void addCard(Card card) {
-		if(cards == null){
-			cards = new ArrayList<Card>();
-		}
-		
-		cards.add(card);	
+
+	public ISpielart sayTrumpf(boolean canSchieben){		
+		return new Obenabe();
 	}
-	public List<Card> getCards() {
-		return cards;
-	}
-		
+	
 	public IUserAction forcePlay(Round round) throws Exception{
 		
 		// if a card is laying 
@@ -49,17 +33,6 @@ public class Spieler {
 		
 		// else play the first card.
 		return  new JUALayCard(cards.remove(0));
-	}
-	public String getName() {
-		return this.name;
-	}
-	
-	public String toString() {
-		return this.name;
-	}
-	
-	public boolean equals(Spieler s){
-		return  s.name == this.name;
 	}
 	
 

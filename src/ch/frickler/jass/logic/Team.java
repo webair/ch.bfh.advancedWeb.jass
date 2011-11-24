@@ -2,25 +2,27 @@ package ch.frickler.jass.logic;
 
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
+
+import ch.frickler.jass.logic.definitions.ISpieler;
 
 public class Team {
 
 	private String teamname;
-	private List<Spieler> spieler = new ArrayList<Spieler>();
+	private List<ISpieler> spieler = new ArrayList<ISpieler>();
 	private List<Card> stiche = new ArrayList<Card>();
-	public Team(Spieler spieler) {
-		 this(spieler,"Team "+spieler.getName());
+	private int totalpoints = 0;
+	public Team(ISpieler spieler2) {
+		 this(spieler2,"Team "+spieler2.getName());
 		}
-	public Team(Spieler spieler,String teamname) {
+	public Team(ISpieler spieler,String teamname) {
 		this.teamname = teamname;
 		this.spieler.add(spieler);
 		}
-	public List<Spieler> getSpieler() {
+	public List<ISpieler> getSpieler() {
 		return this.spieler;
 	}
-	public void addSpieler(Spieler spieler2) {
+	public void addSpieler(ISpieler spieler2) {
 		this.spieler.add(spieler2);
 		
 	}
@@ -40,5 +42,16 @@ public class Team {
 	}
 	public String toString(){
 		return "Team: "+teamname+" Spieler: "+getSpieler();
+	}
+	public int getPoints() {
+		return totalpoints;
+	}
+	public void addPoints(int points){
+		this.totalpoints += points;
+	}
+	
+	public boolean equals(Team t){
+		// todo  compare with team id?
+		return (getName().equals(t.getName()));
 	}
 }

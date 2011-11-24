@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import ch.frickler.jass.logic.definitions.ISpieler;
+
 public class KartenVerteilAction extends SpielAction {
 
 	@Override
@@ -20,7 +22,7 @@ public class KartenVerteilAction extends SpielAction {
 		Collections.shuffle(allCards);
 		
 		while(!allCards.isEmpty()){
-			for(Spieler spieler : spiel.getAllSpieler()){
+			for(ISpieler spieler : spiel.getAllSpieler()){
 				spieler.addCard(allCards.remove(0));
 			}
 		}

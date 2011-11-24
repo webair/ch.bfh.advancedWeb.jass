@@ -1,9 +1,6 @@
 package ch.frickler.jass.logic;
 
-import ch.frickler.jass.logic.Card.CardFamily;
-import ch.frickler.jass.logic.Card.CardValue;
-
-public class Card implements Comparable {
+public class Card implements Comparable<Card> {
 
 	public Card(CardValue value, CardFamily family) {
 		this.value = value;
@@ -52,18 +49,13 @@ public class Card implements Comparable {
 		// TODO Auto-generated method stub
 		return this.getCardFamily().name().equals(trumpf.name());
 	}
-	@Override
+
 	/*
-	 * Sortiert die Karten für die richtige reihenfolge in der Hand
+	 * Sortiert die Karten fuer die richtige reihenfolge in der Hand
 	 *  Herz, Egge, Schaufel, Kreuz
 	 */
-	public int compareTo(Object obj) {
-		
-		if(!(obj instanceof Card)){
-			return 0;	
-		}
-		Card card = (Card)obj;
-		
+	public int compareTo(Card card) {
+			
 		int Cardid = card.getCardSortOrder();
 		int Thisid = this.getCardSortOrder();
 		//todo what does signum
@@ -85,4 +77,8 @@ public class Card implements Comparable {
 		}
 		return familyValue+getOrderValue();
 	}
+	public static int getTotalCards() {
+		return CardFamily.values().length * CardValue.values().length;
+	}
+
 }

@@ -1,21 +1,25 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core">
-<f:loadBundle basename="ch.frickler.jass.res.UI" var="UI" />
-<f:view contentType="text/html" locale="#{localeBean.locale}" />
-<h:head>
-</h:head>
-<h:body>
-	<h:form>
-		<h:panelGrid id="grid" columns="2">
-			<h:outputLabel value="#{UI.label_user}:" for="username" />
-			<h:inputText id="username" />
-			<h:outputLabel value="#{UI.label_password}:" for="password" />
-			<h:inputSecret id="password" />
-		</h:panelGrid>
-		<h:commandButton value="#{UI.text_login}" action="#{loginBean.login}" />
-	</h:form>
-</h:body>
-</html>
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/templates/main.xhtml">
+	<ui:define name="title">
+	Login
+	</ui:define>
+	<ui:define name="content">
+		<h:form>
+			<h:panelGrid id="grid" columns="2">
+				<h:outputLabel value="#{UI.label_user}:" for="username" />
+				<h:inputText id="username" value="#{userBean.username}"
+					required="true" />
+				<h:outputLabel value="#{UI.label_password}:" for="password" />
+				<h:inputSecret id="password" value="#{userBean.password}"
+					required="true" />
+				<h:commandButton value="#{UI.text_login}" action="#{userBean.login}" />
+			</h:panelGrid>
+			<h:messages />
+		</h:form>
+	</ui:define>
+</ui:composition>
+
+
