@@ -1,13 +1,13 @@
 package ch.frickler.jass;
 
 import java.util.Locale;
-import java.util.ResourceBundle;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
+
+import ch.frickler.jass.helper.MessageHelper;
 
 /**
  * managed bean that represents a user. authentication is done by checking
@@ -25,8 +25,6 @@ public class UserBean {
 	private String password;
 
 	private boolean loggedIn = false;
-
-	private static final String UI_PROPERTY = "ch.frickler.jass.res.UI";
 
 	public String getUsername() {
 		return username;
@@ -71,24 +69,19 @@ public class UserBean {
 			loggedIn = true;
 			nextPage = "restricted/overview?faces-redirect=true";
 		} else {
-			//
+			// display a message
 			FacesContext ctx = FacesContext.getCurrentInstance();
-			ResourceBundle bundle = ResourceBundle.getBundle(UI_PROPERTY, ctx
-					.getViewRoot().getLocale());
-			ctx.addMessage(null,
-					new FacesMessage(bundle.getString("login_failed")));
+			ctx.addMessage(null, MessageHelper.getMessage(ctx, "login_failed"));
 		}
 
 		return nextPage;
 	}
 
 	public String logout() {
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		ResourceBundle bundle = ResourceBundle.getBundle(UI_PROPERTY, ctx
-				.getViewRoot().getLocale());
 		// TODO this message is not displayed
-		ctx.addMessage(null,
-				new FacesMessage(bundle.getString("login_goodbye")));
+		FacesContext ctx = FacesContext.getCurrentInstance();
+		ctx.addMessage(null, MessageHelper.getMessage(ctx, "login_goodbye"));
+
 		loggedIn = false;
 		return "/login";
 	}
