@@ -1,10 +1,5 @@
 package ch.frickler.jass;
 
-import java.io.UnsupportedEncodingException;
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
@@ -69,14 +64,18 @@ public class RegisterBean {
 		String nextPage = null;
 		FacesContext ctx = FacesContext.getCurrentInstance();
 
-		if (!checkUsername()) {
-			// someone already has this username
-			ctx.addMessage(null,
-					MessageHelper.getMessage(ctx, "register_username_not_free"));
-		}else if(!passwordOne.equals(passwordTwo)){
+		if (!passwordOne.equals(passwordTwo)) {
 			// pws do not match
 			ctx.addMessage(null,
 					MessageHelper.getMessage(ctx, "register_no_pw_match"));
+		} else if (username.equals(passwordOne)){
+			// same username and password...
+			ctx.addMessage(null,
+					MessageHelper.getMessage(ctx, "user_pw_same"));
+		}else if (!checkUsername()) {
+			// someone already has this username
+			ctx.addMessage(null,
+					MessageHelper.getMessage(ctx, "register_username_not_free"));
 		} else {
 			// everything's ok, create the user
 			storeUser();
@@ -99,30 +98,31 @@ public class RegisterBean {
 
 		// TODO sekiurity??? sql injection
 		EntityManager em = emf.createEntityManager();
-		Query q = em.createQuery(String.format(
-				"select count(*) from User where userName='%s'", username));
-		int num = q.getFirstResult();
+		Query q = em.createQuery("select count(*) from User where userName=?1");
+		q.setParameter(1, username);
+
+		Long num = (Long) q.getResultList().get(0);
 
 		return num == 0;
 	}
 
-	private void storeUser(){
-		//TODO create a db helper?
+	private void storeUser() {
+		// TODO create a db helper?
 		EntityManagerFactory emf = Persistence
 				.createEntityManagerFactory("MyBuzzwordJass");
 		EntityManager em = emf.createEntityManager();
-		
+
 		em.getTransaction().begin();
-		
+
 		User u = new User(username, passwordOne, nick);
-		if(nick != null && nick.length() > 0)
+		if (nick != null && nick.length() > 0)
 			u.setName(nick);
 		else
 			u.setName(username);
-		
+
 		em.merge(u);
 		em.getTransaction().commit();
-		
+
 	}
-	
+
 }

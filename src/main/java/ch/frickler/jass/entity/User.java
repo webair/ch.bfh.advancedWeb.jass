@@ -39,7 +39,7 @@ public class User implements Serializable {
 	public User(String userName, String password, String name) {
 		super();
 		this.userName = userName;
-		this.password = cryptPW(password);
+		this.password = User.cryptPw(password);
 		this.name = name;
 	}
 
@@ -56,7 +56,7 @@ public class User implements Serializable {
 	}
 
 	public void setPassword(String password) {
-		this.password = cryptPW(password);
+		this.password = User.cryptPw(password);
 	}
 
 	public long getId() {
@@ -82,7 +82,7 @@ public class User implements Serializable {
 	 *            password
 	 * @return a sha256 hex string
 	 */
-	private String cryptPW(String pw) {
+	public static String cryptPw(String pw) {
 		try {
 			MessageDigest md = MessageDigest.getInstance("SHA-256");
 			md.update(pw.getBytes("UTF-8"));

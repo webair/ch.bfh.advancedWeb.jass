@@ -6,7 +6,12 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
 
+import ch.frickler.jass.entity.User;
 import ch.frickler.jass.helper.MessageHelper;
 
 /**
@@ -64,7 +69,7 @@ public class UserBean {
 	public String login() {
 		String nextPage = null;
 
-		if (username.equals("buzzer")) {
+		if (checkUserAndPw()) {
 			// yeah, the user is logged in
 			loggedIn = true;
 			nextPage = "restricted/overview?faces-redirect=true";
@@ -77,13 +82,30 @@ public class UserBean {
 		return nextPage;
 	}
 
+	private boolean checkUserAndPw(){
+		EntityManagerFactory emf = Persistence
+				.createEntityManagerFactory("MyBuzzwordJass");
+
+		// TODO sekiurity??? sql injection
+		EntityManager em = emf.createEntityManager();
+		Query q = em.createQuery("select count(*) from User where userName=?1 and password=?2");
+		q.setParameter(1, username).setParameter(2, User.cryptPw(password));
+		
+		Long num = (Long)q.getResultList().get(0);
+		return num == 1; // there must be a match
+	}
+	
 	public String logout() {
 		// TODO this message is not displayed
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ctx.addMessage(null, MessageHelper.getMessage(ctx, "login_goodbye"));
 
+		setPassword(null);
+		setUsername(null);
+		setLocale(null);
+		
 		loggedIn = false;
-		return "/login";
+		return "login";
 	}
 
 	public boolean isLoggedIn() {
