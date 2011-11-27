@@ -3,22 +3,29 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	>
-<f:view contentType="text/html" locale="#{localeBean.locale}">
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<f:view contentType="text/html" locale="#{userBean.locale}">
 	<h:head>
 	</h:head>
 	<h:outputStylesheet library="css" name="style.css" />
-	<h:body>	
-	<div id="Page">
-	<!-- Header mit Sprachwahl -->
-	
-	<h1><ui:insert name="title">Default Title</ui:insert></h1>
-	
-	
-	<ui:insert name="content">Default Content</ui:insert>
-	
-	</div>
+	<h:body>
+		<div id="Page">
+			<!-- Header mit Sprachwahl -->
+			<div id="header">
+				<h:form>
+					<h:commandLink value="#{UI.logout}" action="#{userBean.logout}"
+						rendered="#{userBean.loggedIn}" />
+				</h:form>
+			</div>
+
+			<h1>
+				<ui:insert name="title">Default Title</ui:insert>
+			</h1>
+
+
+			<ui:insert name="content">Default Content</ui:insert>
+
+		</div>
 	</h:body>
 </f:view>
 </html>

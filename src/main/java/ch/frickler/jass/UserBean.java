@@ -7,6 +7,11 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
+/**
+ * managed bean that represents a user. authentication is done by checking
+ * isLoggedIn() of this bean. also handles the users language settings
+ * 
+ */
 @ManagedBean
 @SessionScoped
 public class UserBean {
@@ -19,8 +24,8 @@ public class UserBean {
 
 	private boolean loggedIn = false;
 
-	private static final String UI_PROPERTY="ch.frickler.jass.res.UI";
-	
+	private static final String UI_PROPERTY = "ch.frickler.jass.res.UI";
+
 	public String getUsername() {
 		return username;
 	}
@@ -61,15 +66,24 @@ public class UserBean {
 			loggedIn = true;
 			nextPage = "restricted/overview?faces-redirect=true";
 		} else {
-			// 
+			//
 			FacesContext ctx = FacesContext.getCurrentInstance();
-			ResourceBundle bundle =
-	                ResourceBundle.getBundle(UI_PROPERTY,
-	                    		ctx.getViewRoot().getLocale());
-			ctx.addMessage(null, new FacesMessage(bundle.getString("login_failed")));
+			ResourceBundle bundle = ResourceBundle.getBundle(UI_PROPERTY, ctx
+					.getViewRoot().getLocale());
+			ctx.addMessage(null,
+					new FacesMessage(bundle.getString("login_failed")));
 		}
 
 		return nextPage;
+	}
+
+	public String logout() {
+		FacesContext ctx = FacesContext.getCurrentInstance();
+		ResourceBundle bundle = ResourceBundle.getBundle(UI_PROPERTY, ctx
+				.getViewRoot().getLocale());
+		ctx.addMessage(null, new FacesMessage(bundle.getString("login_goodbye")));
+		loggedIn = false;
+		return "/login";
 	}
 
 	public boolean isLoggedIn() {
