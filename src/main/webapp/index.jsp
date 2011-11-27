@@ -1,1 +1,1 @@
-<% response.sendRedirect("overview.jsf"); %>)
+<% response.sendRedirect("restricted/overview.jsf"); %>)

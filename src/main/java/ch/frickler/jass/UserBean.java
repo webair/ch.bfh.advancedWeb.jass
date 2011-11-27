@@ -59,7 +59,7 @@ public class UserBean {
 		if (username.equals("buzzer")) {
 			// yeah, the user is logged in
 			loggedIn = true;
-			nextPage = "overview?faces-redirect=true";
+			nextPage = "restricted/overview?faces-redirect=true";
 		} else {
 			// 
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -73,7 +73,7 @@ public class UserBean {
 	}
 
 	public boolean isLoggedIn() {
-		return isLoggedIn();
+		return loggedIn;
 	}
 
 }
