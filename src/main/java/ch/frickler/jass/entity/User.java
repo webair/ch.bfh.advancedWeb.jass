@@ -1,7 +1,12 @@
 package ch.frickler.jass.entity;
 
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
 import java.lang.String;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import javax.persistence.*;
 
 /**
@@ -34,7 +39,7 @@ public class User implements Serializable {
 	public User(String userName, String password, String name) {
 		super();
 		this.userName = userName;
-		this.password = password;
+		this.password = cryptPW(password);
 		this.name = name;
 	}
 
@@ -51,7 +56,7 @@ public class User implements Serializable {
 	}
 
 	public void setPassword(String password) {
-		this.password = password;
+		this.password = cryptPW(password);
 	}
 
 	public long getId() {
@@ -70,4 +75,25 @@ public class User implements Serializable {
 		this.name = name;
 	}
 
+	/**
+	 * creates a hash of the given password
+	 * 
+	 * @param the
+	 *            password
+	 * @return a sha256 hex string
+	 */
+	private String cryptPW(String pw) {
+		try {
+			MessageDigest md = MessageDigest.getInstance("SHA-256");
+			md.update(pw.getBytes("UTF-8"));
+			byte[] digest = md.digest();
+			BigInteger bigInt = new BigInteger(1, digest);
+			return bigInt.toString(16);
+		} catch (NoSuchAlgorithmException e) {
+			// wont happen
+		} catch (UnsupportedEncodingException e) {
+			// wont happen either
+		}
+		return null;
+	}
 }
