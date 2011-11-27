@@ -48,8 +48,9 @@ public class UserBean {
 	}
 
 	public void setLocale(String newLocale) {
-		FacesContext.getCurrentInstance().getViewRoot()
-				.setLocale(new Locale(newLocale));
+		if (newLocale != null)
+			FacesContext.getCurrentInstance().getViewRoot()
+					.setLocale(new Locale(newLocale));
 
 		this.locale = newLocale;
 	}
@@ -82,19 +83,20 @@ public class UserBean {
 		return nextPage;
 	}
 
-	private boolean checkUserAndPw(){
+	private boolean checkUserAndPw() {
 		EntityManagerFactory emf = Persistence
 				.createEntityManagerFactory("MyBuzzwordJass");
 
 		// TODO sekiurity??? sql injection
 		EntityManager em = emf.createEntityManager();
-		Query q = em.createQuery("select count(*) from User where userName=?1 and password=?2");
+		Query q = em
+				.createQuery("select count(*) from User where userName=?1 and password=?2");
 		q.setParameter(1, username).setParameter(2, User.cryptPw(password));
-		
-		Long num = (Long)q.getResultList().get(0);
+
+		Long num = (Long) q.getResultList().get(0);
 		return num == 1; // there must be a match
 	}
-	
+
 	public String logout() {
 		// TODO this message is not displayed
 		FacesContext ctx = FacesContext.getCurrentInstance();
@@ -103,9 +105,9 @@ public class UserBean {
 		setPassword(null);
 		setUsername(null);
 		setLocale(null);
-		
+
 		loggedIn = false;
-		return "login";
+		return "/login";
 	}
 
 	public boolean isLoggedIn() {
@@ -122,6 +124,7 @@ public class UserBean {
 
 	/**
 	 * the action listener for the languages menu
+	 * 
 	 * @param event
 	 */
 	public void swapLocale(ValueChangeEvent event) {
