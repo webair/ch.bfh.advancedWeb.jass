@@ -1,11 +1,13 @@
 package ch.frickler.jass;
 
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
 
 /**
  * managed bean that represents a user. authentication is done by checking
@@ -42,14 +44,17 @@ public class UserBean {
 		this.password = password;
 	}
 
-	public void setLocale(String locale) {
-		this.locale = locale;
+	public void setLocale(String newLocale) {
+		FacesContext.getCurrentInstance().getViewRoot()
+				.setLocale(new Locale(newLocale));
+
+		this.locale = newLocale;
 	}
 
 	public String getLocale() {
 		if (locale == null) {
 			FacesContext context = FacesContext.getCurrentInstance();
-			return context.getViewRoot().getLocale().toString();
+			locale = context.getViewRoot().getLocale().toString();
 		}
 		return locale;
 	}
@@ -81,7 +86,9 @@ public class UserBean {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ResourceBundle bundle = ResourceBundle.getBundle(UI_PROPERTY, ctx
 				.getViewRoot().getLocale());
-		ctx.addMessage(null, new FacesMessage(bundle.getString("login_goodbye")));
+		// TODO this message is not displayed
+		ctx.addMessage(null,
+				new FacesMessage(bundle.getString("login_goodbye")));
 		loggedIn = false;
 		return "/login";
 	}
@@ -90,4 +97,20 @@ public class UserBean {
 		return loggedIn;
 	}
 
+	/**
+	 * 
+	 * @return a list of all available locales
+	 */
+	public String[] getAvailableLocales() {
+		return new String[] { "de", "en", "fr" };
+	}
+
+	/**
+	 * the action listener for the languages menu
+	 * @param event
+	 */
+	public void swapLocale(ValueChangeEvent event) {
+		String locale = (String) event.getNewValue();
+		setLocale(locale);
+	}
 }

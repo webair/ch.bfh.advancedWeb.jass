@@ -15,6 +15,11 @@
 				<h:form>
 					<h:commandLink value="#{UI.logout}" action="#{userBean.logout}"
 						rendered="#{userBean.loggedIn}" />
+					<h:selectOneMenu value="#{userBean.locale}"
+						valueChangeListener="#{userBean.swapLocale}" onchange="submit()"
+						immediate="true">
+						<f:selectItems value="#{userBean.availableLocales}" />
+					</h:selectOneMenu>
 				</h:form>
 			</div>
 
