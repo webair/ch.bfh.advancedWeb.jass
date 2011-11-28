@@ -127,7 +127,7 @@ public class PersistenceTest extends AbstractEntityTest {
 		t2 = mergeObject(t2);
 
 		// Create game
-		Game g = new Game(t1, t2, u1);
+		Game g = new Game("Nömber ön",t1, t2, u1);
 		g.setStartDate(new Date());
 		g.setWinPoints(2500);
 		g = mergeObject(g);
