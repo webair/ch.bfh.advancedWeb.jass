@@ -1,4 +1,4 @@
-package ch.frickler.jass.entity;
+package ch.frickler.jass.db.entity;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -31,6 +31,9 @@ public class Game implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID_GAME")
 	private long id;
+	
+	@Column(name = "NAME", nullable = false)
+	private String name;
 
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "ID_TEAM1")
@@ -54,17 +57,21 @@ public class Game implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ID_USER", nullable = false)
 	private User nextAnnouncer;
+	
 
 	public Game() {
 		super();
 	}
 
-	public Game(Team team1, Team team2, User nextAnnouncer) {
+	public Game(String name, Team team1, Team team2, User nextAnnouncer) {
 		super();
+		this.name = name;
 		this.team1 = team1;
 		this.team2 = team2;
 		this.nextAnnouncer = nextAnnouncer;
 	}
+	
+	
 
 	public long getId() {
 		return id;
@@ -72,6 +79,14 @@ public class Game implements Serializable {
 
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public Team getTeam1() {

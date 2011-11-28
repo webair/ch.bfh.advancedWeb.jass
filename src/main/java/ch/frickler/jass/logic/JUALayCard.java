@@ -1,6 +1,6 @@
 package ch.frickler.jass.logic;
 
-import ch.frickler.jass.entity.User;
+import ch.frickler.jass.db.entity.User;
 import ch.frickler.jass.logic.definitions.*;
 
 public class JUALayCard extends IUserAction {

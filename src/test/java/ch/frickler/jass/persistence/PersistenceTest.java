@@ -8,16 +8,16 @@ import java.util.Set;
 
 import org.junit.Test;
 
-import ch.frickler.jass.entity.Card;
-import ch.frickler.jass.entity.Game;
-import ch.frickler.jass.entity.GameType;
-import ch.frickler.jass.entity.Round;
-import ch.frickler.jass.entity.RoundCard;
-import ch.frickler.jass.entity.Team;
-import ch.frickler.jass.entity.User;
-import ch.frickler.jass.enums.CardFamily;
-import ch.frickler.jass.enums.CardValue;
-import ch.frickler.jass.enums.GameKind;
+import ch.frickler.jass.db.entity.Card;
+import ch.frickler.jass.db.entity.Game;
+import ch.frickler.jass.db.entity.GameType;
+import ch.frickler.jass.db.entity.Round;
+import ch.frickler.jass.db.entity.RoundCard;
+import ch.frickler.jass.db.entity.Team;
+import ch.frickler.jass.db.entity.User;
+import ch.frickler.jass.db.enums.CardFamily;
+import ch.frickler.jass.db.enums.CardValue;
+import ch.frickler.jass.db.enums.GameKind;
 
 
 
@@ -127,7 +127,7 @@ public class PersistenceTest extends AbstractEntityTest {
 		t2 = mergeObject(t2);
 
 		// Create game
-		Game g = new Game(t1, t2, u1);
+		Game g = new Game("Nömber ön",t1, t2, u1);
 		g.setStartDate(new Date());
 		g.setWinPoints(2500);
 		g = mergeObject(g);

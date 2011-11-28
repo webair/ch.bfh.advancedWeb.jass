@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import ch.frickler.jass.entity.User;
+import ch.frickler.jass.db.entity.User;
 import ch.frickler.jass.logic.definitions.ISpieler;
 import ch.frickler.jass.logic.definitions.IUserAction;
 

@@ -1,0 +1,35 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/templates/main.xhtml">
+	
+	<ui:define name="title">
+	#{UI.title_createGame}
+	</ui:define>
+	<ui:define name="content">
+		<h:form>
+			<h:panelGrid id="grid" columns="2">
+				<h:outputLabel value="#{UI.game_name}:" for="name" />
+				<h:inputText id="name" value="#{createGame.name}"
+					  required="true" requiredMessage="#{UI.err_game_name}"/>
+				
+				<h:outputLabel value="#{UI.game_winpoints}:" for="winPoints" />
+				<h:inputText id="winPoints" 
+				value="#{createGame.winPoints}" 
+				required="true"
+				validatorMessage="#{UI.err_winpoints}"
+				converterMessage="#{UI.err_number}"
+				>
+				<f:validateLongRange minimum="1000" maximum="5000" />
+				</h:inputText>
+
+				<h:commandButton value="#{UI.game_create}"
+					action="#{createGame.create}" />
+			</h:panelGrid>
+			<h:messages />
+		</h:form>
+	</ui:define>
+</ui:composition>
+
+

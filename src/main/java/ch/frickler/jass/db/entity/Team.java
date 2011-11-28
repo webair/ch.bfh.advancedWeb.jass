@@ -1,4 +1,4 @@
-package ch.frickler.jass.entity;
+package ch.frickler.jass.db.entity;
 
 import java.io.Serializable;
 
