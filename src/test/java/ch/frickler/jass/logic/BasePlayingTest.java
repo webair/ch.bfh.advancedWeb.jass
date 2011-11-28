@@ -131,7 +131,7 @@ public class BasePlayingTest {
 
 	public Spiel GetVerteiltesSpiel(ISpielart spielart) throws Exception{
 		Spiel p = GetSpiel(spielart);
-		KartenVerteilAction kva = new KartenVerteilAction();
+		KartenVerteilAction kva = new KartenVerteilAction(null);
 		kva.doAction(p);
 		return p;
 	}

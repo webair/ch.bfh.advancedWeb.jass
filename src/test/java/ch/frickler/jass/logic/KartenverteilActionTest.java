@@ -29,7 +29,7 @@ public class KartenverteilActionTest {
 			fail();
 		}
 
-		KartenVerteilAction kva = new KartenVerteilAction();
+		KartenVerteilAction kva = new KartenVerteilAction(null);
 
 		kva.doAction(p);
 		assertEquals(p.getAllSpieler().size(), 4);

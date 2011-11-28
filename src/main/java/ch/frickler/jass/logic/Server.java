@@ -2,6 +2,9 @@ package ch.frickler.jass.logic;
 
 import java.util.List;
 
+import ch.frickler.jass.logic.definitions.IUserAction;
+
+
 public class Server {
 	
 	public List<Spiel> games;
@@ -12,7 +15,7 @@ public class Server {
 
 	}
 	
-	public Spiel receiveAction(SpielAction action){
+	public Spiel receiveAction(IUserAction action){
 		
 		action.doAction(null);
 		return null;
@@ -20,7 +23,7 @@ public class Server {
 	
 	public void kartenVerteilen(Spiel spiel){
 		
-		SpielAction action = new KartenVerteilAction();
+		IUserAction action = new KartenVerteilAction(null);
 		action.doAction(spiel);
 	}
 }

@@ -58,16 +58,16 @@ public class GUISpieler  extends ISpieler {
 			
 			if(response < amountCards){
 				System.out.println("Manually selected card: (id:"+response+") "+this.getCards().get(response));
-				return new JUALayCard(this.getCards().remove(response));
+				return new JUALayCard(this,this.getCards().remove(response));
 			}else if(response == amountCards+1){
 				
-				return new JUAWies();
+				return new JUAWies(this);
 			}else if(response == amountCards+2){
-				return new JUAStoeck();
+				return new JUAStoeck(this);
 			}else if(response == amountCards+3){
-				return new JUASchieben();
+				return new JUASchieben(this);
 			}else if(response == amountCards+4){
-				return new JUAQuit();
+				return new JUAQuit(this);
 			}
 			
 			throw new Exception("Unimplemented response"+response);

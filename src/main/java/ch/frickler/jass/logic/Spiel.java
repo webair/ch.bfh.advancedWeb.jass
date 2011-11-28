@@ -141,7 +141,7 @@ public class Spiel {
 
 		
 		
-		KartenVerteilAction kva = new KartenVerteilAction();
+		KartenVerteilAction kva = new KartenVerteilAction(null);
 		kva.doAction(this);
 		for (ISpieler spl : this.getAllSpieler()) {
 			System.out.println("Karten ISpieler " + spl.getName() + " : "

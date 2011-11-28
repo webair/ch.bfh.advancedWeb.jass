@@ -4,8 +4,9 @@ import javax.faces.bean.ManagedBean;
 
 @ManagedBean
 public class GameBean {
-	private String name;
+
 	private int id;
+	private String name;
 	
 	public String getName() {
 		return name;
