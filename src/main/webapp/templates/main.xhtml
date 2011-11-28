@@ -6,6 +6,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <f:view contentType="text/html" locale="#{userBean.locale}">
 	<h:head>
+	<title><ui:insert name="title">Buzword Jass by fricklers</ui:insert></title>
 	</h:head>
 	<h:outputStylesheet library="css" name="style.css" />
 	<h:body>
@@ -15,6 +16,7 @@
 				<h:form>
 					<h:commandLink value="#{UI.logout}" action="#{userBean.logout}"
 						rendered="#{userBean.loggedIn}" />
+					<h:commandLink />
 					<h:selectOneMenu value="#{userBean.locale}"
 						valueChangeListener="#{userBean.swapLocale}" onchange="submit()"
 						immediate="true">
