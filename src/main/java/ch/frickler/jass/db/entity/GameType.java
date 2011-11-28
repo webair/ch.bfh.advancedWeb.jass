@@ -1,4 +1,4 @@
-package ch.frickler.jass.entity;
+package ch.frickler.jass.db.entity;
 
 import java.io.Serializable;
 
@@ -11,7 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import ch.frickler.jass.enums.GameKind;
+import ch.frickler.jass.db.enums.GameKind;
 
 /**
  * Entity implementation class for Entity: GameType

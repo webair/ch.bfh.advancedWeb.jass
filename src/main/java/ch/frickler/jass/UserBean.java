@@ -11,7 +11,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
-import ch.frickler.jass.entity.User;
+import ch.frickler.jass.db.entity.User;
 import ch.frickler.jass.helper.MessageHelper;
 
 /**

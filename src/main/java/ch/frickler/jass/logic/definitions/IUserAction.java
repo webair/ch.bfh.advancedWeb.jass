@@ -1,6 +1,6 @@
 package ch.frickler.jass.logic.definitions;
 
-import ch.frickler.jass.entity.User;
+import ch.frickler.jass.db.entity.User;
 import ch.frickler.jass.logic.Spiel;
 
 public abstract class IUserAction {

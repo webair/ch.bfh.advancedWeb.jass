@@ -8,16 +8,16 @@ import java.util.Set;
 
 import org.junit.Test;
 
-import ch.frickler.jass.entity.Card;
-import ch.frickler.jass.entity.Game;
-import ch.frickler.jass.entity.GameType;
-import ch.frickler.jass.entity.Round;
-import ch.frickler.jass.entity.RoundCard;
-import ch.frickler.jass.entity.Team;
-import ch.frickler.jass.entity.User;
-import ch.frickler.jass.enums.CardFamily;
-import ch.frickler.jass.enums.CardValue;
-import ch.frickler.jass.enums.GameKind;
+import ch.frickler.jass.db.entity.Card;
+import ch.frickler.jass.db.entity.Game;
+import ch.frickler.jass.db.entity.GameType;
+import ch.frickler.jass.db.entity.Round;
+import ch.frickler.jass.db.entity.RoundCard;
+import ch.frickler.jass.db.entity.Team;
+import ch.frickler.jass.db.entity.User;
+import ch.frickler.jass.db.enums.CardFamily;
+import ch.frickler.jass.db.enums.CardValue;
+import ch.frickler.jass.db.enums.GameKind;
 
 
 
