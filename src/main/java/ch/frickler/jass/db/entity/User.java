@@ -9,12 +9,17 @@ import java.security.NoSuchAlgorithmException;
 
 import javax.persistence.*;
 
+import ch.frickler.jass.logic.Round;
+import ch.frickler.jass.logic.definitions.ISpielart;
+import ch.frickler.jass.logic.definitions.ISpieler;
+import ch.frickler.jass.logic.definitions.IUserAction;
+
 /**
  * Entity implementation class for Entity: User TODO crypt password
  */
 @Entity
 @Table(name = "USER")
-public class User implements Serializable {
+public class User extends ISpieler implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -94,6 +99,18 @@ public class User implements Serializable {
 		} catch (UnsupportedEncodingException e) {
 			// wont happen either
 		}
+		return null;
+	}
+
+	@Override
+	public ISpielart sayTrumpf(boolean canSchieben) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public IUserAction forcePlay(Round round) throws Exception {
+		// TODO Auto-generated method stub
 		return null;
 	}
 }
