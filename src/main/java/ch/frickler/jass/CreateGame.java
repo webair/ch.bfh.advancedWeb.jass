@@ -12,6 +12,14 @@ public class CreateGame {
 	@ManagedProperty(value="#{userBean}")
 	private UserBean userBean;
 	
+	/**
+	 * the setter for the injection
+	 * @param u
+	 */
+	public void setUserBean(UserBean u){
+		userBean = u;
+	}
+	
 	private int winPoints;
 	
 	
@@ -20,9 +28,7 @@ public class CreateGame {
 		Long gameId = gm.createGame(getName(), getWinPoints());
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ctx.getExternalContext().getSessionMap().put(GameManager.GAME_ID_KEY, gameId);
-		
-		
-		return null;
+		return "waitForPlayers";
 	}
 	
 	
@@ -43,7 +49,5 @@ public class CreateGame {
 	public void setWinPoints(int winPoints) {
 		this.winPoints = winPoints;
 	}
-	
-	
 	
 }
