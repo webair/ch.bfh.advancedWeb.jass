@@ -1,14 +1,11 @@
 package ch.frickler.jass.logic.console;
 
 import ch.frickler.jass.logic.Card;
-import ch.frickler.jass.logic.KartenVerteilAction;
 import ch.frickler.jass.logic.Round;
+import ch.frickler.jass.logic.Round.RoundResult;
 import ch.frickler.jass.logic.Spiel;
 import ch.frickler.jass.logic.Spieler;
-import ch.frickler.jass.logic.Spielfeld;
 import ch.frickler.jass.logic.Trumpf;
-import ch.frickler.jass.logic.Card.CardFamily;
-import ch.frickler.jass.logic.Round.RoundResult;
 import ch.frickler.jass.logic.definitions.ISpielart;
 import ch.frickler.jass.logic.definitions.ISpieler;
 
@@ -16,7 +13,7 @@ public class ConsoleJass {
 
 	static public void main(String[] argv) {
 		ISpielart spielart = new Trumpf(Card.CardFamily.Egge);
-		Spiel game = new Spiel();
+		Spiel game = new Spiel("a");
 		game.setWinPoints(1000);
 		Round round = new Round(spielart);
 		game.SetRound(round);

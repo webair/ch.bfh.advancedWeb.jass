@@ -2,6 +2,9 @@ package ch.frickler.jass.logic;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.management.RuntimeErrorException;
+
 import ch.frickler.jass.logic.Round.RoundResult;
 import ch.frickler.jass.logic.Spiel.GameState;
 import ch.frickler.jass.logic.definitions.*;
@@ -17,10 +20,11 @@ public class Spiel {
 	private int maxISpieler = 4;
 	private int ansager;
 	private GameState gameState = Spiel.GameState.WaitForPlayers;
+	private String name;
 	
 	
-	public Spiel() {
-
+	public Spiel(String name) {
+this.name = name;
 	}
 
 	public List<Team> getTeams() {
@@ -68,9 +72,9 @@ public class Spiel {
 		return tempISpieler2;
 	}
 
-	public void addSpieler(ISpieler spieler) throws Exception {
+	public void addSpieler(ISpieler spieler) throws RuntimeException {
 		if (getAllSpieler().size() >= maxISpieler)
-			throw new Exception("wft! zu viele ISpieler");
+			throw new RuntimeException("wft! zu viele ISpieler");
 
 		if (teams.size() < 2) {
 			Team team = new Team(spieler);
@@ -85,6 +89,10 @@ public class Spiel {
 
 	}
 
+	public String getName(){
+		return name;
+	}
+	
 	/*
 	 * Der Stich geht zum Team mit der hoechsten Karte die Methode gibt den
 	 * ISpieler zurueck der den Stich gemacht hat.
@@ -136,7 +144,7 @@ public class Spiel {
 	}
 
 	private ISpieler getSpielerWithStoeck(ISpielart spielart) {
-		// stöck nur möglich falls trumpf angesagt ist.
+		// stï¿½ck nur mï¿½glich falls trumpf angesagt ist.
 		if(!(spielart instanceof Trumpf))
 			return null;
 		

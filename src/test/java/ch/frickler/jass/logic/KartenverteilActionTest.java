@@ -12,7 +12,7 @@ public class KartenverteilActionTest {
 	@Test
 	public void CheckAnzahl() {
 
-		Spiel p = new Spiel();
+		Spiel p = new Spiel("a");
 
 		Spieler p1 = new Spieler();
 		Spieler p2 = new Spieler();
