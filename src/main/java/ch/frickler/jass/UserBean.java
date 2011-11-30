@@ -31,6 +31,8 @@ public class UserBean {
 
 	private boolean loggedIn = false;
 
+	private long id=0L;
+	
 	public String getUsername() {
 		return username;
 	}
@@ -90,11 +92,15 @@ public class UserBean {
 		// TODO sekiurity??? sql injection
 		EntityManager em = emf.createEntityManager();
 		Query q = em
-				.createQuery("select count(*) from User where userName=?1 and password=?2");
+				.createQuery("select id from User where userName=?1 and password=?2");
 		q.setParameter(1, username).setParameter(2, User.cryptPw(password));
 
-		Long num = (Long) q.getResultList().get(0);
-		return num == 1; // there must be a match
+		if(q.getResultList().size() > 0){
+			id = (Long) q.getResultList().get(0);
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	public String logout() {
@@ -131,4 +137,9 @@ public class UserBean {
 		String locale = (String) event.getNewValue();
 		setLocale(locale);
 	}
+	
+	public long getId() {
+		return id;
+	}
+
 }

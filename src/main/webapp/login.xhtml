@@ -11,10 +11,10 @@
 			<h:panelGrid id="grid" columns="2">
 				<h:outputLabel value="#{UI.label_user}:" for="username" />
 				<h:inputText id="username" value="#{userBean.username}"
-					required="true" />
+					required="true" requiredMessage="#{UI.err_username}" />
 				<h:outputLabel value="#{UI.label_password}:" for="password" />
 				<h:inputSecret id="password" value="#{userBean.password}"
-					required="true" />
+					required="true" requiredMessage="#{UI.err_password}" />
 				<h:commandButton value="#{UI.text_login}" action="#{userBean.login}" />
 				<h:link outcome="register.jsf?faces-redirect=true"
 					value="#{UI.text_register}" />
