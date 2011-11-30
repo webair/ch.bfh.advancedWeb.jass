@@ -8,6 +8,7 @@ import ch.frickler.jass.logic.definitions.ISpieler;
 
 public class Trumpf extends ISpielart {
 
+	public static final int ValueOfStoeck = 20;
 	private CardFamily trumpf;
 
 	public Trumpf(CardFamily family) {
@@ -178,6 +179,10 @@ public class Trumpf extends ISpielart {
 	public int getQualifier() {
 		//schwarz doppelt, rot einfach
 		return (this.trumpf == Card.CardFamily.Schaufel || this.trumpf == Card.CardFamily.Kreuz) ? 2 : 1;
+	}
+
+	public CardFamily getCardFamily() {
+		return this.trumpf;
 	}
 
 }

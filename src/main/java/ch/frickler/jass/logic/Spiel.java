@@ -3,17 +3,22 @@ package ch.frickler.jass.logic;
 import java.util.ArrayList;
 import java.util.List;
 import ch.frickler.jass.logic.Round.RoundResult;
+import ch.frickler.jass.logic.Spiel.GameState;
 import ch.frickler.jass.logic.definitions.*;
 
 public class Spiel {
 
+	public static enum GameState  {WaitForPlayers, Play, Ansage, AnsageGschobe, Terminated}
+	private static boolean gschobe = false;
 	private int spielNr;
 	private List<Team> teams = new ArrayList<Team>();
 	private Round currentRound;
 	private int gewinnPunkte = 500;
 	private int maxISpieler = 4;
 	private int ansager;
-
+	private GameState gameState = Spiel.GameState.WaitForPlayers;
+	
+	
 	public Spiel() {
 
 	}
@@ -65,7 +70,7 @@ public class Spiel {
 
 	public void addSpieler(ISpieler spieler) throws Exception {
 		if (getAllSpieler().size() >= maxISpieler)
-			throw new Exception("wft zu viele ISpieler");
+			throw new Exception("wft! zu viele ISpieler");
 
 		if (teams.size() < 2) {
 			Team team = new Team(spieler);
@@ -124,31 +129,47 @@ public class Spiel {
 		return null;
 	}
 
-	public void SetRound(Round round) {
+	public void SetRound(Round round) {	
+		round.setSpielerWithStoeck(getSpielerWithStoeck(round.getSpielart()));
 		this.currentRound = round;
+		
+	}
 
+	private ISpieler getSpielerWithStoeck(ISpielart spielart) {
+		// stöck nur möglich falls trumpf angesagt ist.
+		if(!(spielart instanceof Trumpf))
+			return null;
+		
+		Trumpf pf = (Trumpf)spielart;
+		for(ISpieler s : getAllSpieler()){
+			boolean hasTrumpfSchnegge = false;
+			boolean hasTrumpfKing = false;
+			for(Card c : s.getCards()){
+				if(c.getCardFamily().equals(pf.getCardFamily())){
+						
+						if(c.getCardValue() == Card.CardValue.Dame){
+					hasTrumpfSchnegge = true;
+				}else if(c.getCardValue() == Card.CardValue.Koenig){
+					hasTrumpfSchnegge = true;
+				}
+			}
+		}
+		if(hasTrumpfKing && hasTrumpfSchnegge)
+			return s;
+		}
+		return null;
 	}
 
 	public Round getRound() {
 		return this.currentRound;
 	}
 
-	public Spielfeld getSpielfeld_Todel() {
-		return null; // new Spielfeld(currentRound.getSpielart());
-	}
 
 	public RoundResult playRound() throws Exception {
 
+		initNewRound();
 		
-		
-		KartenVerteilAction kva = new KartenVerteilAction(null);
-		kva.doAction(this);
-		for (ISpieler spl : this.getAllSpieler()) {
-			System.out.println("Karten ISpieler " + spl.getName() + " : "
-					+ spl.getCards());
-		}
-
-		ISpieler spAnsager = this.getAllSpielerSorted(null).get(ansager);
+		ISpieler spAnsager = getAnsager();
 
 		ISpielart spielart = spAnsager.sayTrumpf(true);
 		if (spielart == null) // todo nicht so schoen
@@ -166,6 +187,7 @@ public class Spiel {
 			}
 		}
 		this.SetRound(new Round(spielart));
+		
 		// wer trumpf sagt spielt aus, auch wenn geschoben.
 		this.currentRound.setAusspieler(spAnsager);
 		System.out.println("Begin round spielart is: "+currentRound.getSpielart().toString());
@@ -184,16 +206,16 @@ public class Spiel {
 							Card layedCard = ((JUALayCard) uc).getCard();
 							if (isPlayedCardValid(spl, layedCard, r)) {
 								nextISpielersTurn = true;
-								r.addCard(layedCard);
+								playCard(spl, layedCard);
 							} else {
 								// not valid card at it to the users hand again
-								spl.addCard(layedCard);
+								//spl.addCard(layedCard);
 							}
 						} else if (uc instanceof JUAQuit) {
-							// todo quit action
+							terminate(spl);
 							return RoundResult.QuitGame;
 
-						} else if (uc instanceof JUASchieben) {
+						} else if (uc instanceof JUAAnsagen) {
 							// todo schieben action
 
 						} else if (uc instanceof JUAStoeck) {
@@ -209,29 +231,9 @@ public class Spiel {
 					}
 
 				}
-				// todo make it generic for more than two teams
-				spAnsager = this.placeStich(r.getCards());
-				this.getRound().setAusspieler(spAnsager);
-				r.removeCards();
+				finishStich();
 			}
-			//round finished place points
-			for (Team t : this.getTeams()) {
-				int pointsTeam = currentRound.getSpielart().getPoints(
-						t.getCards());
-				// team hat den letzten Stich gemacht
-				if(getTeamOf(spAnsager).equals(t)){
-					pointsTeam += 5;
-				}
-				System.out.println("Punkte diese Runde fuer " + t.getName()
-						+ ": " + pointsTeam);
-				t.addPoints(pointsTeam*currentRound.getSpielart().getQualifier());
-				t.clearCards();
-			}
-
-			for (Team t : this.getTeams()) {
-				System.out.println("Punktestand " + t.getName() + ": "
-						+ t.getPoints());
-			}
+			doAbrechnungForRound(r);
 
 		} catch (Exception ex) {
 			System.out.print(ex.getMessage());
@@ -239,6 +241,72 @@ public class Spiel {
 		}
 		this.ansager = ++this.ansager % this.getAllSpieler().size();
 		return RoundResult.Finshed;
+	}
+
+	private void doAbrechnungForRound(Round r) {
+		//round finished place points
+		for (Team t : this.getTeams()) {
+			int pointsTeam = currentRound.getSpielart().getPoints(
+					t.getCards());
+			// team hat den letzten Stich gemacht
+			if(getTeamOf(r.getCurrentSpieler()).equals(t)){
+				pointsTeam += 5;
+			}
+			System.out.println("Punkte diese Runde fuer " + t.getName()
+					+ ": " + pointsTeam);
+			t.addPoints(pointsTeam*currentRound.getSpielart().getQualifier());
+			t.clearCards();
+		}
+
+		for (Team t : this.getTeams()) {
+			System.out.println("Punktestand " + t.getName() + ": "
+					+ t.getPoints());
+		}
+	}
+
+	void playCard(ISpieler spl, Card layedCard) {
+		getRound().addCard(layedCard);
+		spl.removeCard(layedCard);
+		if(getRound().allSpielerPlayed()){
+			finishStich();
+			if(getRound().getCurrentSpieler().getCards().size() == 0){
+				doAbrechnungForRound(getRound());
+			}
+		}
+	}
+
+	private void finishStich() {
+		Round r = getRound();
+		ISpieler spAnsager;
+		spAnsager = this.placeStich(r.getCards());
+		this.getRound().setAusspieler(spAnsager);
+		r.removeCards();
+	}
+
+	private void initNewRound() {
+		this.gschobe = false;
+		setGameState(GameState.Ansage);
+		
+		KartenVerteilAction kva = new KartenVerteilAction(null);
+		kva.doAction(this);
+		for (ISpieler spl : this.getAllSpieler()) {
+			System.out.println("Karten ISpieler " + spl.getName() + " : "
+					+ spl.getCards());
+		}
+	}
+
+	ISpieler getAnsager() {
+		int delta = isGschobe() ? 2 : 0;
+		this.getAllSpielerSorted(null).get(ansager+delta);
+		return null;
+	}
+
+	private boolean isGschobe() {
+		return this.gschobe;
+	}
+	
+	private void setGschobe() {
+		this.gschobe = false;
 	}
 
 	private boolean isPlayedCardValid(ISpieler spl, Card layedCard, Round r) {
@@ -260,9 +328,63 @@ public class Spiel {
 		}
 		return leading;
 	}
+	
+	private Team getLoosingTeam() {
+		Team loosing = null;
+		for (Team t : teams) {
+			if (loosing == null || loosing.getPoints() > t.getPoints()) {
+				loosing = t;
+			}
+		}
+		return loosing;
+	}
 
 	public void setWinPoints(int winPoints) {
 		this.gewinnPunkte = winPoints;
 		
 	}
+
+	public void terminate(ISpieler terminateUser) {
+	
+		Team team = getTeamOf(terminateUser);
+		
+		if(team == null){
+			team = getLoosingTeam();
+		}
+		
+		for(Team winnerTeam : getTeams()){
+			if(!team.equals(winnerTeam)){
+				writeStatistic(winnerTeam,team);
+				break;
+			}
+		}
+		setGameState(GameState.Terminated);
+	}
+
+
+
+	private void setGameState(GameState newState) {
+		this.gameState = newState;
+		
+	}
+
+	private void writeStatistic(Team winnerTeam, Team team) {
+		// TODO Auto-generated method stub
+	}
+
+	public GameState getState() {
+		return this.gameState;
+	}
+
+	public boolean isPlayedCardValid(ISpieler user,Card card) {
+		return isPlayedCardValid(user, card, getRound());
+	}
+
+	public boolean addStoeck(ISpieler user) {
+		Team t = getTeamOf(user);
+		t.addPoints(Trumpf.ValueOfStoeck*getRound().getSpielart().getQualifier());
+		return false;
+	}
+	
+	
 }

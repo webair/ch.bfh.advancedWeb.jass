@@ -5,7 +5,7 @@ import javax.swing.JOptionPane;
 import ch.frickler.jass.logic.Card;
 import ch.frickler.jass.logic.JUALayCard;
 import ch.frickler.jass.logic.JUAQuit;
-import ch.frickler.jass.logic.JUASchieben;
+import ch.frickler.jass.logic.JUAAnsagen;
 import ch.frickler.jass.logic.JUAStoeck;
 import ch.frickler.jass.logic.JUAWies;
 import ch.frickler.jass.logic.Obenabe;
@@ -58,14 +58,14 @@ public class GUISpieler  extends ISpieler {
 			
 			if(response < amountCards){
 				System.out.println("Manually selected card: (id:"+response+") "+this.getCards().get(response));
-				return new JUALayCard(this,this.getCards().remove(response));
+				return new JUALayCard(this,this.getCards().get(response));
 			}else if(response == amountCards+1){
 				
 				return new JUAWies(this);
 			}else if(response == amountCards+2){
 				return new JUAStoeck(this);
 			}else if(response == amountCards+3){
-				return new JUASchieben(this);
+				return new JUAAnsagen(this);
 			}else if(response == amountCards+4){
 				return new JUAQuit(this);
 			}

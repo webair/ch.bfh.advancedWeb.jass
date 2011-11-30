@@ -5,7 +5,7 @@ import ch.frickler.jass.logic.Spiel;
 
 public abstract class IUserAction {
 	
-	ISpieler user;
+	protected ISpieler user;
 	
 	public IUserAction(ISpieler user){
 		user = this.user;

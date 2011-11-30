@@ -60,6 +60,10 @@ public abstract class ISpieler {
 		}
 		return false;
 	}
+	public void removeCard(Card layedCard) {
+		this.cards.remove(layedCard);
+		
+	}
 	
 
 	

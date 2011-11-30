@@ -26,13 +26,13 @@ public class Spieler extends ISpieler {
 			for(int i = 0;i < cards.size();i++){
 				
 				if(cards.get(i).getCardFamily() == round.getCards().get(0).getCardFamily()){
-					return new JUALayCard(this,cards.remove(i));
+					return new JUALayCard(this,cards.get(i));
 				}
 			}
 		}
 		
 		// else play the first card.
-		return  new JUALayCard(this,cards.remove(0));
+		return  new JUALayCard(this,cards.get(0));
 	}
 	
 

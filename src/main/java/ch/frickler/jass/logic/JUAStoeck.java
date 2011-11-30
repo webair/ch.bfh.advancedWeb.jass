@@ -12,15 +12,13 @@ public class JUAStoeck extends IUserAction {
 	}
 
 	@Override
-	public boolean doAction(Spiel spiel) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean doAction(Spiel spiel) {		
+		return spiel.addStoeck(user);
 	}
 
 	@Override
 	public boolean isActionPossible(Spiel game) {
-		// TODO Auto-generated method stub
-		return false;
+		return game.getRound().hasUserStoeck(user);
 	}
 
 }

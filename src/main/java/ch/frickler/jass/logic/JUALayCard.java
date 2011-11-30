@@ -7,7 +7,6 @@ public class JUALayCard extends IUserAction {
 
 	public JUALayCard(ISpieler user) {
 		super(user);
-		// TODO Auto-generated constructor stub
 	}
 
 	private Card card;
@@ -25,14 +24,21 @@ public class JUALayCard extends IUserAction {
 
 	@Override
 	public boolean doAction(Spiel spiel) {
-		// TODO Auto-generated method stub
-		return false;
+		spiel.playCard(user,card);
+		return true;
 	}
 
 	@Override
 	public boolean isActionPossible(Spiel game) {
-		// TODO Auto-generated method stub
-		return false;
+		if(card == null)
+			return false;
+		
+		if(!game.getRound().getCurrentSpieler().equals(user)){
+			return false;
+		}
+		
+		
+		return game.isPlayedCardValid(user,card);
 	}
 	
 }
