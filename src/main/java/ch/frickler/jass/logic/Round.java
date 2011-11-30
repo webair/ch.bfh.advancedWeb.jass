@@ -65,5 +65,9 @@ public class Round {
 	public boolean hasUserStoeck(ISpieler user) {
 		return user.equals(spielerWithStoeck);
 	}
+
+	public void nextPlayer(ISpieler iSpieler) {
+		currentSpieler = iSpieler;
+	}
 	
 }

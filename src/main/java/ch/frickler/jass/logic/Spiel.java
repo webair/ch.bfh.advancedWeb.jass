@@ -267,6 +267,7 @@ public class Spiel {
 	void playCard(ISpieler spl, Card layedCard) {
 		getRound().addCard(layedCard);
 		spl.removeCard(layedCard);
+		getRound().nextPlayer(getAllSpielerSorted(spl).get(0));
 		if(getRound().allSpielerPlayed()){
 			finishStich();
 			if(getRound().getCurrentSpieler().getCards().size() == 0){

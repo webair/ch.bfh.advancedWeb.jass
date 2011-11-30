@@ -21,30 +21,33 @@ public class BasePlayingTest {
 		
 		for(ISpieler spl : p.getAllSpieler()){
 			Card c =((JUALayCard)spl.forcePlay(f)).getCard();
-			f.addCard(c);
+			p.playCard(spl, c);
 		}
 		
 		for(ISpieler spl : p.getAllSpieler()){
 			Assert.assertEquals(8,spl.getCards().size());
 		}
-		
-		Assert.assertEquals(4,f.getCards().size());
+		int doneCards = p.getTeams().get(0).getCards().size() +p.getTeams().get(1).getCards().size();
+		Assert.assertEquals(4,doneCards);
 
 	}
 	
 	@Test
 	public void cardsAfterPlayingOneRound() throws Exception {
-	
-		Spiel p = GetVerteiltesSpiel(new Obenabe());
+		ISpielart sart = new Obenabe();
+		Spiel p = GetVerteiltesSpiel(sart);
 		
 		Round f = p.getRound();
 		
 		for(int i = 0;i < 9;i++){
 			for(ISpieler spl : p.getAllSpieler()){
 				Card c = ((JUALayCard)spl.forcePlay(f)).getCard();
-				f.addCard(c);
+				p.playCard(spl, c);
 			}
-			p.placeStich(f.getCards());
+			if(i != 8){
+				int doneCards = p.getTeams().get(0).getCards().size() +p.getTeams().get(1).getCards().size();
+				Assert.assertEquals((i+1)*4,doneCards);
+			}
 		}
 		
 		
@@ -52,7 +55,8 @@ public class BasePlayingTest {
 			Assert.assertEquals(0,spl.getCards().size());
 		}
 		
-		Assert.assertEquals(36,f.getCards().size());
+		int donePoints = p.getTeams().get(0).getPoints() +p.getTeams().get(1).getPoints();
+		Assert.assertEquals(donePoints,157*sart.getQualifier());
 		
 	}
 
@@ -154,7 +158,7 @@ public class BasePlayingTest {
 		
 		for(ISpieler spl : p.getAllSpielerSorted(null)){
 			Card c = ((JUALayCard)spl.forcePlay(f)).getCard();
-			f.addCard(c);
+			p.playCard(spl, c);
 		}
 		
 		ISpieler pSticher = p.placeStich(f.getCards());
