@@ -1,18 +1,24 @@
-package ch.frickler.jass.logic;
+package ch.frickler.jass.service;
 
 import java.util.List;
 
-import ch.frickler.jass.logic.Card.CardFamily;
+
+import ch.frickler.jass.db.entity.Card;
+import ch.frickler.jass.db.entity.Round;
+import ch.frickler.jass.db.entity.User;
+import ch.frickler.jass.db.enums.CardFamily;
+import ch.frickler.jass.db.enums.CardValue;
+
 import ch.frickler.jass.logic.definitions.ISpielart;
-import ch.frickler.jass.logic.definitions.ISpieler;
+
 
 public class Trumpf extends ISpielart {
 
 	public static final int ValueOfStoeck = 20;
 	private CardFamily trumpf;
 
-	public Trumpf(CardFamily family) {
-		this.trumpf = family;
+	public Trumpf(CardFamily herz) {
+		this.trumpf = herz;
 	}
 
 	@Override
@@ -25,57 +31,59 @@ public class Trumpf extends ISpielart {
 
 	@Override
 	protected int getPoint(Card card) {
-		switch (card.getCardValue()) {
-		case Sechs:
+		switch (card.getValue()) {
+		case SECHS:
 			return 0;
-		case Sieben:
+		case SIEBEN:
 			return 0;
-		case Acht:
+		case ACHT:
 			return 0;
-		case Neun:
+		case NEUN:
 			// is trumpf neun
-			if (card.isSameFamily(this.trumpf)) {
+			if (isSameFamily(card,this.trumpf)) {
 				return 14;
 			}
 			return 0;
-		case Zehn:
+		case ZEHN:
 			return 10;
-		case Bauer:
+		case BAUER:
 			// is trumpf bauer
-			if (card.isSameFamily(this.trumpf)) {
+			if (isSameFamily(card,this.trumpf)) {
 				return 20;
 			}
 			return 2;
-		case Dame:
+		case DAME:
 			return 3;
-		case Koenig:
+		case KOENIG:
 			return 4;
-		case Ass:
+		case ASS:
 			return 11;
 		}
 		return 0;
 	}
 
+
+
 	@Override
 	public boolean isSecondCardHigher(Card highestCard, Card card) {
 
-		if (highestCard.getCardFamily() == trumpf
-				&& card.getCardFamily() == trumpf) {
+		if (highestCard.getFamily() == trumpf
+				&& card.getFamily() == trumpf) {
 			// beide karten sind trumpf
 			if (getTrumpfOrderValue(highestCard) < getTrumpfOrderValue(card)) {
 				return true;
 			}
-		} else if (!(highestCard.getCardFamily() == trumpf)
-				&& card.getCardFamily() == trumpf) {
+		} else if (!(highestCard.getFamily() == trumpf)
+				&& card.getFamily() == trumpf) {
 			// nur secondcard ist trumpf
 			return true;
-		} else if (highestCard.getCardFamily() == trumpf
-				&& !(card.getCardFamily() == trumpf)) {
+		} else if (highestCard.getFamily() == trumpf
+				&& !(card.getFamily() == trumpf)) {
 			// nur highestcard ist trumpf
 			return false;
 		} else {
 			// beide kein trumpf
-			if (highestCard.getCardFamily() == card.getCardFamily()) {
+			if (highestCard.getFamily() == card.getFamily()) {
 				// aber von der gleichen famile
 				if (highestCard.getOrderValue() < card.getOrderValue()) {
 					return true;
@@ -87,24 +95,24 @@ public class Trumpf extends ISpielart {
 
 	public int getTrumpfOrderValue(Card card) {
 
-		switch (card.getCardValue()) {
-		case Sechs:
+		switch (card.getValue()) {
+		case SECHS:
 			return 6;
-		case Sieben:
+		case SIEBEN:
 			return 7;
-		case Acht:
+		case ACHT:
 			return 8;
-		case Zehn:
+		case ZEHN:
 			return 10;
-		case Dame:
+		case DAME:
 			return 11;
-		case Koenig:
+		case KOENIG:
 			return 12;
-		case Ass:
+		case ASS:
 			return 13;
-		case Neun:
+		case NEUN:
 			return 14;
-		case Bauer:
+		case BAUER:
 			return 15;
 		}
 		return 0;
@@ -115,7 +123,7 @@ public class Trumpf extends ISpielart {
 	}
 
 	@Override
-	public boolean isPlayedCardVaild(ISpieler spl, Card layedCard, Round r) {
+	public boolean isPlayedCardVaild(User spl, Card layedCard, Round r) {
 
 		if(!spl.getCards().contains(layedCard))
 			return false;
@@ -125,17 +133,17 @@ public class Trumpf extends ISpielart {
 
 		Card firstcard = r.getCards().get(0);
 
-		if (firstcard.getCardFamily() == layedCard.getCardFamily())
+		if (firstcard.getFamily() == layedCard.getFamily())
 			return true;
 
 		// user hat nicht die gleiche karte gelegt wie ausgegben wurde
-		if (firstcard.isSameFamily(this.trumpf)) {
+		if (isSameFamily(firstcard,this.trumpf)) {
 			int anztrumpf = 0;
 			boolean hasBuur = false;
 			for (Card c : spl.getCards()) {
-				if (c.isSameFamily(this.trumpf)) {
+				if (isSameFamily(c,this.trumpf)) {
 					anztrumpf++;
-					if (c.getCardValue() == Card.CardValue.Bauer) {
+					if (c.getValue() == CardValue.BAUER) {
 						// user hat trumpfbauer
 						hasBuur = true;
 					}
@@ -159,13 +167,13 @@ public class Trumpf extends ISpielart {
 		// ausgespielte karte ist nicht trumpf und user hat cardfamily der
 		// ersten karte in der hat
 		// diese aber nicht gespielt und auch kein trumpf gespielt
-		if (spl.hasCardOfFamily(firstcard.getCardFamily())
-				&& !layedCard.isSameFamily(trumpf))
+		if (hasCardOfFamily(spl.getCards(),firstcard.getFamily())
+				&& !isSameFamily(layedCard,trumpf))
 			return false;
 		// falls er trumpf gespielt hat darf er nicht anderer spieler untertrumpfen
-		if (layedCard.isSameFamily(trumpf)) {
+		if (isSameFamily(layedCard,trumpf)) {
 			for (int i = 1; i < r.getCards().size(); i++) {
-				if (r.getCards().get(i).isSameFamily(trumpf)
+				if (isSameFamily(r.getCards().get(i),trumpf)
 						&& getTrumpfOrderValue(r.getCards().get(i)) > getTrumpfOrderValue(layedCard)) {
 					// user hat spieler i unter trumpft, nicht gueltig
 					return false;
@@ -181,11 +189,10 @@ public class Trumpf extends ISpielart {
 	@Override
 	public int getQualifier() {
 		//schwarz doppelt, rot einfach
-		return (this.trumpf == Card.CardFamily.Schaufel || this.trumpf == Card.CardFamily.Kreuz) ? 2 : 1;
+		return (this.trumpf == CardFamily.SCHAUFEL || this.trumpf == CardFamily.KREUZ) ? 2 : 1;
 	}
 
 	public CardFamily getCardFamily() {
 		return this.trumpf;
 	}
-
 }

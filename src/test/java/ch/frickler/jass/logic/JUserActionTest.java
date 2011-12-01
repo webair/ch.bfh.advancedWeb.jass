@@ -4,7 +4,10 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import ch.frickler.jass.logic.Card.CardFamily;
-import ch.frickler.jass.logic.definitions.ISpieler;
+import ch.frickler.jass.logic.definitions.User;
+import ch.frickler.jass.service.Obenabe;
+import ch.frickler.jass.service.Trumpf;
+import ch.frickler.jass.service.Ungeufe;
 
 public class JUserActionTest  extends BaseTest {
 
@@ -73,7 +76,7 @@ public class JUserActionTest  extends BaseTest {
 		
 		Assert.assertEquals(Spiel.GameState.Play,p.getState());
 		
-		ISpieler one = p.getAllSpieler().get(0);
+		User one = p.getAllSpieler().get(0);
 		
 		Card c = one.getCards().get(0);
 		

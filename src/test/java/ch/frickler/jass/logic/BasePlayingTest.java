@@ -8,7 +8,9 @@ import org.junit.Test;
 import ch.frickler.jass.logic.Card.CardFamily;
 import ch.frickler.jass.logic.Card.CardValue;
 import ch.frickler.jass.logic.definitions.ISpielart;
-import ch.frickler.jass.logic.definitions.ISpieler;
+import ch.frickler.jass.logic.definitions.User;
+import ch.frickler.jass.service.Obenabe;
+import ch.frickler.jass.service.Trumpf;
 
 
 public class BasePlayingTest extends BaseTest {
@@ -21,12 +23,12 @@ public class BasePlayingTest extends BaseTest {
 		
 		f.setSpielart(new Obenabe());
 		
-		for(ISpieler spl : p.getAllSpieler()){
+		for(User spl : p.getAllSpieler()){
 			Card c =((JUALayCard)spl.forcePlay(f)).getCard();
 			p.playCard(spl, c);
 		}
 		
-		for(ISpieler spl : p.getAllSpieler()){
+		for(User spl : p.getAllSpieler()){
 			Assert.assertEquals(8,spl.getCards().size());
 		}
 		int doneCards = p.getTeams().get(0).getCards().size() +p.getTeams().get(1).getCards().size();
@@ -42,7 +44,7 @@ public class BasePlayingTest extends BaseTest {
 		Round f = p.getRound();
 		
 		for(int i = 0;i < 9;i++){
-			for(ISpieler spl : p.getAllSpieler()){
+			for(User spl : p.getAllSpieler()){
 				Card c = ((JUALayCard)spl.forcePlay(f)).getCard();
 				p.playCard(spl, c);
 			}
@@ -53,7 +55,7 @@ public class BasePlayingTest extends BaseTest {
 		}
 		
 		
-		for(ISpieler spl : p.getAllSpieler()){
+		for(User spl : p.getAllSpieler()){
 			Assert.assertEquals(0,spl.getCards().size());
 		}
 		
@@ -67,13 +69,13 @@ public class BasePlayingTest extends BaseTest {
 		Spiel p = GetSpiel(new Obenabe());
 		Round f = p.getRound();
 		f.setSpielart(new Obenabe());
-		List<ISpieler> sp =	p.getAllSpieler();
+		List<User> sp =	p.getAllSpieler();
 		sp.get(0).addCard(new Card(CardValue.Neun,CardFamily.Herz));
 		sp.get(1).addCard(new Card(CardValue.Sechs,CardFamily.Herz));
 		sp.get(2).addCard(new Card(CardValue.Koenig,CardFamily.Herz));
 		sp.get(3).addCard(new Card(CardValue.Ass,CardFamily.Herz));
 		
-		for(ISpieler spl : p.getAllSpieler()){
+		for(User spl : p.getAllSpieler()){
 			Card c = ((JUALayCard)spl.forcePlay(f)).getCard();
 			f.addCard(c);
 		}
@@ -92,13 +94,13 @@ public class BasePlayingTest extends BaseTest {
 		Spiel p = GetSpiel(new Trumpf(CardFamily.Herz));
 		Round f = p.getRound();
 		
-		List<ISpieler> sp =	p.getAllSpieler();
+		List<User> sp =	p.getAllSpieler();
 		sp.get(0).addCard(new Card(CardValue.Sieben,CardFamily.Herz));
 		sp.get(1).addCard(new Card(CardValue.Ass,CardFamily.Herz));
 		sp.get(2).addCard(new Card(CardValue.Sechs,CardFamily.Herz));
 		sp.get(3).addCard(new Card(CardValue.Bauer,CardFamily.Herz));
 		
-		for(ISpieler spl : p.getAllSpieler()){
+		for(User spl : p.getAllSpieler()){
 			Card c = ((JUALayCard)spl.forcePlay(f)).getCard();
 			f.addCard(c);
 		}
@@ -121,7 +123,7 @@ public class BasePlayingTest extends BaseTest {
 		Spiel p = GetSpiel(new Obenabe());
 		Round f = p.getRound();
 		
-		List<ISpieler> sp =	p.getAllSpieler();
+		List<User> sp =	p.getAllSpieler();
 		sp.get(0).addCard(new Card(CardValue.Neun,CardFamily.Herz));
 		sp.get(1).addCard(new Card(CardValue.Sechs,CardFamily.Herz));
 		sp.get(2).addCard(new Card(CardValue.Koenig,CardFamily.Herz));
@@ -132,21 +134,21 @@ public class BasePlayingTest extends BaseTest {
 		sp.get(2).addCard(new Card(CardValue.Koenig,CardFamily.Egge));
 		sp.get(3).addCard(new Card(CardValue.Sechs,CardFamily.Egge));
 		
-		for(ISpieler spl : p.getAllSpielerSorted(null)){
+		for(User spl : p.getAllSpielerSorted(null)){
 			Card c = ((JUALayCard)spl.forcePlay(f)).getCard();
 			p.playCard(spl, c);
 		}
 		
-		ISpieler pSticher = p.placeStich(f.getCards());
+		User pSticher = p.placeStich(f.getCards());
 		f.removeCards();
 		Assert.assertEquals(sp.get(3), pSticher);
 		
-		for(ISpieler spl : p.getAllSpielerSorted(pSticher)){
+		for(User spl : p.getAllSpielerSorted(pSticher)){
 			Card c = ((JUALayCard)spl.forcePlay(f)).getCard();
 			f.addCard(c);
 		}
 		
-		ISpieler pSticher2 = p.placeStich(f.getCards());
+		User pSticher2 = p.placeStich(f.getCards());
 		f.removeCards();
 		
 		Assert.assertEquals(sp.get(2), pSticher2);

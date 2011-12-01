@@ -6,6 +6,9 @@ import org.junit.Test;
 import ch.frickler.jass.logic.Card.CardFamily;
 import ch.frickler.jass.logic.Card.CardValue;
 import ch.frickler.jass.logic.definitions.ISpielart;
+import ch.frickler.jass.service.Obenabe;
+import ch.frickler.jass.service.Trumpf;
+import ch.frickler.jass.service.Ungeufe;
 
 
 public class SpielartTest {

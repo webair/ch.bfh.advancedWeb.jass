@@ -5,7 +5,8 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 
-import ch.frickler.jass.logic.Spiel;
+import ch.frickler.jass.db.entity.Game;
+
 
 @ManagedBean
 public class GameOverviewBean {
@@ -18,7 +19,7 @@ public class GameOverviewBean {
 		// TODO first, add a game id, second this is pretty stupid
 		List<GameBean> list = new ArrayList<GameBean>();
 		int i=1;
-		for (Spiel s : GameManager.getInstance().getAvailableGames()) {
+		for (Game s : GameManager.getInstance().getAvailableGames()) {
 			GameBean game = new GameBean();
 			game.setName(s.getName());
 			game.setId(i++);

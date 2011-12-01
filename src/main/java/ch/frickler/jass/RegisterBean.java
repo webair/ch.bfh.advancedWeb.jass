@@ -10,6 +10,7 @@ import javax.persistence.Query;
 
 import ch.frickler.jass.db.entity.User;
 import ch.frickler.jass.helper.MessageHelper;
+import ch.frickler.jass.service.UserService;
 
 @ManagedBean
 @RequestScoped
@@ -114,11 +115,13 @@ public class RegisterBean {
 
 		em.getTransaction().begin();
 
-		User u = new User(username, passwordOne, nick);
-		if (nick != null && nick.length() > 0)
-			u.setName(nick);
-		else
-			u.setName(username);
+		UserService  u = new UserService();
+		
+		if (nick == null || nick.length() == 0)
+			nick = username;
+		
+		u.createSpieler(username, passwordOne, nick,false);
+		
 
 		em.merge(u);
 		em.getTransaction().commit();

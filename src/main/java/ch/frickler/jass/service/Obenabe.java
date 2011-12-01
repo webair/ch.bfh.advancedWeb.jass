@@ -1,10 +1,15 @@
-package ch.frickler.jass.logic;
+package ch.frickler.jass.service;
 
 
 import java.util.List;
 
+
+import ch.frickler.jass.db.entity.Card;
+import ch.frickler.jass.db.entity.Round;
+import ch.frickler.jass.db.entity.User;
+import ch.frickler.jass.db.enums.CardFamily;
 import ch.frickler.jass.logic.definitions.ISpielart;
-import ch.frickler.jass.logic.definitions.ISpieler;
+
 
 public class Obenabe extends ISpielart {
 
@@ -17,24 +22,24 @@ public class Obenabe extends ISpielart {
 	
 	@Override
 	protected int getPoint(Card card) {
-		switch(card.getCardValue()){
-		case Sechs:
+		switch(card.getValue()){
+		case SECHS:
 			return 0;
-		case Sieben:
+		case SIEBEN:
 			return 0;
-		case Acht:
+		case ACHT:
 			return 8;
-		case Neun:
+		case NEUN:
 			return 0;
-		case Zehn:
+		case ZEHN:
 			return 10;
-		case Bauer:
+		case BAUER:
 			return 2;
-		case Dame:
+		case DAME:
 			return 3;
-		case Koenig:
+		case KOENIG:
 			return 4;
-		case Ass:
+		case ASS:
 			return 11;
 		}
 		return 0;
@@ -43,7 +48,7 @@ public class Obenabe extends ISpielart {
 	@Override
 	public boolean isSecondCardHigher(Card highestCard, Card card) {
 		
-		if(highestCard.getCardFamily() == card.getCardFamily()){
+		if(isSameFamily(highestCard,card.getFamily())){
 			if(highestCard.getOrderValue() < card.getOrderValue())
 				return true;
 		}
@@ -55,23 +60,25 @@ public class Obenabe extends ISpielart {
 		}
 
 	@Override
-	public boolean isPlayedCardVaild(ISpieler spl, Card layedCard, Round r) {
+	public boolean isPlayedCardVaild(User spl, Card layedCard, Round r) {
 		
 		if(r.getCards().size() == 0)
 			return true;
 		
 		Card firstcard = r.getCards().get(0);
 		
-		if(firstcard.getCardFamily() == layedCard.getCardFamily())
+		if(isSameFamily(firstcard,layedCard.getFamily()))
 			return true;
 		
 		
-		if(spl.hasCardOfFamily(firstcard.getCardFamily()))
+		if(hasCardOfFamily(spl.getCards(),firstcard.getFamily()))
 				return false;
 		
 		return true;
 	}
 	
+
+
 	@Override
 	public int getQualifier() {
 		return 3; 

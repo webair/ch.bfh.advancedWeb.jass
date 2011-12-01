@@ -4,9 +4,12 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import ch.frickler.jass.db.entity.Game;
+import ch.frickler.jass.db.entity.Game.GameState;
 import ch.frickler.jass.db.entity.User;
-import ch.frickler.jass.logic.Spiel;
-import ch.frickler.jass.logic.Spieler;
+import ch.frickler.jass.service.GameService;
+import ch.frickler.jass.service.UserService;
+
 
 public class GameManager {
 
@@ -16,8 +19,8 @@ public class GameManager {
 	private static GameManager instance;
 
 	private Long currentwaitingGameMapIndex = 1L;
-	private Map<Long, Spiel> waitingGameMap = new HashMap<Long, Spiel>();
-	private Map<Long, Spiel> activeGames = new HashMap<Long, Spiel>();
+	private Map<Long, Game> waitingGameMap = new HashMap<Long, Game>();
+	private Map<Long, Game> activeGames = new HashMap<Long, Game>();
 	
 	private GameManager() {
 
@@ -39,15 +42,15 @@ public class GameManager {
 	 * @return this games "gameTicket" (use it to start the game)
 	 */
 	public long createGame(String name, int winPoints) {
-		Spiel s = new Spiel(name);
-		s.setWinPoints(winPoints);
-
-		waitingGameMap.put(currentwaitingGameMapIndex, s);
+		GameService s = new GameService();
+		Game g = s.createGame(name, winPoints);
+		
+		waitingGameMap.put(currentwaitingGameMapIndex, g);
 		return currentwaitingGameMapIndex++;
 	}
 
 	public void addUserToGame(User u, Long gameTicket) {
-		Spiel s = waitingGameMap.get(gameTicket);
+		Game s = waitingGameMap.get(gameTicket);
 		// TODO we need a class extends ISpieler
 //		if (s != null)
 //			s.addSpieler(u);
@@ -59,8 +62,14 @@ public class GameManager {
 	 * @return
 	 */
 	public boolean gameIsReady(Long gameId) {
-		Spiel s = waitingGameMap.get(gameId);
-		return (s != null && s.getAllSpieler().size() == 4);
+		GameService s = getGameService(waitingGameMap.get(gameId));
+		return (s.getState() == GameState.RediForPlay);
+	}
+
+	private GameService getGameService(Game game) {
+		GameService gs = new GameService();
+		gs.loadGame(game.getId());
+		return gs;
 	}
 
 	/**
@@ -69,19 +78,24 @@ public class GameManager {
 	 * @return
 	 */
 	public Long startGame(Long gameTicket){
-		Spiel s = waitingGameMap.remove(gameTicket);
-		if(s==null)
+		Game g = waitingGameMap.remove(gameTicket);
+		
+		if(g==null)
 			return -1L;
 		
-		// fill the game with computer players
-		while(s.getAllSpieler().size() < 4)
-			s.addSpieler(new Spieler("a bot"));
+		GameService gs = getGameService(g);
 		
-		activeGames.put(gameTicket, s);
+		// fill the game with computer players
+		while(gs.getState() == GameState.WaitForPlayers){
+			UserService s = new UserService();
+			gs.addSpieler(s.createSpieler("a bot"));
+		}
+		
+		activeGames.put(gameTicket, g);
 		return gameTicket; // TODO should be the db id...
 	}
 
-	public Collection<Spiel> getAvailableGames(){
+	public Collection<Game> getAvailableGames(){
 		return waitingGameMap.values();
 	}
 	

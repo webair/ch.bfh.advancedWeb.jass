@@ -1,6 +1,9 @@
 package ch.frickler.jass.db.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,8 +12,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
 
 /**
  * Entity implementation class for Entity: Team
@@ -38,6 +44,16 @@ public class Team implements Serializable {
 	@Column(name = "POINTS", nullable = false)
 	private Integer points;
 
+	@Column(name = "NAME", nullable = false)
+	private String name;
+	
+
+    @ManyToMany
+    @JoinTable(name="WON_CARDS")
+    public List<Card> getWonCards() { return woncards; }
+	
+    private List<Card> woncards = new ArrayList<Card>();
+	
 	public Team() {
 		super();
 	}	
@@ -47,6 +63,12 @@ public class Team implements Serializable {
 		this.user1 = user1;
 		this.user2 = user2;
 	}
+	
+	public Team(User user1) {
+		super();
+		this.user1 = user1;
+	}
+
 
 
 
@@ -81,5 +103,49 @@ public class Team implements Serializable {
 	public void setPoints(Integer points) {
 		this.points = points;
 	}
+
+	public List<User> getUsers(){
+		List<User> users = new ArrayList<User>();
+			if(user1 != null) users.add(user1);
+			if(user2 != null) users.add(user2);
+			return users;
+	}
+
+
+	public boolean isUserInTeam(User user) {
+		return getUsers().contains(user);
+	}
+
+	public void addUser(User newuser) {
+		if(user1 == null)
+			user1 = newuser;
+		if(user2 == null)
+			user2 = newuser;
+		else
+			throw new RuntimeException("tried to add a third user for this team");
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void addPoints(int i) {
+		this.points += i;
+	}
+
+	public void addCard(List<Card> cards) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void clearCards() {
+		woncards = new ArrayList<Card>();
+		
+	}
+
 
 }

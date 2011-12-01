@@ -1,11 +1,15 @@
 package ch.frickler.jass.db.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,6 +21,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+
+
 /**
  * Entity implementation class for Entity: Game
  * 
@@ -26,6 +32,8 @@ import javax.persistence.TemporalType;
 public class Game implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	public static final int MAXUSER = 4;
+	public static final int TEAMAMOUNT = 2;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -49,6 +57,18 @@ public class Game implements Serializable {
 
 	@Column(name = "WINPOINTS", nullable = false)
 	private Integer winPoints;
+		
+	@Column(name = "CALLER", nullable = false)
+	private int callerId;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name="GameState", nullable=false)
+	private GameState gameState;
+	
+	public static enum GameState  {WaitForPlayers, Play, Ansage, AnsageGschobe, Terminated, RediForPlay, WaitForCards}
+
+
+	
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "START_DATE", nullable = false)
@@ -89,17 +109,12 @@ public class Game implements Serializable {
 		this.name = name;
 	}
 
-	public Team getTeam1() {
-		return team1;
-	}
 
 	public void setTeam1(Team team1) {
 		this.team1 = team1;
 	}
 
-	public Team getTeam2() {
-		return team2;
-	}
+
 
 	public void setTeam2(Team team2) {
 		this.team2 = team2;
@@ -135,6 +150,48 @@ public class Game implements Serializable {
 
 	public void setNextAnnouncer(User nextAnnouncer) {
 		this.nextAnnouncer = nextAnnouncer;
+	}
+
+	public int getCallerId() {
+		return callerId;
+	}
+
+	public void setCallerId(int callerId) {
+		this.callerId = callerId;
+	}
+
+	public GameState getGameState() {
+		return gameState;
+	}
+
+	public void setGameState(GameState gameState) {
+		this.gameState = gameState;
+	}
+
+
+	public Team getTeam(int i) {
+		return getTeams().get(i);	
+	}
+
+	public int getTeamAmount() {
+		return getTeams().size();
+	}
+
+	public void addTeam(Team team) {
+		if(team1 == null)
+			setTeam1(team);
+		else if(team2 == null)
+			setTeam2(team);
+		else
+			throw new RuntimeException("not possible to add third team");
+	}
+
+	public List<Team> getTeams() {
+		
+		List<Team> teams = new ArrayList<Team>();
+		if(team1 != null) teams.add(team1);
+		if(team2 != null) teams.add(team2);
+		return teams;
 	}
 
 }

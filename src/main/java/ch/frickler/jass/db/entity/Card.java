@@ -26,6 +26,8 @@ public class Card implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	public static final int TOTALCARD = 36;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID_CARD")

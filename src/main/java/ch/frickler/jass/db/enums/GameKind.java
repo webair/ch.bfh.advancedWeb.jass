@@ -1,5 +1,5 @@
 package ch.frickler.jass.db.enums;
 
 public enum GameKind {
-	TOPDOWN, BOTTOMUP, TRUMP
+	TOPDOWN, BOTTOMUP, TRUMPHeart, TRUMPCross, TRUMPBucket,TRUMPEdge
 }
