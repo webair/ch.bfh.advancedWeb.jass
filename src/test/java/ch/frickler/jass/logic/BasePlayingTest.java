@@ -11,7 +11,7 @@ import ch.frickler.jass.logic.definitions.ISpielart;
 import ch.frickler.jass.logic.definitions.ISpieler;
 
 
-public class BasePlayingTest {
+public class BasePlayingTest extends BaseTest {
 
 	@Test
 	public void EveryPlayerOneCard() throws Exception {
@@ -19,32 +19,37 @@ public class BasePlayingTest {
 		Spiel p = GetVerteiltesSpiel(new Obenabe());
 		Round f = p.getRound();
 		
+		f.setSpielart(new Obenabe());
+		
 		for(ISpieler spl : p.getAllSpieler()){
 			Card c =((JUALayCard)spl.forcePlay(f)).getCard();
-			f.addCard(c);
+			p.playCard(spl, c);
 		}
 		
 		for(ISpieler spl : p.getAllSpieler()){
 			Assert.assertEquals(8,spl.getCards().size());
 		}
-		
-		Assert.assertEquals(4,f.getCards().size());
+		int doneCards = p.getTeams().get(0).getCards().size() +p.getTeams().get(1).getCards().size();
+		Assert.assertEquals(4,doneCards);
 
 	}
 	
 	@Test
 	public void cardsAfterPlayingOneRound() throws Exception {
-	
-		Spiel p = GetVerteiltesSpiel(new Obenabe());
+		ISpielart sart = new Obenabe();
+		Spiel p = GetVerteiltesSpiel(sart);
 		
 		Round f = p.getRound();
 		
 		for(int i = 0;i < 9;i++){
 			for(ISpieler spl : p.getAllSpieler()){
 				Card c = ((JUALayCard)spl.forcePlay(f)).getCard();
-				f.addCard(c);
+				p.playCard(spl, c);
 			}
-			p.placeStich(f.getCards());
+			if(i != 8){
+				int doneCards = p.getTeams().get(0).getCards().size() +p.getTeams().get(1).getCards().size();
+				Assert.assertEquals((i+1)*4,doneCards);
+			}
 		}
 		
 		
@@ -52,7 +57,8 @@ public class BasePlayingTest {
 			Assert.assertEquals(0,spl.getCards().size());
 		}
 		
-		Assert.assertEquals(36,f.getCards().size());
+		int donePoints = p.getTeams().get(0).getPoints() +p.getTeams().get(1).getPoints();
+		Assert.assertEquals(donePoints,157*sart.getQualifier());
 		
 	}
 
@@ -60,7 +66,7 @@ public class BasePlayingTest {
 	public void StichAfterOneRound1() throws Exception{
 		Spiel p = GetSpiel(new Obenabe());
 		Round f = p.getRound();
-		
+		f.setSpielart(new Obenabe());
 		List<ISpieler> sp =	p.getAllSpieler();
 		sp.get(0).addCard(new Card(CardValue.Neun,CardFamily.Herz));
 		sp.get(1).addCard(new Card(CardValue.Sechs,CardFamily.Herz));
@@ -108,33 +114,7 @@ public class BasePlayingTest {
 	}
 	
 	
-	public Spiel GetSpiel(ISpielart spielart) throws Exception{
-		Spiel p = new Spiel("a");
-		Round round = new Round(spielart);
-		p.SetRound(round);
-		Spieler p1 = new Spieler();
-		Spieler p2 = new Spieler();
-		Spieler p3 = new Spieler();
-		Spieler p4 = new Spieler();
 
-		try {
-			p.addSpieler(p1);
-			p.addSpieler(p2);
-			p.addSpieler(p3);
-			p.addSpieler(p4);
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
-		}
-		return p;
-	}
-
-	public Spiel GetVerteiltesSpiel(ISpielart spielart) throws Exception{
-		Spiel p = GetSpiel(spielart);
-		KartenVerteilAction kva = new KartenVerteilAction(null);
-		kva.doAction(p);
-		return p;
-	}
 	
 	@Test
 	public void AusspielerTest() throws Exception{
@@ -154,7 +134,7 @@ public class BasePlayingTest {
 		
 		for(ISpieler spl : p.getAllSpielerSorted(null)){
 			Card c = ((JUALayCard)spl.forcePlay(f)).getCard();
-			f.addCard(c);
+			p.playCard(spl, c);
 		}
 		
 		ISpieler pSticher = p.placeStich(f.getCards());

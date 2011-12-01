@@ -20,27 +20,14 @@ public class KartenVerteilAction extends IUserAction {
 	@Override
 	public boolean doAction(Spiel spiel) {
 
-		List<Card> allCards = new ArrayList<Card>();
-
-		for (Card.CardFamily family : Card.CardFamily.values()) {
-			for (Card.CardValue value : Card.CardValue.values()) {
-				allCards.add(new Card(value, family));
-			}
-		}
-		Collections.shuffle(allCards);
-		
-		while(!allCards.isEmpty()){
-			for(ISpieler spieler : spiel.getAllSpieler()){
-				spieler.addCard(allCards.remove(0));
-			}
-		}
-		return true;	
+		spiel.kartenVerteilen();
+		return true;
 	}
 
 	@Override
 	public boolean isActionPossible(Spiel game) {
 		// TODO Auto-generated method stub
-		return false;
+		return (game.getState() == Spiel.GameState.WaitForCards);
 	}
 	
 

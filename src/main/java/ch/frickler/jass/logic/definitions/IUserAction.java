@@ -8,7 +8,7 @@ public abstract class IUserAction {
 	protected ISpieler user;
 	
 	public IUserAction(ISpieler user){
-		user = this.user;
+		this.user = user;
 	}
 	
 	public abstract boolean doAction(Spiel spiel);

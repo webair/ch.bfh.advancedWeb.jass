@@ -29,8 +29,10 @@ public class Round {
 		return ausSpieler;
 	}
 	public void setSpielart(ISpielart spielart) {
+		if(spielart != null){
 		System.out.println("Spielart selected: "+spielart.toString());
 		this.spielart = spielart;		
+		}
 	}
 	
 	public ISpielart getSpielart(){
@@ -64,6 +66,10 @@ public class Round {
 
 	public boolean hasUserStoeck(ISpieler user) {
 		return user.equals(spielerWithStoeck);
+	}
+
+	public void nextPlayer(ISpieler iSpieler) {
+		currentSpieler = iSpieler;
 	}
 	
 }
