@@ -6,10 +6,8 @@ import java.lang.String;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.List;
 
 import javax.persistence.*;
-
 
 /**
  * Entity implementation class for Entity: User TODO crypt password
@@ -34,27 +32,16 @@ public class User implements Serializable {
 	@Column(name = "NAME", nullable = false)
 	private String name;
 
-	@Column(name = "ROBOT", nullable = false)
-	private boolean isRobot;
-	
-    @ManyToMany
-    @JoinTable(name="USER_CARDS")
-    public List<Card> getLayingCards() { return cards; }
-	
-    private List<Card> cards;
-	
 	public User() {
 		super();
 	}
 
-	public User(String userName, String password, String name, boolean b) {
+	public User(String userName, String password, String name) {
 		super();
 		this.userName = userName;
 		this.password = User.cryptPw(password);
 		this.name = name;
-		this.isRobot = b;
 	}
-
 
 	public String getUserName() {
 		return this.userName;
@@ -108,27 +95,5 @@ public class User implements Serializable {
 			// wont happen either
 		}
 		return null;
-	}
-
-	public List<Card> getCards() {
-		return cards;
-	}
-
-	public void removeCard(Card layedCard) {
-		cards.remove(layedCard);
-		
-	}
-
-	public void addCard(Card newcard) {
-		this.cards.add(newcard);
-		
-	}
-
-	public boolean isRobot() {
-		return isRobot;
-	}
-
-	public void setRobot(boolean isRobot) {
-		this.isRobot = isRobot;
 	}
 }
