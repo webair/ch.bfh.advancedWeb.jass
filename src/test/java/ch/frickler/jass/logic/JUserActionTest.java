@@ -84,6 +84,8 @@ public class JUserActionTest  extends BaseTest {
 		
 		Assert.assertTrue(playCard.isActionPossible(p));
 		Assert.assertFalse(wrongCard.isActionPossible(p));
+		
+		
 	}
 	
 	
