@@ -293,6 +293,7 @@ public class Spiel {
 	public void initGame(){
 		initNewRound();
 		this.currentRound.setAusspieler(getAllSpieler().get(0));
+		this.currentRound.nextPlayer(getAllSpieler().get(0));
 	}
 	
 	 public void initNewRound() {

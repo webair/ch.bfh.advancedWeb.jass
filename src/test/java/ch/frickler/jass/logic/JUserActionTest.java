@@ -3,6 +3,9 @@ package ch.frickler.jass.logic;
 import org.junit.Assert;
 import org.junit.Test;
 
+import ch.frickler.jass.logic.Card.CardFamily;
+import ch.frickler.jass.logic.definitions.ISpieler;
+
 public class JUserActionTest  extends BaseTest {
 
 	
@@ -46,12 +49,43 @@ public class JUserActionTest  extends BaseTest {
 		Assert.assertTrue(ansageP1.isActionPossible(p));
 		Assert.assertFalse(ansageP1NoSpielart.isActionPossible(p));
 		JUAAnsagen ansageP2 = new JUAAnsagen(p2,new Ungeufe());
-		Assert.assertFalse(ansageP2.isActionPossible(p));
-		
-		
+		Assert.assertFalse(ansageP2.isActionPossible(p));	
 		
 
 	}
+	
+	
+	@Test
+	public void AnsageTest() throws Exception {
+		
+		
+		Spiel p = GetVerteiltesSpiel(null);			
+		Assert.assertEquals(Spiel.GameState.Ansage,p.getState());
+		
+		JUAAnsagen ansagen = new JUAAnsagen(p.getAllSpieler().get(0),new Trumpf(CardFamily.Egge));
+		
+		Assert.assertTrue(ansagen.isActionPossible(p));
+		
+		ansagen.doAction(p);
+		
+		Assert.assertTrue(p.getRound().getSpielart() instanceof Trumpf);
+		
+		
+		Assert.assertEquals(Spiel.GameState.Play,p.getState());
+		
+		ISpieler one = p.getAllSpieler().get(0);
+		
+		Card c = one.getCards().get(0);
+		
+		JUALayCard playCard = new JUALayCard(one,c);
+		
+		JUALayCard wrongCard = new JUALayCard(one,p.getAllSpieler().get(1).getCards().get(0));
+		
+		
+		Assert.assertTrue(playCard.isActionPossible(p));
+		Assert.assertFalse(wrongCard.isActionPossible(p));
+	}
+	
 	
 	
 }

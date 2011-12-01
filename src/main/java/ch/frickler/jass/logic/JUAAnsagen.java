@@ -22,7 +22,8 @@ public class JUAAnsagen extends IUserAction {
 	@Override
 	public boolean doAction(Spiel spiel) {
 		spiel.getRound().setSpielart(spielart);
-		return false;
+		spiel.setGameState(Spiel.GameState.Play);
+		return true;
 	}
 
 	@Override

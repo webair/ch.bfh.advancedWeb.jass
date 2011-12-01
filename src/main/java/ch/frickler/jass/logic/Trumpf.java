@@ -117,6 +117,9 @@ public class Trumpf extends ISpielart {
 	@Override
 	public boolean isPlayedCardVaild(ISpieler spl, Card layedCard, Round r) {
 
+		if(!spl.getCards().contains(layedCard))
+			return false;
+		
 		if (r.getCards().size() == 0)
 			return true;
 
