@@ -16,7 +16,7 @@ public class ConsoleJass {
 
 	static public void main(String[] argv) {
 		ISpielart spielart = new Trumpf(Card.CardFamily.Egge);
-		Spiel game = new Spiel();
+		Spiel game = new Spiel("u");
 		game.setWinPoints(1000);
 		Round round = new Round(spielart);
 		game.SetRound(round);

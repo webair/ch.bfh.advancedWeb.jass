@@ -6,7 +6,7 @@ public class BaseTest {
 
 	
 	public Spiel GetSpiel(ISpielart spielart) throws Exception{
-		Spiel p = new Spiel();
+		Spiel p = new Spiel("u");
 		Round round = new Round(spielart);
 		p.SetRound(round);
 		

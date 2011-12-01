@@ -12,7 +12,7 @@ public class SpielTest {
 	@Test
 	public void getAllSpielerSortedTest() throws Exception {
 	
-		Spiel p = new Spiel();
+		Spiel p = new Spiel("a");
 		Spieler t1p2 = new Spieler("T1 P2");
 		Spieler t2p2 = new Spieler("T2 P2");
 		p.addSpieler(new Spieler("T1 P1"));

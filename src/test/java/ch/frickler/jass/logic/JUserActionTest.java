@@ -14,7 +14,7 @@ public class JUserActionTest  extends BaseTest {
 	@Test
 	public void InitTest() throws Exception {
 	
-		Spiel p = new Spiel();
+		Spiel p = new Spiel("u");
 			
 		Assert.assertEquals(Spiel.GameState.WaitForPlayers,p.getState());
 		
