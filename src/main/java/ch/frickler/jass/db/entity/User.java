@@ -6,6 +6,8 @@ import java.lang.String;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -46,11 +48,12 @@ public class User implements Serializable {
 		super();
 	}
 
-	public User(String userName, String password, String name) {
+	public User(String userName, String password, String name, boolean robot) {
 		super();
 		this.userName = userName;
 		this.password = User.cryptPw(password);
 		this.name = name;
+		this.isRobot = robot;
 	}
 
 	public String getUserName() {
@@ -105,5 +108,24 @@ public class User implements Serializable {
 			// wont happen either
 		}
 		return null;
+	}
+
+	public List<Card> getCards() {
+		// TODO Auto-generated method stub
+		return cards;
+	}
+
+	public void removeCard(Card layedCard) {
+		cards = new ArrayList<Card>();
+		
+	}
+
+	public void addCard(Card card) {
+		cards.add(card);
+		
+	}
+
+	public boolean isRobot() {
+		return isRobot;
 	}
 }

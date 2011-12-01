@@ -85,5 +85,9 @@ public class UserService extends PersistanceService {
 		}
 	}
 
+	public User createSpieler(String string) {
+		return createSpieler(string,string,string,true);
+	}
 }
->>>>>>> a6c053902a97266e3e20d77bd94bc1ad0e7a1632
+
+
