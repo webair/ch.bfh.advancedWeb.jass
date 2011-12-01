@@ -239,17 +239,23 @@ public class Spiel {
 				}
 				finishStich();
 			}
-			doAbrechnungForRound(r);
+			finishRound(r);
 
 		} catch (Exception ex) {
 			System.out.print(ex.getMessage());
 
 		}
-		this.ansager = ++this.ansager % this.getAllSpieler().size();
 		return RoundResult.Finshed;
+
 	}
 
-	private void doAbrechnungForRound(Round r) {
+	private void finishRound(Round r) {
+		doAbrechnung(r);	
+		this.ansager = ++this.ansager % this.getAllSpieler().size();
+		setGameState(GameState.RediForPlay);
+	}
+	
+	private void doAbrechnung(Round r) {
 		//round finished place points
 		for (Team t : this.getTeams()) {
 			int pointsTeam = currentRound.getSpielart().getPoints(
@@ -277,7 +283,7 @@ public class Spiel {
 		if(getRound().allSpielerPlayed()){
 			finishStich();
 			if(getRound().getCurrentSpieler().getCards().size() == 0){
-				doAbrechnungForRound(getRound());
+				finishRound(getRound());
 			}
 		}
 	}
