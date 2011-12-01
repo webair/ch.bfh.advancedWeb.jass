@@ -34,6 +34,7 @@ public class ConsoleJass {
 			boolean gamefinished = false;
 
 			while (!gamefinished) {
+				game.initNewRound();
 				RoundResult r = game.playRound();
 				if (r == RoundResult.QuitGame)
 					gamefinished = true;

@@ -1,6 +1,7 @@
 package ch.frickler.jass.logic;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import ch.frickler.jass.logic.Round.RoundResult;
 import ch.frickler.jass.logic.Spiel.GameState;
@@ -8,7 +9,7 @@ import ch.frickler.jass.logic.definitions.*;
 
 public class Spiel {
 
-	public static enum GameState  {WaitForPlayers, Play, Ansage, AnsageGschobe, Terminated}
+	public static enum GameState  {WaitForPlayers, Play, Ansage, AnsageGschobe, Terminated, RediForPlay, WaitForCards}
 	private static boolean gschobe = false;
 	private int spielNr;
 	private List<Team> teams = new ArrayList<Team>();
@@ -68,6 +69,8 @@ public class Spiel {
 		return tempISpieler2;
 	}
 
+	
+
 	public void addSpieler(ISpieler spieler) throws Exception {
 		if (getAllSpieler().size() >= maxISpieler)
 			throw new Exception("wft! zu viele ISpieler");
@@ -82,8 +85,13 @@ public class Spiel {
 				teams.get(1).addSpieler(spieler);
 			}
 		}
-
+		if(getAllSpieler().size() == maxISpieler){
+			initGame();
+			setGameState(Spiel.GameState.WaitForCards);		
+		}
 	}
+
+	
 
 	/*
 	 * Der Stich geht zum Team mit der hoechsten Karte die Methode gibt den
@@ -164,11 +172,9 @@ public class Spiel {
 		return this.currentRound;
 	}
 
-
 	public RoundResult playRound() throws Exception {
 
-		initNewRound();
-		
+		kartenVerteilen();
 		ISpieler spAnsager = getAnsager();
 
 		ISpielart spielart = spAnsager.sayTrumpf(true);
@@ -284,18 +290,41 @@ public class Spiel {
 		r.removeCards();
 	}
 
-	private void initNewRound() {
-		this.gschobe = false;
-		setGameState(GameState.Ansage);
-		
-		KartenVerteilAction kva = new KartenVerteilAction(null);
-		kva.doAction(this);
-		for (ISpieler spl : this.getAllSpieler()) {
-			System.out.println("Karten ISpieler " + spl.getName() + " : "
-					+ spl.getCards());
-		}
+	public void initGame(){
+		initNewRound();
+		this.currentRound.setAusspieler(getAllSpieler().get(0));
 	}
+	
+	 public void initNewRound() {
+		this.gschobe = false;
+		setGameState(Spiel.GameState.WaitForCards);
+		this.currentRound = new Round(null);
+	 } 
 
+	 public void kartenVerteilen(){
+		 List<Card> allCards = new ArrayList<Card>();
+
+			if(getAllSpieler().size() == 0){
+				new RuntimeException("cannot card verteilen, no players found");
+			}
+		 
+			for (Card.CardFamily family : Card.CardFamily.values()) {
+				for (Card.CardValue value : Card.CardValue.values()) {
+					allCards.add(new Card(value, family));
+				}
+			}
+			Collections.shuffle(allCards);
+			
+
+			
+			while(!allCards.isEmpty()){
+				for(ISpieler spieler : getAllSpieler()){
+					spieler.addCard(allCards.remove(0));
+				}
+			}
+			setGameState(Spiel.GameState.Ansage);
+	 }
+	 
 	ISpieler getAnsager() {
 		int delta = isGschobe() ? 2 : 0;
 		this.getAllSpielerSorted(null).get(ansager+delta);
@@ -362,9 +391,7 @@ public class Spiel {
 		setGameState(GameState.Terminated);
 	}
 
-
-
-	private void setGameState(GameState newState) {
+	void setGameState(GameState newState) {
 		this.gameState = newState;
 		
 	}
@@ -386,6 +413,8 @@ public class Spiel {
 		t.addPoints(Trumpf.ValueOfStoeck*getRound().getSpielart().getQualifier());
 		return false;
 	}
+
+
 	
 	
 }

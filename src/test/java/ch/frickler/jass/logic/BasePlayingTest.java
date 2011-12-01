@@ -11,13 +11,15 @@ import ch.frickler.jass.logic.definitions.ISpielart;
 import ch.frickler.jass.logic.definitions.ISpieler;
 
 
-public class BasePlayingTest {
+public class BasePlayingTest extends BaseTest {
 
 	@Test
 	public void EveryPlayerOneCard() throws Exception {
 	
 		Spiel p = GetVerteiltesSpiel(new Obenabe());
 		Round f = p.getRound();
+		
+		f.setSpielart(new Obenabe());
 		
 		for(ISpieler spl : p.getAllSpieler()){
 			Card c =((JUALayCard)spl.forcePlay(f)).getCard();
@@ -64,7 +66,7 @@ public class BasePlayingTest {
 	public void StichAfterOneRound1() throws Exception{
 		Spiel p = GetSpiel(new Obenabe());
 		Round f = p.getRound();
-		
+		f.setSpielart(new Obenabe());
 		List<ISpieler> sp =	p.getAllSpieler();
 		sp.get(0).addCard(new Card(CardValue.Neun,CardFamily.Herz));
 		sp.get(1).addCard(new Card(CardValue.Sechs,CardFamily.Herz));
@@ -112,33 +114,7 @@ public class BasePlayingTest {
 	}
 	
 	
-	public Spiel GetSpiel(ISpielart spielart) throws Exception{
-		Spiel p = new Spiel();
-		Round round = new Round(spielart);
-		p.SetRound(round);
-		Spieler p1 = new Spieler();
-		Spieler p2 = new Spieler();
-		Spieler p3 = new Spieler();
-		Spieler p4 = new Spieler();
 
-		try {
-			p.addSpieler(p1);
-			p.addSpieler(p2);
-			p.addSpieler(p3);
-			p.addSpieler(p4);
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
-		}
-		return p;
-	}
-
-	public Spiel GetVerteiltesSpiel(ISpielart spielart) throws Exception{
-		Spiel p = GetSpiel(spielart);
-		KartenVerteilAction kva = new KartenVerteilAction(null);
-		kva.doAction(p);
-		return p;
-	}
 	
 	@Test
 	public void AusspielerTest() throws Exception{

@@ -28,7 +28,7 @@ public class JUAAnsagen extends IUserAction {
 	@Override
 	public boolean isActionPossible(Spiel game) {
 		
-		if(spielart == null){
+		if(spielart == null || user == null){
 			return false;
 		}		
 		if (game.getState() == GameState.Ansage
