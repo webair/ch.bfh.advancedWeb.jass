@@ -31,6 +31,16 @@ public class User implements Serializable {
 
 	@Column(name = "NAME", nullable = false)
 	private String name;
+    
+    
+	@Column(name = "ROBOT", nullable = false)
+	private boolean isRobot;
+	
+    @ManyToMany
+    @JoinTable(name="USER_CARDS")
+    public List<Card> getLayingCards() { return cards; }
+	
+    private List<Card> cards;
 
 	public User() {
 		super();
