@@ -6,13 +6,9 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
 
-import ch.frickler.jass.db.entity.User;
 import ch.frickler.jass.helper.MessageHelper;
+import ch.frickler.jass.service.UserService;
 
 /**
  * managed bean that represents a user. authentication is done by checking
@@ -31,8 +27,8 @@ public class UserBean {
 
 	private boolean loggedIn = false;
 
-	private long id=0L;
-	
+	private long id = 0L;
+
 	public String getUsername() {
 		return username;
 	}
@@ -86,17 +82,10 @@ public class UserBean {
 	}
 
 	private boolean checkUserAndPw() {
-		EntityManagerFactory emf = Persistence
-				.createEntityManagerFactory("MyBuzzwordJass");
 
-		// TODO sekiurity??? sql injection
-		EntityManager em = emf.createEntityManager();
-		Query q = em
-				.createQuery("select id from User where userName=?1 and password=?2");
-		q.setParameter(1, username).setParameter(2, User.cryptPw(password));
-
-		if(q.getResultList().size() > 0){
-			id = (Long) q.getResultList().get(0);
+		Long userId = new UserService().checkUserNameAndPassword(username,
+				password);
+		if (userId != null) {
 			return true;
 		} else {
 			return false;
@@ -137,7 +126,7 @@ public class UserBean {
 		String locale = (String) event.getNewValue();
 		setLocale(locale);
 	}
-	
+
 	public long getId() {
 		return id;
 	}

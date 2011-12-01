@@ -32,15 +32,19 @@ public class User implements Serializable {
 	@Column(name = "NAME", nullable = false)
 	private String name;
 
+	@Column(name = "LOCALE")
+	private String locale;
+
 	public User() {
 		super();
 	}
 
-	public User(String userName, String password, String name) {
+	public User(String userName, String password, String name, String locale) {
 		super();
 		this.userName = userName;
-		this.password = User.cryptPw(password);
+		this.password = password;
 		this.name = name;
+		this.locale = locale;
 	}
 
 	public String getUserName() {
@@ -56,7 +60,7 @@ public class User implements Serializable {
 	}
 
 	public void setPassword(String password) {
-		this.password = User.cryptPw(password);
+		this.password = password;
 	}
 
 	public long getId() {
@@ -75,25 +79,12 @@ public class User implements Serializable {
 		this.name = name;
 	}
 
-	/**
-	 * creates a hash of the given password
-	 * 
-	 * @param the
-	 *            password
-	 * @return a sha256 hex string
-	 */
-	public static String cryptPw(String pw) {
-		try {
-			MessageDigest md = MessageDigest.getInstance("SHA-256");
-			md.update(pw.getBytes("UTF-8"));
-			byte[] digest = md.digest();
-			BigInteger bigInt = new BigInteger(1, digest);
-			return bigInt.toString(16);
-		} catch (NoSuchAlgorithmException e) {
-			// wont happen
-		} catch (UnsupportedEncodingException e) {
-			// wont happen either
-		}
-		return null;
+	public String getLocale() {
+		return locale;
 	}
+
+	public void setLocale(String locale) {
+		this.locale = locale;
+	}
+
 }

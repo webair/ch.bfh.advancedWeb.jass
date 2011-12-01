@@ -105,8 +105,8 @@ public class PersistenceTest extends AbstractEntityTest {
 	@Test
 	public void gameTest() {
 		// Create Team 1
-		User u1 = mergeObject(new User("fred", "Fred Frickler", "pw1"));
-		User u2 = mergeObject(new User("franz", "Franz Frickler", "pw2"));
+		User u1 = mergeObject(new User("fred", "Fred Frickler", "pw1", "de"));
+		User u2 = mergeObject(new User("franz", "Franz Frickler", "pw2", "de"));
 
 		assertInDb(User.class, u1.getId());
 		assertInDb(User.class, u2.getId());
@@ -116,8 +116,8 @@ public class PersistenceTest extends AbstractEntityTest {
 		t1 = mergeObject(t1);
 
 		// Create Team 2
-		User u3 = mergeObject(new User("florian", "Florian Frickler", "pw3"));
-		User u4 = mergeObject(new User("fabian", "Fabian Frickler", "pw4"));
+		User u3 = mergeObject(new User("florian", "Florian Frickler", "pw3", "de"));
+		User u4 = mergeObject(new User("fabian", "Fabian Frickler", "pw4", "de"));
 
 		assertInDb(User.class, u3.getId());
 		assertInDb(User.class, u4.getId());

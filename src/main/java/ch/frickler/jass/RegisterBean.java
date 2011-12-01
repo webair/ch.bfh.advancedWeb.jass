@@ -3,13 +3,9 @@ package ch.frickler.jass;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
 
-import ch.frickler.jass.db.entity.User;
 import ch.frickler.jass.helper.MessageHelper;
+import ch.frickler.jass.service.UserService;
 
 @ManagedBean
 @RequestScoped
@@ -92,36 +88,17 @@ public class RegisterBean {
 	 * @return true if the username is ok
 	 */
 	private boolean checkUsername() {
-		// check the username
-		EntityManagerFactory emf = Persistence
-				.createEntityManagerFactory("MyBuzzwordJass");
-
-		// TODO sekiurity??? sql injection
-		EntityManager em = emf.createEntityManager();
-		Query q = em.createQuery("select count(*) from User where userName=?1");
-		q.setParameter(1, username);
-
-		Long num = (Long) q.getResultList().get(0);
-
-		return num == 0;
+		return new UserService().isUsernameUnused(username);
 	}
 
 	private void storeUser() {
-		// TODO create a db helper?
-		EntityManagerFactory emf = Persistence
-				.createEntityManagerFactory("MyBuzzwordJass");
-		EntityManager em = emf.createEntityManager();
-
-		em.getTransaction().begin();
-
-		User u = new User(username, passwordOne, nick);
-		if (nick != null && nick.length() > 0)
-			u.setName(nick);
-		else
-			u.setName(username);
-
-		em.merge(u);
-		em.getTransaction().commit();
+		String nickName = nick;
+		if (nickName != null && nickName.length() > 0)
+			nickName = username;
+		
+		// TODO: locale
+		new UserService().createUser(username, passwordOne, nickName, "de");
+		
 
 	}
 
