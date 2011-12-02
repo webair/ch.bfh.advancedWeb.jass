@@ -1,11 +1,13 @@
 package ch.frickler.jass.logic;
 
 import ch.frickler.jass.logic.definitions.ISpielart;
+import ch.frickler.jass.service.GameService;
 
 public class BaseTest {
 
 	
-	public Spiel GetSpiel(ISpielart spielart) throws Exception{
+	public GameService GetSpiel(ISpielart spielart) throws Exception{
+		/*
 		Spiel p = new Spiel("u");
 		Round round = new Round(spielart);
 		p.SetRound(round);
@@ -26,13 +28,18 @@ public class BaseTest {
 		}
 		p.getRound().setSpielart(spielart);
 		return p;
+		*/
+		return null;
 	}
 
-	public Spiel GetVerteiltesSpiel(ISpielart spielart) throws Exception{
+	public GameService GetVerteiltesSpiel(ISpielart spielart) throws Exception{
+		/*
 		Spiel p = GetSpiel(spielart);
 		KartenVerteilAction kva = new KartenVerteilAction(null);
 		kva.doAction(p);
 		p.getRound().setSpielart(spielart);
 		return p;
+		*/
+		return null;
 	}
 }

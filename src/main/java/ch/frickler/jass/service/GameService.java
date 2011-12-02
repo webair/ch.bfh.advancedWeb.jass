@@ -285,7 +285,7 @@ public class GameService extends PersistanceService {
 		Round r = getCurrentRound();
 		//round finished place points
 		for (Team t : _game.getTeams()) {
-			int pointsTeam = getGameTypeService().countPoints(t.getWonCards());
+			int pointsTeam = getGameTypeService().countPoints(t.getCards());
 			// team hat den letzten Stich gemacht
 			if(getTeamOf(r.getCurrentPlayer()).equals(t)){
 				pointsTeam += 5;

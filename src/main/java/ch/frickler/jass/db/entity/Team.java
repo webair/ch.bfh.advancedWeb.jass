@@ -46,12 +46,7 @@ public class Team implements Serializable {
 
 	@Column(name = "NAME", nullable = false)
 	private String name;
-	
-
-    @ManyToMany
-    @JoinTable(name="WON_CARDS")
-    public List<Card> getWonCards() { return woncards; }
-	
+		
     private List<Card> woncards = new ArrayList<Card>();
 	
 	public Team() {
@@ -145,6 +140,11 @@ public class Team implements Serializable {
 	public void clearCards() {
 		woncards = new ArrayList<Card>();
 		
+	}
+
+	public List<Card> getCards() {
+		
+		return woncards;
 	}
 
 

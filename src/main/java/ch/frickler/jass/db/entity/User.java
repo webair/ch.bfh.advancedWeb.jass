@@ -33,14 +33,14 @@ public class User implements Serializable {
 
 	@Column(name = "NAME", nullable = false)
 	private String name;
+	
+	@Column(name = "LOCAL", nullable = false)
+	private String local;
     
     
 	@Column(name = "ROBOT", nullable = false)
 	private boolean isRobot;
 	
-    @ManyToMany
-    @JoinTable(name="USER_CARDS")
-    public List<Card> getLayingCards() { return cards; }
 	
     private List<Card> cards;
 
@@ -54,6 +54,16 @@ public class User implements Serializable {
 		this.password = User.cryptPw(password);
 		this.name = name;
 		this.isRobot = robot;
+	}
+
+
+	public User(String userName, String password, String name, String local) {
+		super();
+		this.userName = userName;
+		this.password = User.cryptPw(password);
+		this.name = name;
+		this.isRobot = false;
+		this.local = local;
 	}
 
 	public String getUserName() {

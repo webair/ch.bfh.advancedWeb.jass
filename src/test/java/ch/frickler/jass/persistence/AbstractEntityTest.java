@@ -39,9 +39,5 @@ public abstract class AbstractEntityTest extends PersistenceBasedTest {
 		}
 	}
 	
-	protected <T> T assertInDb(Class<?> c, long primaryKeyValue) {
-		return (T) getEm().find(c, primaryKeyValue);
-		
-	}
 	
 }

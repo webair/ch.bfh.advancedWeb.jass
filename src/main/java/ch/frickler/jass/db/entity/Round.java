@@ -57,10 +57,7 @@ public class Round implements Serializable {
 	@JoinColumn(name = "PLAYERWITHSTOECK", nullable = false)
 	private User playerwithstoeck;
 	
-    @ManyToMany
-    @JoinTable(name="LAYING_CARDS")
-    public List<Card> getLayingCards() { return cards; }
-	
+   
     private List<Card> cards;
 
 	
