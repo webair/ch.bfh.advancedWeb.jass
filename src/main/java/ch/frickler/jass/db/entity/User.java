@@ -35,13 +35,13 @@ public class User implements Serializable {
 	private String name;
 	
 	@Column(name = "LOCAL", nullable = false)
-	private String local;
+	private String local = "CH";
     
     
 	@Column(name = "ROBOT", nullable = false)
-	private boolean isRobot;
+	private boolean isRobot = false;
 	
-	
+	@Transient	
     private List<Card> cards;
 
 	public User() {

@@ -63,7 +63,7 @@ public class Game implements Serializable {
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name="GameState", nullable=false)
-	private GameState gameState;
+	private GameState gameState = GameState.WaitForPlayers;
 	
 	public static enum GameState  {WaitForPlayers, Play, Ansage, AnsageGschobe, Terminated, RediForPlay, WaitForCards}
 

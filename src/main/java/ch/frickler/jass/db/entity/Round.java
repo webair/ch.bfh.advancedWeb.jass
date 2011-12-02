@@ -15,6 +15,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 
 
@@ -38,26 +39,26 @@ public class Round implements Serializable {
 	private Game game;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ID_GAMETYPE", nullable = false)
+	@JoinColumn(name = "ID_GAMETYPE", nullable = true)
 	private GameType gameType;
 
 	// also known as gschobe
 	@Column(name = "PUSHED", nullable = false)
-	private Boolean pushed;
+	private Boolean pushed = false;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "BEGINNER", nullable = false)
+	@JoinColumn(name = "BEGINNER", nullable = true)
 	private User beginner;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "CURRENTPLAYER", nullable = false)
+	@JoinColumn(name = "CURRENTPLAYER", nullable = true)
 	private User currentplayer;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "PLAYERWITHSTOECK", nullable = false)
+	@JoinColumn(name = "PLAYERWITHSTOECK", nullable = true)
 	private User playerwithstoeck;
 	
-   
+	@Transient
     private List<Card> cards;
 
 	

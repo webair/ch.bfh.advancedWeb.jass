@@ -16,6 +16,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 
 /**
@@ -45,8 +46,9 @@ public class Team implements Serializable {
 	private Integer points;
 
 	@Column(name = "NAME", nullable = false)
-	private String name;
-		
+	private String name = "";
+	
+	@Transient
     private List<Card> woncards = new ArrayList<Card>();
 	
 	public Team() {
