@@ -37,7 +37,8 @@ public class GameService extends PersistanceService {
 	}
 
 	public Game loadGame(Long userId) {
-		return loadObject(Game.class, userId);
+		_game =  loadObject(Game.class, userId);
+		return _game;
 	}
 	
 	/***
