@@ -3,12 +3,43 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	template="/templates/main.xhtml">
-	
+
 	<ui:define name="title">
 		let's play
 	</ui:define>
 	<ui:define name="content">
-		this is webairs part...
+
+		<b>Logged in players:</b>
+		<h:dataTable var="player" value="#{gameBean.players}">
+			<h:column>
+				<f:facet name="headerName">
+							  Name
+						  </f:facet>
+							#{player.name}
+					</h:column>
+			<h:column>
+				<f:facet name="headerPoints">
+							  Points
+						  </f:facet>
+						1
+					</h:column>
+		</h:dataTable>
+
+		<b>Your cards:</b>
+		<h:dataTable var="card" value="#{gameBean.cards}">
+			<h:column>
+				<f:facet name="headerName">
+							  Name
+						  </f:facet>
+							#{card}
+					</h:column>
+		</h:dataTable>
+
+		<!-- hey chris, hie isch eine gfragt, wo ahnig het vo designen...
+bim cards söt me öppe sones ui-repeat mache und je nach typ es bild azeige?
+wahrschinlech bruchts o e paar commandLinks wo ds "GameBean" ufrüefe und das tuet när via Gamemanager spile
+  -->
+
 	</ui:define>
 </ui:composition>
 

@@ -25,8 +25,7 @@ public class CreateGame {
 
 	public String create() {
 		GameManager gm = GameManager.getInstance();
-		Long gameId = gm.createGame(getName(), getWinPoints());
-		gm.addUserToGame(userBean.getUser(), gameId);
+		Long gameId = gm.createGame(getName(), userBean.getUser(), getWinPoints());
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ctx.getExternalContext().getSessionMap()
 				.put(GameManager.GAME_ID_KEY, gameId);

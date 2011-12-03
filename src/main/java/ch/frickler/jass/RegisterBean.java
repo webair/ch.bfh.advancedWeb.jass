@@ -96,7 +96,7 @@ public class RegisterBean {
 		if (nick == null || nick.length() == 0)
 			nick = username;
 
-		u.createSpieler(username, passwordOne, nick, false);
+		u.createSpieler(username, passwordOne, nick);
 	}
 
 }

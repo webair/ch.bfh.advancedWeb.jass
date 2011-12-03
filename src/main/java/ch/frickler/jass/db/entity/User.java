@@ -1,22 +1,23 @@
 package ch.frickler.jass.db.entity;
 
 import java.io.Serializable;
-import java.io.UnsupportedEncodingException;
-import java.lang.String;
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import ch.frickler.jass.logic.Player;
+import ch.frickler.jass.service.UserService;
 
 /**
  * Entity implementation class for Entity: User TODO crypt password
  */
 @Entity
 @Table(name = "USER")
-public class User implements Serializable {
+public class User implements Serializable, Player {
 
 	private static final long serialVersionUID = 1L;
 
@@ -34,36 +35,15 @@ public class User implements Serializable {
 	@Column(name = "NAME", nullable = false)
 	private String name;
 	
-	@Column(name = "LOCAL", nullable = false)
-	private String local = "CH";
-    
-    
-	@Column(name = "ROBOT", nullable = false)
-	private boolean isRobot = false;
+	public User(){
+		super();
+	}
 	
-	@Transient	
-    private List<Card> cards;
-
-	public User() {
-		super();
-	}
-
-	public User(String userName, String password, String name, boolean robot) {
+	public User(String userName, String password, String name) {
 		super();
 		this.userName = userName;
-		this.password = User.cryptPw(password);
+		this.password = UserService.cryptPw(password);
 		this.name = name;
-		this.isRobot = robot;
-	}
-
-
-	public User(String userName, String password, String name, String local) {
-		super();
-		this.userName = userName;
-		this.password = User.cryptPw(password);
-		this.name = name;
-		this.isRobot = false;
-		this.local = local;
 	}
 
 	public String getUserName() {
@@ -79,7 +59,7 @@ public class User implements Serializable {
 	}
 
 	public void setPassword(String password) {
-		this.password = User.cryptPw(password);
+		this.password = UserService.cryptPw(password);
 	}
 
 	public long getId() {
@@ -98,44 +78,12 @@ public class User implements Serializable {
 		this.name = name;
 	}
 
-	/**
-	 * creates a hash of the given password
-	 * 
-	 * @param the
-	 *            password
-	 * @return a sha256 hex string
-	 */
-	public static String cryptPw(String pw) {
-		try {
-			MessageDigest md = MessageDigest.getInstance("SHA-256");
-			md.update(pw.getBytes("UTF-8"));
-			byte[] digest = md.digest();
-			BigInteger bigInt = new BigInteger(1, digest);
-			return bigInt.toString(16);
-		} catch (NoSuchAlgorithmException e) {
-			// wont happen
-		} catch (UnsupportedEncodingException e) {
-			// wont happen either
-		}
-		return null;
+	@Override
+	public boolean autoPlay() {
+		/*
+		 * hey, I'm human! you cannot force me!
+		 */
+		return false;
 	}
-
-	public List<Card> getCards() {
-		// TODO Auto-generated method stub
-		return cards;
-	}
-
-	public void removeCard(Card layedCard) {
-		cards = new ArrayList<Card>();
-		
-	}
-
-	public void addCard(Card card) {
-		cards.add(card);
-		
-	}
-
-	public boolean isRobot() {
-		return isRobot;
-	}
+	
 }

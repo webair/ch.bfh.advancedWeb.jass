@@ -5,12 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import ch.frickler.jass.db.entity.Game;
-import ch.frickler.jass.db.entity.Game.GameState;
-import ch.frickler.jass.db.entity.User;
-import ch.frickler.jass.service.GameService;
-import ch.frickler.jass.service.UserService;
-
+import ch.frickler.jass.logic.Bot;
+import ch.frickler.jass.logic.Game;
+import ch.frickler.jass.logic.Player;
 
 public class GameManager {
 
@@ -18,9 +15,10 @@ public class GameManager {
 
 	private static GameManager instance;
 
-	private Map<Long, Game> waitingGameMap = new HashMap<Long, Game>();
-	private Map<Long, Game> activeGames = new HashMap<Long, Game>();
-	
+	private Map<Long, Game> games = new HashMap<Long, Game>();
+
+	private long gameId = 0L;
+
 	private GameManager() {
 
 	}
@@ -33,10 +31,10 @@ public class GameManager {
 
 	}
 
-	public Game getGame(long gameId){
-		return waitingGameMap.get(gameId);
+	public Game getGame(long gameId) {
+		return games.get(gameId);
 	}
-	
+
 	/**
 	 * creates a new game and adds it to the waitinglist
 	 * 
@@ -44,41 +42,37 @@ public class GameManager {
 	 * @param winPoints
 	 * @return this games "gameTicket" (use it to start the game)
 	 */
-	public long createGame(String name, int winPoints) {
-		GameService s = new GameService();
-		Game g = s.createGame(name, winPoints);
-		
-		waitingGameMap.put(g.getId(), g);
-		return g.getId();
+	public long createGame(String name, Player owner, int winPoints) {
+		Game g = new Game(gameId, name, owner, winPoints);
+
+		games.put(gameId, g);
+		addUserToGame(owner, gameId);
+		return gameId++;
 	}
 
-	public void addUserToGame(User u, Long gameTicket) {
-		Game g = waitingGameMap.get(gameTicket);
-		if (g != null){
-			getGameService(g).addSpieler(u);
+	public void addUserToGame(Player p, long gameId) {
+		Game g = games.get(gameId);
+		if (g != null) {
+			g.addPlayer(p);
 		}
 	}
 
-	public List<User> getPlayers(Long gameTicket) {
-		// TODO game should come from the db
-		Game g = waitingGameMap.get(gameTicket);
-		return getGameService(g).getAllSpieler();
+	public List<Player> getPlayers(long gameId) {
+		Game g = games.get(gameId);
+		if (g != null)
+			return g.getPlayers();
+		return null;
 	}
-	
+
 	/**
 	 * a game is ready, when there are 4 players
+	 * 
 	 * @param gameId
 	 * @return
 	 */
-	public boolean gameIsReady(Long gameId) {
-		GameService s = getGameService(waitingGameMap.get(gameId));
-		return (s.getState() == GameState.RediForPlay);
-	}
-
-	private GameService getGameService(Game game) {
-		GameService gs = new GameService();
-		gs.loadGame(game.getId());
-		return gs;
+	public boolean gameIsReady(long gameId) {
+		Game g = games.get(gameId);
+		return g.getPlayers().size() == 4;
 	}
 
 	/**
@@ -86,33 +80,15 @@ public class GameManager {
 	 * @param gameTicket
 	 * @return
 	 */
-	public Long startGame(Long gameTicket){
-		Game g = waitingGameMap.remove(gameTicket);
-		
-		if(g==null)
-			return -1L;
-		
-		GameService gs = getGameService(g);
-		
-		// fill the game with computer players
-		while(gs.getState() == GameState.WaitForPlayers){
-			//TODO why create a user for every computer player????
-			UserService s = new UserService();
-			gs.addSpieler(s.createSpieler("a bot"));
+	public void startGame(Long gameTicket) {
+		Game g = games.get(gameTicket);
+		while (g.getPlayers().size() < 4) {
+			g.addPlayer(new Bot());
 		}
-		
-		activeGames.put(gameTicket, g);
-		return gameTicket; // TODO should be the db id...
 	}
 
-	// TODO return all games with state waitingFor Player
-	public Collection<Game> getAvailableGames(){
-		return waitingGameMap.values();
+	public Collection<Game> getAvailableGames() {
+		return games.values();
 	}
-	
-	// TODO return all games in Progress
-	public Collection<Game> getActiveGames() {
-		return activeGames.values();
-	}
-	
+
 }

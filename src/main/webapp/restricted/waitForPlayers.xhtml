@@ -18,7 +18,7 @@
 
 		</h:panelGroup>
 		<h:form>
-			<h:commandButton value="Start Game" action="#{waitingRoomBean.start}" />
+			<h:commandButton value="Start Game" action="#{waitingRoomBean.start}" rendered="#{waitingRoomBean.game.owner == userBean.user}" />
 		</h:form>
 	</ui:define>
 </ui:composition>

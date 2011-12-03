@@ -15,19 +15,30 @@
 				action="createGame?faces-redirect=true" />
 			<h:panelGroup id="games">
 
-				<h:dataTable var="game" value="#{gameOverviewBean.availableGames}">
+				<h:dataTable var="game" value="#{gameOverviewBean.games}">
 					<h:column>
+						<f:facet name="header">
+							  Game-Name
+						  </f:facet>
 							#{game.name}
 					</h:column>
 					<h:column>
+						<f:facet name="header">
+							  Started by
+						  </f:facet>
+						#{game.owner.name}
+					</h:column>
+					<h:column>
 						<h:commandLink value="#{UI.join_game}"
-							action="#{gameOverviewBean.joinGame}">
+							action="#{gameOverviewBean.joinGame}"
+							rendered="#{game.acceptingPlayers}">
 							<f:param name="gameId" value="#{game.id}" />
 						</h:commandLink>
-
+						<h:outputText value="already started"
+							rendered="#{!game.acceptingPlayers}" />
 					</h:column>
 				</h:dataTable>
-
+				<h:messages />
 			</h:panelGroup>
 		</h:form>
 	</ui:define>

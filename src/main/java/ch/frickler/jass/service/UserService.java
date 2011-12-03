@@ -19,7 +19,7 @@ public class UserService extends PersistanceService {
 	 *            password
 	 * @return a sha256 hex string
 	 */
-	private String cryptPw(String pw) {
+	public static String cryptPw(String pw) {
 		try {
 			MessageDigest md = MessageDigest.getInstance("SHA-256");
 			md.update(pw.getBytes("UTF-8"));
@@ -34,9 +34,8 @@ public class UserService extends PersistanceService {
 		return null;
 	}
 
-	public User createSpieler(String userName, String password, String name,
-			boolean b) {
-		User u = new User(userName, password, name, b);
+	public User createSpieler(String userName, String password, String name) {
+		User u = new User(userName, password, name);
 		u = mergeObject(u);
 		return u;
 	}
@@ -83,9 +82,5 @@ public class UserService extends PersistanceService {
 		} else {
 			return null;
 		}
-	}
-
-	public User createSpieler(String string) {
-		return createSpieler(string, string, string, true);
 	}
 }

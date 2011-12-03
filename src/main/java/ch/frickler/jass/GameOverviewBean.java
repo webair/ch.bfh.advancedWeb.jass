@@ -8,7 +8,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 
-import ch.frickler.jass.db.entity.Game;
+import ch.frickler.jass.helper.MessageHelper;
+import ch.frickler.jass.logic.Game;
 
 @ManagedBean
 public class GameOverviewBean {
@@ -29,15 +30,9 @@ public class GameOverviewBean {
 	 * 
 	 * @return a list of the current (and not yet started) games
 	 */
-	public List<Game> getAvailableGames() {
+	public List<Game> getGames() {
 		List<Game> list = new ArrayList<Game>();
 		list.addAll(GameManager.getInstance().getAvailableGames());
-		return list;
-	}
-
-	public List<Game> getActiveGames() {
-		List<Game> list = new ArrayList<Game>();
-		list.addAll(GameManager.getInstance().getActiveGames());
 		return list;
 	}
 
@@ -46,10 +41,9 @@ public class GameOverviewBean {
 		Map<String, String> params = ctx.getExternalContext()
 				.getRequestParameterMap();
 		long gameId = Integer.parseInt(params.get("gameId"));
+		GameManager.getInstance().addUserToGame(userBean.getUser(), gameId);
 		ctx.getExternalContext().getSessionMap()
 				.put(GameManager.GAME_ID_KEY, gameId);
-		GameManager.getInstance().addUserToGame(userBean.getUser(), gameId);
 		return "waitForPlayers?faces-redirect=true";
 	}
-
 }
