@@ -14,7 +14,7 @@ import org.junit.Before;
  * 
  * @author krigu
  */
-public abstract class PersistenceBasedTest {
+public class PersistenceBasedTest {
 
 	private EntityManager em;
 
