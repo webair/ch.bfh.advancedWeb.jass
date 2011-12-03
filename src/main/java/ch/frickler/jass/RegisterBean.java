@@ -93,39 +93,17 @@ public class RegisterBean {
 	 * @return true if the username is ok
 	 */
 	private boolean checkUsername() {
-		// check the username
-		EntityManagerFactory emf = Persistence
-				.createEntityManagerFactory("MyBuzzwordJass");
-
-		// TODO sekiurity??? sql injection
-		EntityManager em = emf.createEntityManager();
-		Query q = em.createQuery("select count(*) from User where userName=?1");
-		q.setParameter(1, username);
-
-		Long num = (Long) q.getResultList().get(0);
-
-		return num == 0;
+		UserService u = new UserService();
+		return u.isUsernameUnused(username);
 	}
 
 	private void storeUser() {
-		// TODO create a db helper?
-		EntityManagerFactory emf = Persistence
-				.createEntityManagerFactory("MyBuzzwordJass");
-		EntityManager em = emf.createEntityManager();
-
-		em.getTransaction().begin();
-
 		UserService  u = new UserService();
 		
 		if (nick == null || nick.length() == 0)
 			nick = username;
 		
 		u.createSpieler(username, passwordOne, nick,false);
-		
-
-		em.merge(u);
-		em.getTransaction().commit();
-
 	}
 
 }

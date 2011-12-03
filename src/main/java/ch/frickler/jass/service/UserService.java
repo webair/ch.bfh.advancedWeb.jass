@@ -1,4 +1,3 @@
-
 package ch.frickler.jass.service;
 
 import java.io.UnsupportedEncodingException;
@@ -34,13 +33,13 @@ public class UserService extends PersistanceService {
 		}
 		return null;
 	}
-    
-    	public User createSpieler(String userName, String password, String name, boolean b) {
-		User u = new User(userName, password, name,b);
+
+	public User createSpieler(String userName, String password, String name,
+			boolean b) {
+		User u = new User(userName, password, name, b);
 		u = mergeObject(u);
 		return u;
 	}
-
 
 	public User loadUser(Long userId) {
 		return loadObject(User.class, userId);
@@ -48,6 +47,7 @@ public class UserService extends PersistanceService {
 
 	/**
 	 * Checks if the username is already in the databonk
+	 * 
 	 * @param username
 	 * @return
 	 */
@@ -86,8 +86,6 @@ public class UserService extends PersistanceService {
 	}
 
 	public User createSpieler(String string) {
-		return createSpieler(string,string,string,true);
+		return createSpieler(string, string, string, true);
 	}
 }
-
-
