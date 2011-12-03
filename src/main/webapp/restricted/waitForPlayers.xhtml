@@ -4,9 +4,21 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	template="../templates/main.xhtml">
 	<ui:define name="title">
-		Warteraum für Spiel id: <h:outputText value="#{waitingRoomBean.gameId}"/>
+		Warteraum für Spiel <h:outputText value="#{waitingRoomBean.game.name}" />
 	</ui:define>
 	<ui:define name="content">
-		Hoi du!
+		Players:
+			<h:panelGroup id="players">
+
+			<h:dataTable var="p" value="#{waitingRoomBean.players}">
+				<h:column>
+							#{p.name}
+					</h:column>
+			</h:dataTable>
+
+		</h:panelGroup>
+		<h:form>
+			<h:commandButton value="Start Game" action="#{waitingRoomBean.start}" />
+		</h:form>
 	</ui:define>
 </ui:composition>

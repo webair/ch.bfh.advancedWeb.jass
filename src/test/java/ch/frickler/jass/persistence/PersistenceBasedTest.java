@@ -6,7 +6,7 @@ import javax.persistence.Persistence;
 
 import org.junit.After;
 import org.junit.Before;
-
+ 
 /**
  * Abstract superclass for all persistance based tests
  * 
@@ -14,7 +14,7 @@ import org.junit.Before;
  * 
  * @author krigu
  */
-public class PersistenceBasedTest {
+public abstract class PersistenceBasedTest {
 
 	private EntityManager em;
 

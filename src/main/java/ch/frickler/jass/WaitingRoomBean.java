@@ -1,25 +1,39 @@
 package ch.frickler.jass;
 
-import java.util.Map;
+import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
+import ch.frickler.jass.db.entity.Game;
+import ch.frickler.jass.db.entity.User;
+
 @ManagedBean
 @SessionScoped
 public class WaitingRoomBean {
-	int gameId;
+	long gameId = 0L;
 
-	public int getGameId() {
+	public long getGameId() {
+		// load the gameId from the session
+		if (gameId == 0L) {
+			gameId = (Long) FacesContext.getCurrentInstance()
+					.getExternalContext().getSessionMap()
+					.get(GameManager.GAME_ID_KEY);
+		}
 		return gameId;
 	}
 
-	public String joinGame() {
-		Map<String,String> params =  FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-		gameId = Integer.parseInt(params.get("gameId"));
-		return "waitForPlayers?faces-redirect=true";
+	public Game getGame() {
+		return GameManager.getInstance().getGame(getGameId());
+	}
+
+	public List<User> getPlayers() {
+		return GameManager.getInstance().getPlayers(getGameId());
 	}
 	
-	
+	public String start(){
+		GameManager.getInstance().startGame(getGameId());
+		return "play?faces-redirect=true";
+	}
 }

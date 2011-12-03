@@ -67,10 +67,10 @@ public class UserService extends PersistanceService {
 	 * @param username
 	 * @param password
 	 *            Uncrypted password
-	 * @return Returns id if user is in databaes, otherweise null
+	 * @return Returns the user otherwise null
 	 */
 	@SuppressWarnings("unchecked")
-	public Long checkUserNameAndPassword(String username, String password) {
+	public User checkUserNameAndPassword(String username, String password) {
 
 		Query q = getEm().createQuery(
 				"from User where userName=?1 and password=?2", User.class);
@@ -79,7 +79,7 @@ public class UserService extends PersistanceService {
 		List<User> users = q.getResultList();
 		if (users.size() == 1) {
 
-			return users.get(0).getId();
+			return users.get(0);
 		} else {
 			return null;
 		}

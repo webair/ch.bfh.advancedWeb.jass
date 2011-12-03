@@ -36,6 +36,7 @@ public abstract class PersistanceService {
 			t = getEm().merge(t);
 			getEm().getTransaction().commit();
 		} catch (Exception e) {
+			e.printStackTrace();
 			getEm().getTransaction().rollback();
 		}
 

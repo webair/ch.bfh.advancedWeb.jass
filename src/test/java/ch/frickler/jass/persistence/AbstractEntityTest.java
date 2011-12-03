@@ -2,7 +2,7 @@ package ch.frickler.jass.persistence;
 
 import static org.junit.Assert.fail;
 
-public abstract class AbstractEntityTest extends PersistenceBasedTest {
+public abstract class AbstractEntityTest extends PersistenceBasedTest { 
 
 	/**
 	 * Makes an object persistent and checks if its properly saved in the

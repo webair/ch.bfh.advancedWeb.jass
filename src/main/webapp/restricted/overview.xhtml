@@ -15,13 +15,13 @@
 				action="createGame?faces-redirect=true" />
 			<h:panelGroup id="games">
 
-				<h:dataTable var="game" value="#{gameOverviewBean.games}">
+				<h:dataTable var="game" value="#{gameOverviewBean.availableGames}">
 					<h:column>
 							#{game.name}
 					</h:column>
 					<h:column>
 						<h:commandLink value="#{UI.join_game}"
-							action="#{waitingRoomBean.joinGame}">
+							action="#{gameOverviewBean.joinGame}">
 							<f:param name="gameId" value="#{game.id}" />
 						</h:commandLink>
 

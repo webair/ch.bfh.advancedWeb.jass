@@ -6,34 +6,35 @@ import javax.faces.context.FacesContext;
 
 @ManagedBean
 public class CreateGame {
-	
+
 	private String name;
-	
-	@ManagedProperty(value="#{userBean}")
+
+	@ManagedProperty(value = "#{userBean}")
 	private UserBean userBean;
-	
+
 	/**
 	 * the setter for the injection
+	 * 
 	 * @param u
 	 */
-	public void setUserBean(UserBean u){
+	public void setUserBean(UserBean u) {
 		userBean = u;
 	}
-	
+
 	private int winPoints;
-	
-	
+
 	public String create() {
 		GameManager gm = GameManager.getInstance();
 		Long gameId = gm.createGame(getName(), getWinPoints());
+		gm.addUserToGame(userBean.getUser(), gameId);
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ctx.getExternalContext().getSessionMap().put(GameManager.GAME_ID_KEY, gameId);
+		ctx.getExternalContext().getSessionMap()
+				.put(GameManager.GAME_ID_KEY, gameId);
 		return "waitForPlayers?faces-redirect=true";
 	}
-	
-	
-	//Getters & Setters
-	
+
+	// Getters & Setters
+
 	public String getName() {
 		return name;
 	}
@@ -49,5 +50,5 @@ public class CreateGame {
 	public void setWinPoints(int winPoints) {
 		this.winPoints = winPoints;
 	}
-	
+
 }

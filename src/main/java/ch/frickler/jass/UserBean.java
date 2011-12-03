@@ -7,6 +7,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 
+import ch.frickler.jass.db.entity.User;
 import ch.frickler.jass.helper.MessageHelper;
 import ch.frickler.jass.service.UserService;
 
@@ -27,7 +28,7 @@ public class UserBean {
 
 	private boolean loggedIn = false;
 
-	private long id = 0L;
+	private User user = null;
 
 	public String getUsername() {
 		return username;
@@ -83,9 +84,8 @@ public class UserBean {
 
 	private boolean checkUserAndPw() {
 
-		Long userId = new UserService().checkUserNameAndPassword(username,
-				password);
-		if (userId != null) {
+		user = new UserService().checkUserNameAndPassword(username, password);
+		if (user != null) {
 			return true;
 		} else {
 			return false;
@@ -127,8 +127,7 @@ public class UserBean {
 		setLocale(locale);
 	}
 
-	public long getId() {
-		return id;
+	public User getUser() {
+		return user;
 	}
-
 }

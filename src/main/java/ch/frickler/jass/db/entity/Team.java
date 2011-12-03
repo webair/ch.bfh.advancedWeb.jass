@@ -39,7 +39,7 @@ public class Team implements Serializable {
 	private User user1;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ID_USER2", nullable = false)
+	@JoinColumn(name = "ID_USER2", nullable = true)
 	private User user2;
 
 	@Column(name = "POINTS", nullable = false)

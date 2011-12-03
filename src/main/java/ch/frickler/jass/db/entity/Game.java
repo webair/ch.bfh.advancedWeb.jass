@@ -75,7 +75,7 @@ public class Game implements Serializable {
 	private Date startDate;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ID_USER", nullable = false)
+	@JoinColumn(name = "ID_USER", nullable = true)
 	private User nextAnnouncer;
 	
 
