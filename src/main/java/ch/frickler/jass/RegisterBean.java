@@ -3,12 +3,7 @@ package ch.frickler.jass;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
 
-import ch.frickler.jass.db.entity.User;
 import ch.frickler.jass.helper.MessageHelper;
 import ch.frickler.jass.service.UserService;
 
@@ -69,11 +64,10 @@ public class RegisterBean {
 			// pws do not match
 			ctx.addMessage(null,
 					MessageHelper.getMessage(ctx, "register_no_pw_match"));
-		} else if (username.equals(passwordOne)){
+		} else if (username.equals(passwordOne)) {
 			// same username and password...
-			ctx.addMessage(null,
-					MessageHelper.getMessage(ctx, "user_pw_same"));
-		}else if (!checkUsername()) {
+			ctx.addMessage(null, MessageHelper.getMessage(ctx, "user_pw_same"));
+		} else if (!checkUsername()) {
 			// someone already has this username
 			ctx.addMessage(null,
 					MessageHelper.getMessage(ctx, "register_username_not_free"));
@@ -93,17 +87,16 @@ public class RegisterBean {
 	 * @return true if the username is ok
 	 */
 	private boolean checkUsername() {
-		UserService u = new UserService();
-		return u.isUsernameUnused(username);
+		return new UserService().isUsernameUnused(username);
 	}
 
 	private void storeUser() {
-		UserService  u = new UserService();
-		
+		UserService u = new UserService();
+
 		if (nick == null || nick.length() == 0)
 			nick = username;
-		
-		u.createSpieler(username, passwordOne, nick,false);
+
+		u.createSpieler(username, passwordOne, nick, false);
 	}
 
 }
