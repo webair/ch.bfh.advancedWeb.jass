@@ -28,7 +28,7 @@ public class CreateGame {
 		Long gameId = gm.createGame(getName(), getWinPoints());
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ctx.getExternalContext().getSessionMap().put(GameManager.GAME_ID_KEY, gameId);
-		return "waitForPlayers";
+		return "waitForPlayers?faces-redirect=true";
 	}
 	
 	

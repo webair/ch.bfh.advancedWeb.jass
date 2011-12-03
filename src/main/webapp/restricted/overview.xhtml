@@ -2,33 +2,33 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	template="../templates/main.xhtml"
->
-<ui:define name="title">
+	template="../templates/main.xhtml">
+	<ui:define name="title">
 	The Overview!
 	</ui:define>
 	<ui:define name="content">
-			<h:form id="OverviewForm">
-				<h:commandLink value="refresh" id="GameLink">
-					<f:ajax render="games" />
-				</h:commandLink>
-				<h:commandLink value="#{UI.createGame}" id="CreateGameLink" action="createGame?faces-redirect=true" />
-				<h:panelGroup id="games">
+		<h:form id="OverviewForm">
+			<h:commandLink value="refresh" id="GameLink">
+				<f:ajax render="games" />
+			</h:commandLink>
+			<h:commandLink value="#{UI.createGame}" id="CreateGameLink"
+				action="createGame?faces-redirect=true" />
+			<h:panelGroup id="games">
 
-					<h:dataTable var="game" value="#{gameOverviewBean.games}">
-						<h:column>
+				<h:dataTable var="game" value="#{gameOverviewBean.games}">
+					<h:column>
 							#{game.name}
-						</h:column>
-						<h:column>
-							<h:commandLink value="#{UI.join_game}" action="#{waitingRoomBean.joinGame}">
-								<!-- <f:param name="gameId" value="#{game.id}" />-->
-								<f:param name="gameId" value="5" />
-							</h:commandLink>
-							
-						</h:column>
-					</h:dataTable>
+					</h:column>
+					<h:column>
+						<h:commandLink value="#{UI.join_game}"
+							action="#{waitingRoomBean.joinGame}">
+							<f:param name="gameId" value="#{game.id}" />
+						</h:commandLink>
 
-				</h:panelGroup>
-			</h:form>
+					</h:column>
+				</h:dataTable>
+
+			</h:panelGroup>
+		</h:form>
 	</ui:define>
 </ui:composition>

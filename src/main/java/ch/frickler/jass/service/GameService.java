@@ -26,6 +26,7 @@ public class GameService extends PersistanceService {
 	private Round round;
 	private GameTypeService gametypeService;
 	
+	//TODO: this does not work.... (no teams)
 	public Game createGame(String name, Integer winPoints) {
 		Game g = new Game();
 		g.setWinPoints(winPoints);
