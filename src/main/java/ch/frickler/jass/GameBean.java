@@ -1,5 +1,6 @@
 package ch.frickler.jass;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -13,7 +14,10 @@ import ch.frickler.jass.logic.Player;
 @SessionScoped
 public class GameBean {
 
-	Long gameId = null;
+	private Long gameId = null;
+
+	// just for demo purposes
+	private List<String> cards = new ArrayList<String>();
 
 	@ManagedProperty(value = "#{userBean}")
 	private UserBean user;
@@ -25,6 +29,13 @@ public class GameBean {
 	 */
 	public void setUser(UserBean u) {
 		user = u;
+	}
+
+	public GameBean() {
+		cards.add("Bube");
+		cards.add("Dame");
+		cards.add("König");
+		cards.add("Gras");
 	}
 
 	private long getGameId() {
@@ -40,9 +51,14 @@ public class GameBean {
 		return GameManager.getInstance().getPlayers(getGameId());
 	}
 
-	public String[] getCards() {
-		//TODO this should probably be returned by the user
-		return new String[] { "Bube", "Dame", "König", "Gras" };
+	public List<String> getCards() {
+		return cards;
+	}
+
+	public void playCard() {
+		//TODO ask the GameManager whether this user can play this card...
+		// use <params> to get the cards id
+		cards.remove(0);
 	}
 
 }

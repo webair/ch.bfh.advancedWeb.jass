@@ -26,14 +26,16 @@
 		</h:dataTable>
 
 		<b>Your cards:</b>
-		<h:dataTable var="card" value="#{gameBean.cards}">
-			<h:column>
-				<f:facet name="headerName">
-							  Name
-						  </f:facet>
-							#{card}
-					</h:column>
-		</h:dataTable>
+		<h:form id="cards">
+				<ul>
+					<ui:repeat value="#{gameBean.cards}" var="card">
+						<li><h:commandLink action="#{gameBean.playCard}">
+								<f:ajax render=":cards" />
+					Play #{card}
+					</h:commandLink></li>
+					</ui:repeat>
+				</ul>
+		</h:form>
 
 		<!-- hey chris, hie isch eine gfragt, wo ahnig het vo designen...
 bim cards söt me öppe sones ui-repeat mache und je nach typ es bild azeige?
