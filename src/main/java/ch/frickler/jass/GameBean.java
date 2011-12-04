@@ -18,6 +18,7 @@ public class GameBean {
 
 	// just for demo purposes
 	private List<String> cards = new ArrayList<String>();
+	private List<String> deck = new ArrayList<String>();
 
 	@ManagedProperty(value = "#{userBean}")
 	private UserBean user;
@@ -58,7 +59,12 @@ public class GameBean {
 	public void playCard() {
 		//TODO ask the GameManager whether this user can play this card...
 		// use <params> to get the cards id
-		cards.remove(0);
+		String c = cards.remove(0);
+		deck.add(c);
+	}
+	
+	public List<String> getDeck(){
+		return deck;
 	}
 
 }

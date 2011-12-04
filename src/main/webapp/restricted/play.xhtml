@@ -25,16 +25,29 @@
 					</h:column>
 		</h:dataTable>
 
-		<b>Your cards:</b>
-		<h:form id="cards">
+		<h:panelGroup id="deck">
+			<div align="center">
+				This is the card deck...
+
 				<ul>
-					<ui:repeat value="#{gameBean.cards}" var="card">
-						<li><h:commandLink action="#{gameBean.playCard}">
-								<f:ajax render=":cards" />
-					Play #{card}
-					</h:commandLink></li>
+					<ui:repeat value="#{gameBean.deck}" var="card">
+						<li>Play #{card}</li>
 					</ui:repeat>
 				</ul>
+
+			</div>
+		</h:panelGroup>
+
+		<b>Your cards:</b>
+		<h:form id="cards">
+			<ul>
+				<ui:repeat value="#{gameBean.cards}" var="card">
+					<li><h:commandLink action="#{gameBean.playCard}">
+							<f:ajax render=":cards :deck" />
+					Play #{card}
+					</h:commandLink></li>
+				</ui:repeat>
+			</ul>
 		</h:form>
 
 		<!-- hey chris, hie isch eine gfragt, wo ahnig het vo designen...
