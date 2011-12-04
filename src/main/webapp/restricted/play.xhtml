@@ -12,13 +12,13 @@
 		<b>Logged in players:</b>
 		<h:dataTable var="player" value="#{gameBean.players}">
 			<h:column>
-				<f:facet name="headerName">
+				<f:facet name="header">
 							  Name
 						  </f:facet>
 							#{player.name}
 					</h:column>
 			<h:column>
-				<f:facet name="headerPoints">
+				<f:facet name="header">
 							  Points
 						  </f:facet>
 						1
@@ -26,28 +26,25 @@
 		</h:dataTable>
 
 		<h:panelGroup id="deck">
-			<div align="center">
-				This is the card deck...
+			<div align="center" style="border: thin solid black;">
+				This is the card deck...<br />
 
-				<ul>
-					<ui:repeat value="#{gameBean.deck}" var="card">
-						<li>Play #{card}</li>
-					</ui:repeat>
-				</ul>
+				<ui:repeat value="#{gameBean.deck}" var="card">
+					<h:graphicImage library="im" name="#{card}" />
+				</ui:repeat>
 
 			</div>
 		</h:panelGroup>
 
 		<b>Your cards:</b>
 		<h:form id="cards">
-			<ul>
-				<ui:repeat value="#{gameBean.cards}" var="card">
-					<li><h:commandLink action="#{gameBean.playCard}">
-							<f:ajax render=":cards :deck" />
-					Play #{card}
-					</h:commandLink></li>
-				</ui:repeat>
-			</ul>
+			<ui:repeat value="#{gameBean.cards}" var="card">
+				<h:commandLink action="#{gameBean.playCard}">
+					<f:ajax render=":cards :deck" />
+					<f:param name="cardId" value="#{card}" />
+					<h:graphicImage library="im" name="#{card}" />
+				</h:commandLink>
+			</ui:repeat>
 		</h:form>
 
 		<!-- hey chris, hie isch eine gfragt, wo ahnig het vo designen...

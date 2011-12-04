@@ -2,6 +2,7 @@ package ch.frickler.jass;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -33,10 +34,10 @@ public class GameBean {
 	}
 
 	public GameBean() {
-		cards.add("Bube");
-		cards.add("Dame");
-		cards.add("König");
-		cards.add("Gras");
+		cards.add("pik/6.jpeg");
+		cards.add("herz/bube.jpeg");
+		cards.add("herz/ass.jpeg");
+		cards.add("kreuz/10.jpeg");
 	}
 
 	private long getGameId() {
@@ -57,13 +58,15 @@ public class GameBean {
 	}
 
 	public void playCard() {
-		//TODO ask the GameManager whether this user can play this card...
-		// use <params> to get the cards id
-		String c = cards.remove(0);
-		deck.add(c);
+		FacesContext ctx = FacesContext.getCurrentInstance();
+		Map<String, String> params = ctx.getExternalContext()
+				.getRequestParameterMap();
+		String cardId = params.get("cardId");
+		cards.remove(cardId);
+		deck.add(cardId);
 	}
-	
-	public List<String> getDeck(){
+
+	public List<String> getDeck() {
 		return deck;
 	}
 
