@@ -30,7 +30,7 @@
 				This is the card deck...<br />
 
 				<ui:repeat value="#{gameBean.deck}" var="card">
-					<h:graphicImage library="im" name="#{card}" />
+					<h:graphicImage library="im" name="#{card.family}/#{card.value}.jpeg" />
 				</ui:repeat>
 
 			</div>
@@ -41,8 +41,9 @@
 			<ui:repeat value="#{gameBean.cards}" var="card">
 				<h:commandLink action="#{gameBean.playCard}">
 					<f:ajax render=":cards :deck" />
-					<f:param name="cardId" value="#{card}" />
-					<h:graphicImage library="im" name="#{card}" />
+					<f:param name="cardFamily" value="#{card.family}" />
+					<f:param name="cardValue" value="#{card.value}" />
+					<h:graphicImage library="im" name="#{card.family}/#{card.value}.jpeg" />
 				</h:commandLink>
 			</ui:repeat>
 		</h:form>

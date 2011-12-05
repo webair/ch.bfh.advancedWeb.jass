@@ -8,8 +8,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 
-import ch.frickler.jass.helper.MessageHelper;
-import ch.frickler.jass.logic.Game;
+import ch.frickler.jass.db.entity.Game;
 
 @ManagedBean
 public class GameOverviewBean {

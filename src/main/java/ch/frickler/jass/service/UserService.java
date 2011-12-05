@@ -83,4 +83,10 @@ public class UserService extends PersistanceService {
 			return null;
 		}
 	}
+
+	public User createBot() {
+		User u = new User("bot");
+		u = mergeObject(u);
+		return u;
+	}
 }

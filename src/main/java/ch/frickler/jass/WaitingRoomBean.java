@@ -6,8 +6,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
-import ch.frickler.jass.logic.Game;
-import ch.frickler.jass.logic.Player;
+import ch.frickler.jass.db.entity.Game;
+import ch.frickler.jass.db.entity.User;
 
 @ManagedBean
 @SessionScoped
@@ -28,8 +28,8 @@ public class WaitingRoomBean {
 		return GameManager.getInstance().getGame(getGameId());
 	}
 
-	public List<Player> getPlayers() {
-		return GameManager.getInstance().getPlayers(getGameId());
+	public List<User> getPlayers() {
+		return GameManager.getInstance().getGameService(getGameId()).getAllSpieler();
 	}
 	
 	public String start(){

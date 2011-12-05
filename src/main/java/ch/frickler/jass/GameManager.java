@@ -2,12 +2,12 @@ package ch.frickler.jass;
 
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import ch.frickler.jass.logic.Bot;
-import ch.frickler.jass.logic.Game;
-import ch.frickler.jass.logic.Player;
+import ch.frickler.jass.db.entity.Game;
+import ch.frickler.jass.db.entity.User;
+import ch.frickler.jass.service.GameService;
+import ch.frickler.jass.service.UserService;
 
 public class GameManager {
 
@@ -42,25 +42,26 @@ public class GameManager {
 	 * @param winPoints
 	 * @return this games "gameTicket" (use it to start the game)
 	 */
-	public long createGame(String name, Player owner, int winPoints) {
-		Game g = new Game(gameId, name, owner, winPoints);
+	public long createGame(String name, User owner, int winPoints) {
+		Game g = new Game(name, owner, null, null, winPoints);
 
 		games.put(gameId, g);
 		addUserToGame(owner, gameId);
 		return gameId++;
 	}
 
-	public void addUserToGame(Player p, long gameId) {
-		Game g = games.get(gameId);
-		if (g != null) {
-			g.addPlayer(p);
-		}
+	public void addUserToGame(User u, long gameId) {
+		GameService gs = getGameService(gameId);
+		if (gs != null)
+			gs.addSpieler(u);
 	}
 
-	public List<Player> getPlayers(long gameId) {
+	public GameService getGameService(long gameId) {
 		Game g = games.get(gameId);
-		if (g != null)
-			return g.getPlayers();
+		if (g != null) {
+			GameService gs = new GameService(g);
+			return gs;
+		}
 		return null;
 	}
 
@@ -71,8 +72,10 @@ public class GameManager {
 	 * @return
 	 */
 	public boolean gameIsReady(long gameId) {
-		Game g = games.get(gameId);
-		return g.getPlayers().size() == 4;
+		GameService gs = getGameService(gameId);
+		if (gs != null)
+			return gs.getState().equals(Game.GameState.WaitForCards);
+		return false;
 	}
 
 	/**
@@ -80,10 +83,10 @@ public class GameManager {
 	 * @param gameTicket
 	 * @return
 	 */
-	public void startGame(Long gameTicket) {
-		Game g = games.get(gameTicket);
-		while (g.getPlayers().size() < 4) {
-			g.addPlayer(new Bot());
+	public void startGame(Long gameId) {
+		GameService gs = getGameService(gameId);
+		while (gs.getAllSpieler().size() < 4) {
+			gs.addSpieler(new UserService().createBot());
 		}
 	}
 

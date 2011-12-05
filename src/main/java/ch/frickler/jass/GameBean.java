@@ -9,7 +9,9 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
-import ch.frickler.jass.logic.Player;
+import ch.frickler.jass.db.entity.Card;
+import ch.frickler.jass.db.entity.User;
+import ch.frickler.jass.service.JUALayCard;
 
 @ManagedBean
 @SessionScoped
@@ -18,8 +20,7 @@ public class GameBean {
 	private Long gameId = null;
 
 	// just for demo purposes
-	private List<String> cards = new ArrayList<String>();
-	private List<String> deck = new ArrayList<String>();
+	private List<Card> deck = new ArrayList<Card>();
 
 	@ManagedProperty(value = "#{userBean}")
 	private UserBean user;
@@ -33,13 +34,6 @@ public class GameBean {
 		user = u;
 	}
 
-	public GameBean() {
-		cards.add("pik/6.jpeg");
-		cards.add("herz/bube.jpeg");
-		cards.add("herz/ass.jpeg");
-		cards.add("kreuz/10.jpeg");
-	}
-
 	private long getGameId() {
 		if (gameId == null) {
 			gameId = (Long) FacesContext.getCurrentInstance()
@@ -49,25 +43,42 @@ public class GameBean {
 		return gameId;
 	}
 
-	public List<Player> getPlayers() {
-		return GameManager.getInstance().getPlayers(getGameId());
+	public List<User> getPlayers() {
+		return GameManager.getInstance().getGameService(getGameId())
+				.getAllSpieler();
 	}
 
-	public List<String> getCards() {
-		return cards;
+	public List<Card> getCards() {
+		return user.getUser().getCards();
 	}
 
 	public void playCard() {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		Map<String, String> params = ctx.getExternalContext()
 				.getRequestParameterMap();
-		String cardId = params.get("cardId");
-		cards.remove(cardId);
-		deck.add(cardId);
+
+		String family = params.get("cardFamily");
+		String value = params.get("cardValue");
+		Card found = null;
+		for (Card c : user.getUser().getCards()) {
+			if (c.getFamily().toString().equals(family)
+					&& c.getValue().toString().equals(value)) {
+				found = c;
+				break;
+			}
+		}
+		if (found != null) {
+			new JUALayCard(user.getUser(), found).doAction(GameManager
+					.getInstance().getGameService(getGameId()));
+			deck.add(found);
+		}
+		// cards.remove(cardId);
+		// deck.add(cardId);
 	}
 
-	public List<String> getDeck() {
-		return deck;
+	public List<Card> getDeck() {
+		return GameManager.getInstance().getGameService(getGameId())
+				.getCurrentRound().getCards();
 	}
 
 }

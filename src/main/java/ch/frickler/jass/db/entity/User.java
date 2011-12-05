@@ -1,6 +1,8 @@
 package ch.frickler.jass.db.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,8 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
-import ch.frickler.jass.logic.Player;
 import ch.frickler.jass.service.UserService;
 
 /**
@@ -17,7 +19,7 @@ import ch.frickler.jass.service.UserService;
  */
 @Entity
 @Table(name = "USER")
-public class User implements Serializable, Player {
+public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -34,9 +36,30 @@ public class User implements Serializable, Player {
 
 	@Column(name = "NAME", nullable = false)
 	private String name;
+
+	@Transient
+	private List<Card> cards = new ArrayList<Card>();
+
+	@Column(name = "BOT")
+	private boolean isABot = false;
+
+	@Transient
+	private static int numOfBots=0;
+	@Transient
+	private int botNum=0;
 	
-	public User(){
+	public User() {
 		super();
+	}
+
+	public User(String name){
+		this();
+		this.isABot = true;
+		numOfBots++;
+		botNum = numOfBots;
+		this.name = name + botNum;
+		this.password = name;
+		this.userName = name;
 	}
 	
 	public User(String userName, String password, String name) {
@@ -44,6 +67,7 @@ public class User implements Serializable, Player {
 		this.userName = userName;
 		this.password = UserService.cryptPw(password);
 		this.name = name;
+		this.isABot = false;
 	}
 
 	public String getUserName() {
@@ -78,12 +102,21 @@ public class User implements Serializable, Player {
 		this.name = name;
 	}
 
-	@Override
-	public boolean autoPlay() {
-		/*
-		 * hey, I'm human! you cannot force me!
-		 */
-		return false;
+	public boolean isABot() {
+		return isABot;
 	}
-	
+
+	public List<Card> getCards() {
+		// TODO Auto-generated method stub
+		return cards;
+	}
+
+	public void removeCard(Card layedCard) {
+		cards.remove(layedCard);
+	}
+
+	public void addCard(Card card) {
+		cards.add(card);
+
+	}
 }
