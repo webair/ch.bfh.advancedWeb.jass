@@ -17,6 +17,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import ch.frickler.jass.db.enums.GameKind;
+
 
 
 /**
@@ -38,9 +40,9 @@ public class Round implements Serializable {
 	@JoinColumn(name = "ID_GAME", nullable = false)
 	private Game game;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ID_GAMETYPE", nullable = true)
-	private GameType gameType;
+
+	@Column(name = "ID_GAMETYPE", nullable = true)
+	private GameKind gameKind;
 
 	// also known as gschobe
 	@Column(name = "PUSHED", nullable = false)
@@ -66,18 +68,18 @@ public class Round implements Serializable {
 		super();
 	}
 
-	public Round(Game game, GameType gameType) {
+	public Round(Game game, GameKind gameKind) {
 		super();
 		this.game = game;
-		this.gameType = gameType;
+		this.gameKind = gameKind;
 	}
 
-	public GameType getGameType() {
-		return gameType;
+	public GameKind getGameKind() {
+		return gameKind;
 	}
 
-	public void setGameType(GameType gameType) {
-		this.gameType = gameType;
+	public void setGameKind(GameKind type) {
+		this.gameKind = type;
 	}
 
 	public long getId() {

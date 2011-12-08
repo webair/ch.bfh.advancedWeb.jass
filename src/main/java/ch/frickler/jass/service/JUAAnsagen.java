@@ -1,20 +1,21 @@
 package ch.frickler.jass.service;
 
 import ch.frickler.jass.db.entity.Game;
-import ch.frickler.jass.db.entity.GameType;
+import ch.frickler.jass.db.entity.GameKind_todel;
 import ch.frickler.jass.db.entity.User;
+import ch.frickler.jass.db.enums.GameKind;
 import ch.frickler.jass.logic.definitions.BaseAction;
 
 
 public class JUAAnsagen extends BaseAction {
 	
-	private GameType type;
+	private GameKind type;
 	
 	public JUAAnsagen(User user) {
 		super(user);
 	}
 	
-	public JUAAnsagen(User user,GameType type) {
+	public JUAAnsagen(User user,GameKind type) {
 		super(user);
 		this.type = type;		
 	}

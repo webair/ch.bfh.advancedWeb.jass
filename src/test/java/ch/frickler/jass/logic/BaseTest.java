@@ -1,5 +1,6 @@
 package ch.frickler.jass.logic;
 
+
 import ch.frickler.jass.logic.definitions.ISpielart;
 import ch.frickler.jass.service.GameService;
 

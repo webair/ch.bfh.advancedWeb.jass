@@ -8,12 +8,13 @@ import java.util.List;
 import ch.frickler.jass.db.entity.Card;
 import ch.frickler.jass.db.entity.Game;
 import ch.frickler.jass.db.entity.Game.GameState;
-import ch.frickler.jass.db.entity.GameType;
+import ch.frickler.jass.db.entity.GameKind_todel;
 import ch.frickler.jass.db.entity.Round;
 import ch.frickler.jass.db.entity.Team;
 import ch.frickler.jass.db.entity.User;
 import ch.frickler.jass.db.enums.CardFamily;
 import ch.frickler.jass.db.enums.CardValue;
+import ch.frickler.jass.db.enums.GameKind;
 import ch.frickler.jass.logic.definitions.BaseAction;
 
 public class GameService extends PersistanceService {
@@ -145,9 +146,6 @@ public class GameService extends PersistanceService {
 		return getGameTypeService().isSecondCardHigher(card, card2);
 	}
 
-	private GameType getSpielart() {
-		return getCurrentRound().getGameType();
-	}
 
 	public Round getCurrentRound() {
 		return _game.getCurrentRound();
@@ -474,9 +472,9 @@ public class GameService extends PersistanceService {
 		return getCurrentRound().getPlayerWithStoeck().equals(user);
 	}
 
-	public void setGameType(GameType type) {
-		getCurrentRound().setGameType(type);
-		gametypeService = new GameTypeService(type.getGameKind());
+	public void setGameType(GameKind type) {
+		getCurrentRound().setGameKind(type);
+		gametypeService = new GameTypeService(type);
 	}
 
 }

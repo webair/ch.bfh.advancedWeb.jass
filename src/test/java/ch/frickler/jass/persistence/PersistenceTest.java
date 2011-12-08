@@ -133,8 +133,8 @@ public class PersistenceTest extends AbstractEntityTest {
 		g = mergeObject(g);
 
 		// Create round
-		GameType gt = mergeObject(new GameType(GameKind.TOPDOWN, 12));
-		Round r = mergeObject(new Round(g, gt));
+		//GameType gt = mergeObject(new GameType(GameKind.TOPDOWN, 12));
+		Round r = mergeObject(new Round(g, GameKind.TOPDOWN));
 
 		// Create card set
 		Set<Card> cards = new HashSet<Card>();

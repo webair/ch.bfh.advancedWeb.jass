@@ -1,13 +1,12 @@
 package ch.frickler.jass.logic;
 
-import org.junit.Assert;
+
+
+
+
 import org.junit.Test;
 
-import ch.frickler.jass.service.Obenabe;
-import ch.frickler.jass.service.Trumpf;
-import ch.frickler.jass.service.Ungeufe;
-
-public class JUserActionTest  extends BaseTest {
+public class JUserActionTest {
 
 	
 	
