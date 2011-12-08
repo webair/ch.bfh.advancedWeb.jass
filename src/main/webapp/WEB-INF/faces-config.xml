@@ -4,12 +4,17 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
       http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
 	version="2.0">
-
 	<application>
 		<resource-bundle>
 			<base-name>ch.frickler.jass.res.UI</base-name>
 			<var>UI</var>
 		</resource-bundle>
 	</application>
+
+		<factory>
+			<exception-handler-factory>
+				ch.frickler.jass.err.MyExceptionHandlerFactory
+			</exception-handler-factory>
+		</factory>
 
 </faces-config>
