@@ -8,7 +8,6 @@ import java.util.List;
 import ch.frickler.jass.db.entity.Card;
 import ch.frickler.jass.db.entity.Game;
 import ch.frickler.jass.db.entity.Game.GameState;
-import ch.frickler.jass.db.entity.GameKind_todel;
 import ch.frickler.jass.db.entity.Round;
 import ch.frickler.jass.db.entity.Team;
 import ch.frickler.jass.db.entity.User;
@@ -73,7 +72,7 @@ public class GameService extends PersistanceService {
 		List<User> tempISpieler = new ArrayList<User>();
 
 		int totalISpieler = alleISpieler.size();
-		int ISpielerproteam = totalISpieler / _game.TEAMAMOUNT;
+		int ISpielerproteam = totalISpieler / Game.TEAMAMOUNT;
 		for (int i = 0; i < ISpielerproteam; i++) {
 
 			tempISpieler.add(_game.getTeam(0).getUsers().get(i));
@@ -110,7 +109,7 @@ public class GameService extends PersistanceService {
 			}
 		}
 		mergeObject(_game); // store the created teams
-		if (getAllSpieler().size() == _game.MAXUSER) {
+		if (getAllSpieler().size() == Game.MAXUSER) {
 			initGame();
 			new JUABoardCastCard(null).doAction(this);
 			// TODO should be done in the UI
@@ -367,16 +366,19 @@ public class GameService extends PersistanceService {
 				(_game.getCallerId() + delta) % 4);
 	}
 
+	@SuppressWarnings("unused")
 	private boolean isPlayedCardValid(User spl, Card layedCard, Round r) {
 
 		return getGameTypeService().isPlayedCardVaild(spl, layedCard, r);
 	}
 
+	@SuppressWarnings("unused")
 	private int getWinPoints() {
 
 		return _game.getWinPoints();
 	}
 
+	@SuppressWarnings("unused")
 	private Team getLeadingTeam() {
 		Team leading = null;
 		for (Team t : _game.getTeams()) {

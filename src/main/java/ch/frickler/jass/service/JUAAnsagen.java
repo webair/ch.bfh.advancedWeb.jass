@@ -1,7 +1,6 @@
 package ch.frickler.jass.service;
 
 import ch.frickler.jass.db.entity.Game;
-import ch.frickler.jass.db.entity.GameKind_todel;
 import ch.frickler.jass.db.entity.User;
 import ch.frickler.jass.db.enums.GameKind;
 import ch.frickler.jass.logic.definitions.BaseAction;

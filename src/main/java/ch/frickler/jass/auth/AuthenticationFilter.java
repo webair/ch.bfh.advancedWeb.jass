@@ -20,11 +20,9 @@ import ch.frickler.jass.UserBean;
  */
 public class AuthenticationFilter implements Filter {
 
-	private FilterConfig config;
-
 	@Override
 	public void destroy() {
-		this.config = null;
+		//TODO
 	}
 
 	@Override
@@ -41,7 +39,7 @@ public class AuthenticationFilter implements Filter {
 
 	@Override
 	public void init(FilterConfig config) throws ServletException {
-		this.config = config;
+		//TODO
 	}
 
 }
