@@ -24,6 +24,11 @@ public class GameService extends PersistanceService {
 
 	public GameService(Game g) {
 		this._game = g;
+		// TODO
+		if (g != null && g.getCurrentRound() != null
+				&& g.getCurrentRound().getGameKind() != null)
+			gametypeService = new GameTypeService(g.getCurrentRound()
+					.getGameKind());
 	}
 
 	// TODO: this does not work.... (no teams)
@@ -145,7 +150,6 @@ public class GameService extends PersistanceService {
 	private boolean isSecondCardHigher(Card card, Card card2) {
 		return getGameTypeService().isSecondCardHigher(card, card2);
 	}
-
 
 	public Round getCurrentRound() {
 		return _game.getCurrentRound();
