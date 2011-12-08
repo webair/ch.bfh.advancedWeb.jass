@@ -6,33 +6,35 @@ import ch.frickler.jass.db.entity.User;
 import ch.frickler.jass.db.enums.GameKind;
 import ch.frickler.jass.logic.definitions.BaseAction;
 
-
 public class JUAAnsagen extends BaseAction {
-	
+
 	private GameKind type;
-	
+
 	public JUAAnsagen(User user) {
 		super(user);
 	}
-	
-	public JUAAnsagen(User user,GameKind type) {
+
+	public JUAAnsagen(User user, GameKind type) {
 		super(user);
-		this.type = type;		
+		this.type = type;
 	}
 
 	@Override
 	public boolean doAction(GameService gs) {
-		gs.setGameType(type);
-		gs.setGameState(Game.GameState.Play);
-		return true;
+		if (isActionPossible(gs)) {
+			gs.setGameType(type);
+			gs.setGameState(Game.GameState.Play);
+			return true;
+		}
+		return false;
 	}
 
 	@Override
 	public boolean isActionPossible(GameService game) {
-		
-		if(game == null || user == null){
+
+		if (game == null || user == null || type == null) {
 			return false;
-		}		
+		}
 		return game.isValidAnsager(user);
 
 	}

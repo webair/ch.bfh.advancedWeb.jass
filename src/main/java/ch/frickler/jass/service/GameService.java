@@ -109,7 +109,7 @@ public class GameService extends PersistanceService {
 			initGame();
 			new JUABoardCastCard(null).doAction(this);
 			// TODO should be done in the UI
-			new JUAAnsagen(getAnsager()).doAction(this);
+			new JUAAnsagen(getAnsager(), GameKind.TRUMPHeart).doAction(this);
 		}
 	}
 
