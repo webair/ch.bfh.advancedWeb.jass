@@ -5,7 +5,6 @@
 	template="../templates/main.xhtml">
 	<ui:define name="title">The Overview!</ui:define>
 	<ui:define name="content">
-		<h:outputScript library="js" name="overview.js" target="head" />
 		<h:form id="OverviewForm">
 			<h:commandLink value="refresh" id="GameLink">
 				<f:ajax render="games" />
@@ -40,5 +39,9 @@
 				<h:messages />
 			</h:panelGroup>
 		</h:form>
+		<h:outputScript>
+			<!-- enable polling on this page -->
+			reloadUI(#{UI.reload_time}, "OverviewForm:GameLink", ":games");
+		</h:outputScript>
 	</ui:define>
 </ui:composition>
