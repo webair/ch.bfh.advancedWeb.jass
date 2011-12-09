@@ -10,8 +10,14 @@ function processPoll(t, sourceId, toRender) {
 // starts the polling using the given interval and renders the "toRender" jsf components
 function reloadUI(interval, sourceId, toRender) {
 	jsf.ajax.request(sourceId, null, {
-		value : 'show',
 		render : toRender,
 		onevent: processPoll(interval, sourceId, toRender)
 	});
+}
+
+// does polling using a hiddenform.
+// this way we cann call methods in a bean
+function formPoll(timeout, button) {
+	document.getElementById(button).click();
+	window.setTimeout("formPoll("+timeout+", '"+button+"')", timeout);
 }

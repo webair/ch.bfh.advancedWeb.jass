@@ -1,9 +1,12 @@
 package ch.frickler.jass;
 
+import java.io.IOException;
 import java.util.List;
 
+import javax.faces.FacesException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import ch.frickler.jass.db.entity.Game;
@@ -46,8 +49,19 @@ public class WaitingRoomBean {
 
 	public String refresh() {
 		if (GameManager.getInstance().gameIsReady(getGameId())) {
-			return "play?faces-redirect=true";
+			FacesContext ctx = FacesContext.getCurrentInstance();
+
+			ExternalContext extContext = ctx.getExternalContext();
+			String url = extContext.encodeActionURL(ctx.getApplication()
+					.getViewHandler()
+					.getActionURL(ctx, "/restricted/play.xhtml"));
+			try {
+				extContext.redirect(url);
+			} catch (IOException ioe) {
+				throw new FacesException(ioe);
+
+			}
 		}
-		return null; // stay on this page and wait
+		return null; // stay on the page
 	}
 }

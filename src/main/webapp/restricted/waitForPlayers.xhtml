@@ -7,20 +7,18 @@
 		Warteraum für Spiel <h:outputText value="#{waitingRoomBean.game.name}" />
 	</ui:define>
 	<ui:define name="content">
-			<h:form id="WaitForm">
+		<h:form id="WaitForm">
 		Players:
 			<h:panelGroup id="players">
 
-			<h:dataTable var="p" value="#{waitingRoomBean.players}">
-				<h:column>
+				<h:dataTable var="p" value="#{waitingRoomBean.players}">
+					<h:column>
 							#{p.name}
 					</h:column>
-			</h:dataTable>
+				</h:dataTable>
 
-		</h:panelGroup>
-			<h:commandLink value="Refresh" id="Refresh" action="#{waitingRoomBean.refresh}">
-			<f:ajax render="WaitForm:players" />
-			</h:commandLink>
+			</h:panelGroup>
+
 			<h:commandButton value="Add Bot" action="#{waitingRoomBean.addBot}"
 				rendered="#{waitingRoomBean.game.owner == userBean.user}">
 				<f:ajax render="WaitForm:players" />
@@ -28,9 +26,18 @@
 			<h:commandButton value="Start Game" action="#{waitingRoomBean.start}"
 				rendered="#{waitingRoomBean.game.owner == userBean.user}" />
 		</h:form>
+
+		<h:form id="HiddenForm" style="display: none;">
+			<h:commandButton id="invisibleClickTarget"
+				action="#{waitingRoomBean.refresh}">
+				<f:ajax render="WaitForm:players" />
+			</h:commandButton>
+		</h:form>
+		
 		<h:outputScript>
 			<!-- enable polling on this page -->
-			reloadUI(#{UI.reload_time}, "WaitForm:Refresh", "WaitForm:players");
+			//reloadUI(#{UI.reload_time}, "HiddenForm:", "WaitForm:players");
+			formPoll(#{UI.reload_time}, 'HiddenForm:invisibleClickTarget');
 		</h:outputScript>
 	</ui:define>
 </ui:composition>
