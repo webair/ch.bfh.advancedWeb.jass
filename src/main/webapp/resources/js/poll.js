@@ -9,8 +9,7 @@ function processPoll(t, sourceId, toRender) {
 
 // starts the polling using the given interval and renders the "toRender" jsf components
 function reloadUI(interval, sourceId, toRender) {
-	var source = window.document.getElementById(sourceId);
-	jsf.ajax.request(source, null, {
+	jsf.ajax.request(sourceId, null, {
 		value : 'show',
 		render : toRender,
 		onevent: processPoll(interval, sourceId, toRender)

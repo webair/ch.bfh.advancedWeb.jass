@@ -8,6 +8,7 @@ import javax.faces.context.FacesContext;
 
 import ch.frickler.jass.db.entity.Game;
 import ch.frickler.jass.db.entity.User;
+import ch.frickler.jass.service.UserService;
 
 @ManagedBean
 @SessionScoped
@@ -39,6 +40,14 @@ public class WaitingRoomBean {
 	}
 
 	public void addBot() {
-		GameManager.getInstance().addUserToGame(new User("a bot"), getGameId());
+		GameManager.getInstance().addUserToGame(new UserService().createBot(),
+				getGameId());
+	}
+
+	public String refresh() {
+		if (GameManager.getInstance().gameIsReady(getGameId())) {
+			return "play?faces-redirect=true";
+		}
+		return null; // stay on this page and wait
 	}
 }

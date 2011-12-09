@@ -7,6 +7,7 @@
 		Warteraum für Spiel <h:outputText value="#{waitingRoomBean.game.name}" />
 	</ui:define>
 	<ui:define name="content">
+			<h:form id="WaitForm">
 		Players:
 			<h:panelGroup id="players">
 
@@ -17,15 +18,19 @@
 			</h:dataTable>
 
 		</h:panelGroup>
-		<h:form>
+			<h:commandLink value="Refresh" id="Refresh" action="#{waitingRoomBean.refresh}">
+			<f:ajax render="WaitForm:players" />
+			</h:commandLink>
 			<h:commandButton value="Add Bot" action="#{waitingRoomBean.addBot}"
 				rendered="#{waitingRoomBean.game.owner == userBean.user}">
-				<f:ajax render=":players" />
+				<f:ajax render="WaitForm:players" />
 			</h:commandButton>
-		</h:form>
-		<h:form>
 			<h:commandButton value="Start Game" action="#{waitingRoomBean.start}"
 				rendered="#{waitingRoomBean.game.owner == userBean.user}" />
 		</h:form>
+		<h:outputScript>
+			<!-- enable polling on this page -->
+			reloadUI(#{UI.reload_time}, "WaitForm:Refresh", "WaitForm:players");
+		</h:outputScript>
 	</ui:define>
 </ui:composition>
