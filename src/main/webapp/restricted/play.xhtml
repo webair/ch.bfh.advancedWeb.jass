@@ -30,7 +30,8 @@
 				This is the card deck...<br />
 
 				<ui:repeat value="#{gameBean.deck}" var="card">
-					<h:graphicImage library="im" name="#{card.family}/#{card.value}.jpeg" />
+					<h:graphicImage library="im"
+						name="#{card.family}/#{card.value}.jpeg" />
 				</ui:repeat>
 
 			</div>
@@ -43,16 +44,16 @@
 					<f:ajax render=":cards :deck" />
 					<f:param name="cardFamily" value="#{card.family}" />
 					<f:param name="cardValue" value="#{card.value}" />
-					<h:graphicImage library="im" name="#{card.family}/#{card.value}.jpeg" />
+					<h:graphicImage library="im"
+						name="#{card.family}/#{card.value}.jpeg" />
 				</h:commandLink>
 			</ui:repeat>
 		</h:form>
 
-		<!-- hey chris, hie isch eine gfragt, wo ahnig het vo designen...
-bim cards söt me öppe sones ui-repeat mache und je nach typ es bild azeige?
-wahrschinlech bruchts o e paar commandLinks wo ds "GameBean" ufrüefe und das tuet när via Gamemanager spile
-  -->
-
+		<h:outputScript>
+			<!-- enable polling on this page -->
+			reloadUI(#{UI.reload_time}, "cards", "deck");
+		</h:outputScript>
 	</ui:define>
 </ui:composition>
 
