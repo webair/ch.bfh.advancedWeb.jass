@@ -18,7 +18,14 @@
 
 		</h:panelGroup>
 		<h:form>
-			<h:commandButton value="Start Game" action="#{waitingRoomBean.start}" rendered="#{waitingRoomBean.game.owner == userBean.user}" />
+			<h:commandButton value="Add Bot" action="#{waitingRoomBean.addBot}"
+				rendered="#{waitingRoomBean.game.owner == userBean.user}">
+				<f:ajax render=":players" />
+			</h:commandButton>
+		</h:form>
+		<h:form>
+			<h:commandButton value="Start Game" action="#{waitingRoomBean.start}"
+				rendered="#{waitingRoomBean.game.owner == userBean.user}" />
 		</h:form>
 	</ui:define>
 </ui:composition>

@@ -29,11 +29,16 @@ public class WaitingRoomBean {
 	}
 
 	public List<User> getPlayers() {
-		return GameManager.getInstance().getGameService(getGameId()).getAllSpieler();
+		return GameManager.getInstance().getGameService(getGameId())
+				.getAllSpieler();
 	}
-	
-	public String start(){
+
+	public String start() {
 		GameManager.getInstance().startGame(getGameId());
 		return "play?faces-redirect=true";
+	}
+
+	public void addBot() {
+		GameManager.getInstance().addUserToGame(new User("a bot"), getGameId());
 	}
 }
