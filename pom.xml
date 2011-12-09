@@ -5,7 +5,9 @@
 	<artifactId>BuzzwordJass</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<properties><surfire.useFile>false</surfire.useFile></properties>
+	<properties>
+		<surfire.useFile>false</surfire.useFile>
+	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
@@ -33,6 +35,13 @@
 		</dependency>
 
 		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
 			<version>3.6.1.Final</version>
@@ -48,5 +57,5 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.14</version>
 		</dependency>
-	</dependencies>	
+	</dependencies>
 </project>
