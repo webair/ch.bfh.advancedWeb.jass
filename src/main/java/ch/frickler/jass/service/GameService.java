@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import ch.frickler.jass.db.entity.Card;
 import ch.frickler.jass.db.entity.Game;
@@ -30,7 +31,6 @@ public class GameService extends PersistanceService {
 					.getGameKind());
 	}
 
-	// TODO: this does not work.... (no teams)
 	public Game createGame(String name, Integer winPoints) {
 		Game g = new Game();
 		g.setWinPoints(winPoints);
@@ -210,13 +210,25 @@ public class GameService extends PersistanceService {
 		setGameState(GameState.WaitForCards);
 		// neue karten verteilen
 		new JUABoardCastCard().doAction(this);
-		//TODO bot should call a trump
+		forceBotTrump();
 	}
 
-	public User getCaller(){
+	private void forceBotTrump() {
+		User u = getCaller();
+		if (u.isABot()) {
+			int num = GameKind.values().length;
+			GameKind k = GameKind.values()[new Random().nextInt(num)];
+			new JUAAnsagen(u, k).doAction(this);
+			System.out.println("New Trump is " + k);
+		}
+		// now that we have a trump, let the first bot plays (if it's his turn)
+		forceBotPlay();
+	}
+
+	public User getCaller() {
 		return this.getAllSpieler().get(_game.getCallerId());
 	}
-	
+
 	private void doAbrechnung() {
 		Round r = getCurrentRound();
 		// round finished place points
@@ -420,12 +432,12 @@ public class GameService extends PersistanceService {
 			return false;
 		}
 
-		if(!_game.getGameState().equals(GameState.Play))
+		if (!_game.getGameState().equals(GameState.Play))
 			return false;
-		
-		if(getGameTypeService() == null)
+
+		if (getGameTypeService() == null)
 			return false; // no trump yet
-		
+
 		return isPlayedCardVaild(user, layedCard, r);
 	}
 
