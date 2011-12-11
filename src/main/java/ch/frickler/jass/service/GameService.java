@@ -34,16 +34,16 @@ public class GameService extends PersistanceService {
 	}
 
 	// logs the 10 last messages
-	private void log(String msg){
-		log.add(0,msg);
-		while(log.size() > 10)
-			log.remove(log.size()-1);
+	private void log(String msg) {
+		log.add(0, msg);
+		while (log.size() > 10)
+			log.remove(log.size() - 1);
 	}
-	
-	public List<String> getLog(){
+
+	public List<String> getLog() {
 		return log;
 	}
-	
+
 	public Game createGame(String name, Integer winPoints) {
 		Game g = new Game();
 		g.setWinPoints(winPoints);
@@ -227,7 +227,7 @@ public class GameService extends PersistanceService {
 	}
 
 	private void forceBotTrump() {
-		User u = getCaller();
+		User u = getAnsager();
 		if (u.isABot()) {
 			int num = GameKind.values().length;
 			GameKind k = GameKind.values()[new Random().nextInt(num)];
@@ -236,10 +236,6 @@ public class GameService extends PersistanceService {
 		}
 		// now that we have a trump, let the first bot plays (if it's his turn)
 		forceBotPlay();
-	}
-
-	public User getCaller() {
-		return this.getAllSpieler().get(_game.getCallerId());
 	}
 
 	private void doAbrechnung() {
@@ -264,8 +260,9 @@ public class GameService extends PersistanceService {
 	}
 
 	protected void playCard(User spl, Card layedCard) {
-		// TODO translate this 
-		log(spl.getName() + " played " + layedCard.getFamily() + " " + layedCard.getValue());
+		// TODO translate this
+		log(spl.getName() + " played " + layedCard.getFamily() + " "
+				+ layedCard.getValue());
 		System.out.println("User " + spl.getName() + " layed card"
 				+ layedCard.toString());
 		Round r = getCurrentRound();
@@ -343,7 +340,7 @@ public class GameService extends PersistanceService {
 		setGameState(Game.GameState.Ansage);
 	}
 
-	private User getAnsager() {
+	public User getAnsager() {
 		int delta = getCurrentRound().isPushed() ? 2 : 0;
 		return this.getAllSpielerSorted(null).get(
 				(_game.getCallerId() + delta) % 4);
@@ -428,8 +425,11 @@ public class GameService extends PersistanceService {
 	}
 
 	protected boolean isValidAnsager(User user) {
+		//TODO not sure about this... someone who knows the rules??
+//		if (_game.getGameState() == GameState.Ansage
+//				&& _game.getCurrentRound().getBeginner().equals(user)) {
 		if (_game.getGameState() == GameState.Ansage
-				&& _game.getCurrentRound().getBeginner().equals(user)) {
+				&& getAnsager().equals(user)) {
 			return true;
 		} else if (_game.getGameState() == GameState.AnsageGschobe
 				&& getAnsager().equals(user)) {
@@ -470,7 +470,7 @@ public class GameService extends PersistanceService {
 	public void setGameType(GameKind type) {
 		getCurrentRound().setGameKind(type);
 		gametypeService = new GameTypeService(type);
-		//TODO translate this...
+		// TODO translate this...
 		log("Trumpf is now: " + type);
 	}
 

@@ -10,8 +10,8 @@ import javax.faces.context.FacesContext;
 
 import ch.frickler.jass.db.entity.Card;
 import ch.frickler.jass.db.entity.Game;
-import ch.frickler.jass.db.entity.User;
 import ch.frickler.jass.db.entity.Game.GameState;
+import ch.frickler.jass.db.entity.User;
 import ch.frickler.jass.db.enums.GameKind;
 import ch.frickler.jass.service.GameService;
 import ch.frickler.jass.service.JUAAnsagen;
@@ -88,7 +88,7 @@ public class GameBean {
 	public boolean isAnsager() {
 		GameService gs = GameManager.getInstance().getGameService(getGameId());
 		if (gs.getState().equals(Game.GameState.Ansage)) {
-			return gs.getCaller().equals(user.getUser());
+			return gs.getAnsager().equals(user.getUser());
 		}
 		return false;
 	}
