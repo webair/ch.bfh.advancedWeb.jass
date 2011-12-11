@@ -3,6 +3,7 @@ package ch.frickler.jass.service;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
@@ -21,6 +22,7 @@ public class GameService extends PersistanceService {
 
 	private Game _game;
 	private GameTypeService gametypeService;
+	private List<String> log = new LinkedList<String>();
 
 	public GameService(Game g) {
 		this._game = g;
@@ -31,6 +33,17 @@ public class GameService extends PersistanceService {
 					.getGameKind());
 	}
 
+	// logs the 10 last messages
+	private void log(String msg){
+		log.add(0,msg);
+		while(log.size() > 10)
+			log.remove(log.size()-1);
+	}
+	
+	public List<String> getLog(){
+		return log;
+	}
+	
 	public Game createGame(String name, Integer winPoints) {
 		Game g = new Game();
 		g.setWinPoints(winPoints);
@@ -251,6 +264,8 @@ public class GameService extends PersistanceService {
 	}
 
 	protected void playCard(User spl, Card layedCard) {
+		// TODO translate this 
+		log(spl.getName() + " played " + layedCard.getFamily() + " " + layedCard.getValue());
 		System.out.println("User " + spl.getName() + " layed card"
 				+ layedCard.toString());
 		Round r = getCurrentRound();
@@ -455,6 +470,8 @@ public class GameService extends PersistanceService {
 	public void setGameType(GameKind type) {
 		getCurrentRound().setGameKind(type);
 		gametypeService = new GameTypeService(type);
+		//TODO translate this...
+		log("Trumpf is now: " + type);
 	}
 
 }

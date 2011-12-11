@@ -33,7 +33,7 @@
 						<f:selectItems value="#{gameBean.gameKinds}" />
 					</h:selectOneMenu>
 					<h:commandButton value="Ansagen" action="#{gameBean.ansagen}">
-						<f:ajax render=":deck" execute="@form" />
+						<f:ajax render=":deck :GameUI" execute="@form" />
 					</h:commandButton>
 				</h:form>
 			</h:panelGroup>
@@ -50,18 +50,28 @@
 
 		<h:panelGrid id="GameUI" columns="2">
 			<h:column>
-			the log
+				<h:outputText rendered="#{gameBean.trump != null}">
+							Trump is: <b>#{gameBean.trump}</b><br />
+						</h:outputText>
+				<h:dataTable var="l" value="#{gameBean.log}">
+					<h:column>
+						<f:facet name="header">
+							  Last Log messages
+						  </f:facet>
+							#{l}
+					</h:column>
+				</h:dataTable>
 			</h:column>
 
 			<h:column>
 				<h:form id="cards">
 					<ui:repeat value="#{gameBean.cards}" var="card">
 						<h:commandLink action="#{gameBean.playCard}">
-							<f:ajax render=":cards :deck" />
+							<f:ajax render=":deck :GameUI" />
 							<f:param name="cardFamily" value="#{card.family}" />
 							<f:param name="cardValue" value="#{card.value}" />
 							<h:graphicImage library="im"
-								name="#{card.family}/#{card.value}.jpeg" styleClass="handCard"/>
+								name="#{card.family}/#{card.value}.jpeg" styleClass="handCard" />
 						</h:commandLink>
 					</ui:repeat>
 				</h:form>

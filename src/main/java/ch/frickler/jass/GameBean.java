@@ -11,6 +11,7 @@ import javax.faces.context.FacesContext;
 import ch.frickler.jass.db.entity.Card;
 import ch.frickler.jass.db.entity.Game;
 import ch.frickler.jass.db.entity.User;
+import ch.frickler.jass.db.entity.Game.GameState;
 import ch.frickler.jass.db.enums.GameKind;
 import ch.frickler.jass.service.GameService;
 import ch.frickler.jass.service.JUAAnsagen;
@@ -93,6 +94,10 @@ public class GameBean {
 	}
 
 	public String getTrump() {
+		GameService gs = GameManager.getInstance().getGameService(getGameId());
+		if(gs.getState().equals(GameState.Play)){
+			return gs.getCurrentRound().getGameKind().toString();
+		} 
 		return null;
 	}
 
@@ -106,4 +111,9 @@ public class GameBean {
 		new JUAAnsagen(user.getUser(), gk).doAction(gs);
 	}
 
+	public List<String> getLog(){
+		GameService gs = GameManager.getInstance().getGameService(getGameId());
+		return gs.getLog();
+	}
+	
 }
