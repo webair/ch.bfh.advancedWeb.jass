@@ -9,6 +9,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 import ch.frickler.jass.db.entity.Card;
+import ch.frickler.jass.db.entity.Game;
 import ch.frickler.jass.db.entity.User;
 import ch.frickler.jass.db.enums.GameKind;
 import ch.frickler.jass.service.GameService;
@@ -83,14 +84,13 @@ public class GameBean {
 		return GameKind.values();
 	}
 
-//	public boolean isAnsager() {
-//		GameService gs = GameManager.getInstance().getGameService(getGameId());
-//		if (gs.getCaller().equals(user.getUser())) {
-//			// only allow calling when we are not playing
-//			return !gs.getState().equals(Game.GameState.Play);
-//		}
-//		return false;
-//	}
+	public boolean isAnsager() {
+		GameService gs = GameManager.getInstance().getGameService(getGameId());
+		if (gs.getState().equals(Game.GameState.Ansage)) {
+			return gs.getCaller().equals(user.getUser());
+		}
+		return false;
+	}
 
 	public String getTrump() {
 		return null;

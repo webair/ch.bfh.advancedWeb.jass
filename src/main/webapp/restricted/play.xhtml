@@ -27,7 +27,7 @@
 
 		<h:panelGroup id="deck">
 
-			<h:panelGroup>
+			<h:panelGroup rendered="#{gameBean.ansager}">
 				<h:form>
 					<h:selectOneMenu value="#{gameBean.trump}">
 						<f:selectItems value="#{gameBean.gameKinds}" />
