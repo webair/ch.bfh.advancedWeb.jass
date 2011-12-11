@@ -7,11 +7,12 @@ import javax.faces.context.FacesContext;
 @ManagedBean
 public class CreateGame {
 
-	private String name;
+	//TODO remove this value
+	private String name="defölt";
 
 	@ManagedProperty(value = "#{userBean}")
 	private UserBean userBean;
-
+ 
 	/**
 	 * the setter for the injection
 	 * 
@@ -21,7 +22,8 @@ public class CreateGame {
 		userBean = u;
 	}
 
-	private int winPoints;
+	//TODO remove default points
+	private int winPoints=1000;
 
 	public String create() {
 		GameManager gm = GameManager.getInstance();
