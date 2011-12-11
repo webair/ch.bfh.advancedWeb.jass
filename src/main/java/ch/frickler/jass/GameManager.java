@@ -17,6 +17,9 @@ public class GameManager {
 
 	private Map<Long, Game> games = new HashMap<Long, Game>();
 
+	//TODO just a hack to prevent multiple entitymanagers...
+	private Map<Long, GameService> services = new HashMap<Long, GameService>();
+
 	private long gameId = 0L;
 
 	private GameManager() {
@@ -57,9 +60,13 @@ public class GameManager {
 	}
 
 	public GameService getGameService(long gameId) {
+		GameService gs = services.get(gameId);
+		if (gs != null)
+			return gs;
 		Game g = games.get(gameId);
 		if (g != null) {
-			GameService gs = new GameService(g);
+			gs = new GameService(g);
+			services.put(gameId, gs);
 			return gs;
 		}
 		return null;
