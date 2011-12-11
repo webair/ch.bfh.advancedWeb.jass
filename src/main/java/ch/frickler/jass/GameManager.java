@@ -93,5 +93,4 @@ public class GameManager {
 	public Collection<Game> getAvailableGames() {
 		return games.values();
 	}
-
 }

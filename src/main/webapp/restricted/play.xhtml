@@ -26,33 +26,53 @@
 		</h:dataTable>
 
 		<h:panelGroup id="deck">
-			<div align="center" style="border: thin solid black;">
+
+			<h:panelGroup>
+				<h:form>
+					<h:selectOneMenu value="#{gameBean.trump}">
+						<f:selectItems value="#{gameBean.gameKinds}" />
+					</h:selectOneMenu>
+					<h:commandButton value="Ansagen" action="#{gameBean.ansagen}">
+						<f:ajax render=":deck" execute="@form" />
+					</h:commandButton>
+				</h:form>
+			</h:panelGroup>
+
+			<h:panelGroup>
 				This is the card deck...<br />
 
 				<ui:repeat value="#{gameBean.deck}" var="card">
 					<h:graphicImage library="im"
-						name="#{card.family}/#{card.value}.jpeg" />
+						name="#{card.family}/#{card.value}.jpeg" styleClass="deckCard" />
 				</ui:repeat>
-
-			</div>
+			</h:panelGroup>
 		</h:panelGroup>
 
-		<b>Your cards:</b>
-		<h:form id="cards">
-			<ui:repeat value="#{gameBean.cards}" var="card">
-				<h:commandLink action="#{gameBean.playCard}">
-					<f:ajax render=":cards :deck" />
-					<f:param name="cardFamily" value="#{card.family}" />
-					<f:param name="cardValue" value="#{card.value}" />
-					<h:graphicImage library="im"
-						name="#{card.family}/#{card.value}.jpeg" />
-				</h:commandLink>
-			</ui:repeat>
-		</h:form>
+		<h:panelGrid id="GameUI" columns="2">
+			<h:column>
+			the log
+			</h:column>
+
+			<h:column>
+				<h:form id="cards">
+					<ui:repeat value="#{gameBean.cards}" var="card">
+						<h:commandLink action="#{gameBean.playCard}">
+							<f:ajax render=":cards :deck" />
+							<f:param name="cardFamily" value="#{card.family}" />
+							<f:param name="cardValue" value="#{card.value}" />
+							<h:graphicImage library="im"
+								name="#{card.family}/#{card.value}.jpeg" styleClass="handCard"/>
+						</h:commandLink>
+					</ui:repeat>
+				</h:form>
+
+			</h:column>
+
+		</h:panelGrid>
 
 		<h:outputScript>
 			<!-- enable polling on this page -->
-			reloadUI(#{UI.reload_time}, "cards", "deck");
+			reloadUI(#{UI.reload_time}, "cards", "deck GameUI");
 		</h:outputScript>
 	</ui:define>
 </ui:composition>

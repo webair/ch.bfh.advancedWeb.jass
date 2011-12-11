@@ -111,9 +111,7 @@ public class GameService extends PersistanceService {
 		mergeObject(_game); // store the created teams
 		if (getAllSpieler().size() == Game.MAXUSER) {
 			initGame();
-			new JUABoardCastCard(null).doAction(this);
-			// TODO should be done in the UI
-			new JUAAnsagen(getAnsager(), GameKind.TRUMPHeart).doAction(this);
+			new JUABoardCastCard().doAction(this);
 		}
 	}
 
@@ -205,63 +203,20 @@ public class GameService extends PersistanceService {
 		return null;
 	}
 
-	/*
-	 * private RoundResult playRound() throws Exception {
-	 * 
-	 * kartenVerteilen(); User spAnsager = getAnsager();
-	 * 
-	 * ISpielart spielart = spAnsager.sayTrumpf(true); if (spielart == null) //
-	 * todo nicht so schoen { int nextansager =
-	 * (getTeamOf(spAnsager).getSpieler().indexOf( spAnsager) + 1) %
-	 * getTeamOf(spAnsager).getSpieler().size();
-	 * 
-	 * User spAnsagerGschobe = getTeamOf(spAnsager).getSpieler().get(
-	 * nextansager); spielart = spAnsagerGschobe.sayTrumpf(false); if (spielart
-	 * == null) { throw new Exception(
-	 * "Spielart null, darf nicht moeglich sein. Nachdem geschoben wurde"); } }
-	 * this.SetRound(new Round(spielart));
-	 * 
-	 * // wer trumpf sagt spielt aus, auch wenn geschoben. Round r =
-	 * getCurrentRound();
-	 * 
-	 * r.setAusspieler(spAnsager);
-	 * System.out.println("Begin round spielart is: "
-	 * +r.getSpielart().toString()); try {
-	 * 
-	 * for (int i = 0; i < 9; i++) { for (User spl : this.getAllSpielerSorted(r
-	 * .getAusspieler())) { boolean nextISpielersTurn = false;
-	 * 
-	 * while (!nextISpielersTurn) { IUserAction uc = spl.forcePlay(r); // user
-	 * played a card if (uc instanceof JUALayCard) { Card layedCard =
-	 * ((JUALayCard) uc).getCard(); if (isPlayedCardValid(spl, layedCard, r)) {
-	 * nextISpielersTurn = true; playCard(spl, layedCard); } else { // not valid
-	 * card at it to the users hand again //spl.addCard(layedCard); } } else if
-	 * (uc instanceof JUAQuit) { terminate(spl); return RoundResult.QuitGame;
-	 * 
-	 * } else if (uc instanceof JUAAnsagen) { // todo schieben action
-	 * 
-	 * } else if (uc instanceof JUAStoeck) { // todo stoeck action
-	 * 
-	 * } else if (uc instanceof JUAWies) { // todo wies action
-	 * 
-	 * } else { throw new Exception("not handled user action " + uc.getClass());
-	 * } }
-	 * 
-	 * } finishStich(); } finishRound();
-	 * 
-	 * } catch (Exception ex) { System.out.print(ex.getMessage());
-	 * 
-	 * } return RoundResult.Finshed;
-	 * 
-	 * }
-	 */
 	private void finishRound() {
 		doAbrechnung();
 		int caller = _game.getCallerId();
 		_game.setCallerId(++caller % this.getAllSpieler().size());
-		setGameState(GameState.RediForPlay);
+		setGameState(GameState.WaitForCards);
+		// neue karten verteilen
+		new JUABoardCastCard().doAction(this);
+		//TODO bot should call a trump
 	}
 
+	public User getCaller(){
+		return this.getAllSpieler().get(_game.getCallerId());
+	}
+	
 	private void doAbrechnung() {
 		Round r = getCurrentRound();
 		// round finished place points
@@ -296,10 +251,10 @@ public class GameService extends PersistanceService {
 				finishRound();
 			}
 		}
-		botPlay();
+		forceBotPlay();
 	}
 
-	private void botPlay() {
+	public void forceBotPlay() {
 		Round r = getCurrentRound();
 		User u = r.getCurrentPlayer();
 		boolean isCardValid = false;
@@ -323,6 +278,7 @@ public class GameService extends PersistanceService {
 		User spAnsager;
 		spAnsager = this.placeStich(r.getCards());
 		r.setBeginner(spAnsager);
+		r.setCurrentPlayer(spAnsager);
 		r.removeCards();
 	}
 
@@ -464,6 +420,12 @@ public class GameService extends PersistanceService {
 			return false;
 		}
 
+		if(!_game.getGameState().equals(GameState.Play))
+			return false;
+		
+		if(getGameTypeService() == null)
+			return false; // no trump yet
+		
 		return isPlayedCardVaild(user, layedCard, r);
 	}
 

@@ -9,8 +9,8 @@ import ch.frickler.jass.logic.definitions.BaseAction;
 
 public class JUABoardCastCard extends BaseAction {
 
-	public JUABoardCastCard(User user) {
-		super(user);
+	public JUABoardCastCard() {
+		super(null);
 	}
 
 	@Override

@@ -1,1 +1,14 @@
 #Page {height:300px;;}
+
+#deck {
+}
+
+/* the cards on the deck */ 
+.deckCard {
+	width: 75px;
+}
+
+/* the cards on the users hand */
+.handCard {
+	width: 100px;
+}

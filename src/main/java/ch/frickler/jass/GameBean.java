@@ -1,6 +1,5 @@
 package ch.frickler.jass;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +10,9 @@ import javax.faces.context.FacesContext;
 
 import ch.frickler.jass.db.entity.Card;
 import ch.frickler.jass.db.entity.User;
+import ch.frickler.jass.db.enums.GameKind;
+import ch.frickler.jass.service.GameService;
+import ch.frickler.jass.service.JUAAnsagen;
 import ch.frickler.jass.service.JUALayCard;
 
 @ManagedBean
@@ -19,11 +21,10 @@ public class GameBean {
 
 	private Long gameId = null;
 
-	// just for demo purposes
-	private List<Card> deck = new ArrayList<Card>();
-
 	@ManagedProperty(value = "#{userBean}")
 	private UserBean user;
+
+	private String trump = null;
 
 	/**
 	 * the setter for the injection
@@ -70,15 +71,39 @@ public class GameBean {
 		if (found != null) {
 			new JUALayCard(user.getUser(), found).doAction(GameManager
 					.getInstance().getGameService(getGameId()));
-			deck.add(found);
 		}
-		// cards.remove(cardId);
-		// deck.add(cardId);
 	}
 
 	public List<Card> getDeck() {
 		return GameManager.getInstance().getGameService(getGameId())
 				.getCurrentRound().getCards();
+	}
+
+	public GameKind[] getGameKinds() {
+		return GameKind.values();
+	}
+
+//	public boolean isAnsager() {
+//		GameService gs = GameManager.getInstance().getGameService(getGameId());
+//		if (gs.getCaller().equals(user.getUser())) {
+//			// only allow calling when we are not playing
+//			return !gs.getState().equals(Game.GameState.Play);
+//		}
+//		return false;
+//	}
+
+	public String getTrump() {
+		return null;
+	}
+
+	public void setTrump(String trump) {
+		this.trump = trump;
+	}
+
+	public void ansagen() {
+		GameKind gk = GameKind.valueOf(trump);
+		GameService gs = GameManager.getInstance().getGameService(getGameId());
+		new JUAAnsagen(user.getUser(), gk).doAction(gs);
 	}
 
 }
