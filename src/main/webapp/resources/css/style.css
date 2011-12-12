@@ -11,4 +11,5 @@
 /* the cards on the users hand */
 .handCard {
 	width: 100px;
+	margin-left: -20px;
 }
