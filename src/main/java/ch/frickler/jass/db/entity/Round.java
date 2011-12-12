@@ -100,8 +100,8 @@ public class Round implements Serializable {
 		return pushed;
 	}
 
-	public void setPushed() {
-		this.pushed = true;
+	public void setPushed(boolean pushed) {
+		this.pushed = pushed;
 	}
 
 	public User getPlayerWithStoeck() {

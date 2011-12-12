@@ -223,6 +223,10 @@ public class GameService extends PersistanceService {
 		setGameState(GameState.WaitForCards);
 		// neue karten verteilen
 		new JUABoardCastCard().doAction(this);
+		// when we start a new round, the beginner is the ansager
+		// and not the one that placed the last stich!
+		getCurrentRound().setBeginner(getAnsager());
+		getCurrentRound().setCurrentPlayer(getAnsager());
 		forceBotTrump();
 	}
 
@@ -478,7 +482,7 @@ public class GameService extends PersistanceService {
 	 * schiebt das game zu einem anderen spieler
 	 */
 	public void pushGame() {
-		getCurrentRound().setPushed();
+		getCurrentRound().setPushed(true);
 		// wenn der andere spieler ein bot ist, soll er ansagen
 		forceBotTrump();
 	}

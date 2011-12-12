@@ -23,6 +23,8 @@ public class JUAAnsagen extends BaseAction {
 		if (isActionPossible(gs)) {
 			gs.setGameType(type);
 			gs.setGameState(Game.GameState.Play);
+			// remove pushed status if existent
+			gs.getCurrentRound().setPushed(false);
 			return true;
 		}
 		return false;
