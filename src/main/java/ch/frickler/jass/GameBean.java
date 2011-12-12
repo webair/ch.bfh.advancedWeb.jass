@@ -16,6 +16,7 @@ import ch.frickler.jass.db.enums.GameKind;
 import ch.frickler.jass.service.GameService;
 import ch.frickler.jass.service.JUAAnsagen;
 import ch.frickler.jass.service.JUALayCard;
+import ch.frickler.jass.service.JUAStoeck;
 
 @ManagedBean
 @SessionScoped
@@ -114,6 +115,11 @@ public class GameBean {
 	public List<String> getLog(){
 		GameService gs = GameManager.getInstance().getGameService(getGameId());
 		return gs.getLog();
+	}
+	
+	public void schieben() {
+		GameService gs = GameManager.getInstance().getGameService(getGameId());
+		gs.pushGame();
 	}
 	
 }

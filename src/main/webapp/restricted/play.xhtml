@@ -35,6 +35,9 @@
 					<h:commandButton value="Ansagen" action="#{gameBean.ansagen}">
 						<f:ajax render=":deck :GameUI" execute="@form" />
 					</h:commandButton>
+					<h:commandButton value="Schieben" action="#{gameBean.schieben}">
+						<f:ajax render=":deck :GameUI" />
+					</h:commandButton>
 				</h:form>
 			</h:panelGroup>
 

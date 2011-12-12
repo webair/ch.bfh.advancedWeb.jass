@@ -474,4 +474,12 @@ public class GameService extends PersistanceService {
 		log("Trumpf is now: " + type);
 	}
 
+	/**
+	 * schiebt das game zu einem anderen spieler
+	 */
+	public void pushGame() {
+		getCurrentRound().setPushed();
+		// wenn der andere spieler ein bot ist, soll er ansagen
+		forceBotTrump();
+	}
 }
