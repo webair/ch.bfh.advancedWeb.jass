@@ -341,6 +341,11 @@ public class GameService extends PersistanceService {
 				spieler.addCard(allCards.remove(0));
 			}
 		}
+		
+		// sort alle players cards
+		for(User u : getAllSpieler()){
+			Collections.sort(u.getCards());
+		}
 		setGameState(Game.GameState.Ansage);
 	}
 
