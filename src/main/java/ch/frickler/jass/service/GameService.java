@@ -23,7 +23,8 @@ public class GameService extends PersistanceService {
 	private Game _game;
 	private GameTypeService gametypeService;
 	private List<String> log = new LinkedList<String>();
-
+	private List<Card> lastCards=null;
+	
 	public GameService(Game g) {
 		this._game = g;
 		// TODO
@@ -300,13 +301,14 @@ public class GameService extends PersistanceService {
 		// TODO Auto-generated method stub
 		return getCurrentRound().getCards().size() == 4;
 	}
-
+	
 	private void finishStich() {
 		Round r = getCurrentRound();
 		User spAnsager;
 		spAnsager = this.placeStich(r.getCards());
 		r.setBeginner(spAnsager);
 		r.setCurrentPlayer(spAnsager);
+		lastCards = new ArrayList<Card>(r.getCards());
 		r.removeCards();
 	}
 
@@ -490,5 +492,9 @@ public class GameService extends PersistanceService {
 		getCurrentRound().setPushed(true);
 		// wenn der andere spieler ein bot ist, soll er ansagen
 		forceBotTrump();
+	}
+	
+	public List<Card> getLastCards(){
+		return this.lastCards;
 	}
 }

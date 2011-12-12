@@ -16,13 +16,16 @@ import ch.frickler.jass.db.enums.GameKind;
 import ch.frickler.jass.service.GameService;
 import ch.frickler.jass.service.JUAAnsagen;
 import ch.frickler.jass.service.JUALayCard;
-import ch.frickler.jass.service.JUAStoeck;
 
 @ManagedBean
 @SessionScoped
 public class GameBean {
 
 	private Long gameId = null;
+	
+	// we store the four last cards to redisplay them 
+	// (always the last round)
+	private List<Card> lastCards;
 
 	@ManagedProperty(value = "#{userBean}")
 	private UserBean user;
@@ -76,8 +79,15 @@ public class GameBean {
 					.getInstance().getGameService(getGameId()));
 		}
 	}
-
+	
 	public List<Card> getDeck() {
+		// if the last for cards changed, display them... 
+		List<Card> lastCards = GameManager.getInstance().getGameService(getGameId()).getLastCards();
+		if(lastCards!=null && !lastCards.equals(this.lastCards)){
+			this.lastCards = lastCards;
+			return lastCards;
+			
+		}
 		return GameManager.getInstance().getGameService(getGameId())
 				.getCurrentRound().getCards();
 	}
