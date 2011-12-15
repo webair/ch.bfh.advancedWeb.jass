@@ -19,7 +19,7 @@
 					</h:column>
 		</h:dataTable>
 		
-		
+		<h:panelGroup id="teams">
 				<b>PlayingTeams:</b>
 		<h:dataTable var="team" value="#{gameBean.teams}">
 			<h:column>
@@ -35,7 +35,7 @@
 						#{team.points}
 					</h:column>
 		</h:dataTable>
-		
+		</h:panelGroup>
 
 		<h:panelGroup id="deck">
 
@@ -82,7 +82,7 @@
 				<h:form id="cards">
 					<ui:repeat value="#{gameBean.cards}" var="card">
 						<h:commandLink action="#{gameBean.playCard}">
-							<f:ajax render=":deck :GameUI" />
+							<f:ajax render=":deck :GameUI :teams" />
 							<f:param name="cardFamily" value="#{card.family}" />
 							<f:param name="cardValue" value="#{card.value}" />
 							<h:graphicImage library="im"
