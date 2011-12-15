@@ -482,11 +482,19 @@ public class GameService extends PersistanceService {
 		return getCurrentRound().getPlayerWithStoeck().equals(user);
 	}
 
+	public void setTrump(GameKind type,User user){
+		setGameType(type);
+		setGameState(Game.GameState.Play);
+		// remove pushed status if existent
+		getCurrentRound().setPushed(false);
+		// TODO translate this...
+		log("Trumpf is now: " + type+ " says "+user.getName());
+	}
+	
 	public void setGameType(GameKind type) {
 		getCurrentRound().setGameKind(type);
 		gametypeService = new GameTypeService(type);
-		// TODO translate this...
-		log("Trumpf is now: " + type);
+		
 	}
 
 	/**

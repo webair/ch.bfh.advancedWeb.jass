@@ -21,10 +21,8 @@ public class JUAAnsagen extends BaseAction {
 	@Override
 	public boolean doAction(GameService gs) {
 		if (isActionPossible(gs)) {
-			gs.setGameType(type);
-			gs.setGameState(Game.GameState.Play);
-			// remove pushed status if existent
-			gs.getCurrentRound().setPushed(false);
+			gs.setTrump(type, user);
+			
 			return true;
 		}
 		return false;
