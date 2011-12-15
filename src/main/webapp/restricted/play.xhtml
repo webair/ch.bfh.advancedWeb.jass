@@ -56,9 +56,9 @@
 			<h:panelGroup>
 				This is the card deck...<br />
 
-				<ui:repeat value="#{gameBean.deck}" var="card">
+				<ui:repeat value="#{gameBean.cardsSorted}" var="card">
 					<h:graphicImage library="im"
-						name="#{card.family}/#{card.value}.jpeg" styleClass="deckCard" />
+						name="#{card.family}/#{card.value}.jpeg" styleClass="deckCard card-#{card.position}" />
 				</ui:repeat>
 			</h:panelGroup>
 		</h:panelGroup>
@@ -81,6 +81,7 @@
 			<h:column>
 				<h:form id="cards">
 					<ui:repeat value="#{gameBean.cards}" var="card">
+						
 						<h:commandLink action="#{gameBean.playCard}">
 							<f:ajax render=":deck :GameUI" />
 							<f:param name="cardFamily" value="#{card.family}" />

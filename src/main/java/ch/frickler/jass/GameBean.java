@@ -1,5 +1,6 @@
 package ch.frickler.jass;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -13,6 +14,8 @@ import ch.frickler.jass.db.entity.Game;
 import ch.frickler.jass.db.entity.Game.GameState;
 import ch.frickler.jass.db.entity.Team;
 import ch.frickler.jass.db.entity.User;
+import ch.frickler.jass.db.enums.CardFamily;
+import ch.frickler.jass.db.enums.CardValue;
 import ch.frickler.jass.db.enums.GameKind;
 import ch.frickler.jass.service.GameService;
 import ch.frickler.jass.service.JUAAnsagen;
@@ -138,4 +141,38 @@ public class GameBean {
 		gs.pushGame();
 	}
 	
+	public List<GuiCard> getCardsSorted() {
+		List<GuiCard> deckCards = new ArrayList<GuiCard>();
+		int i = 1;
+		for (Card c : getDeck()) {
+			deckCards.add(new GuiCard(c, i));
+			i++;
+		}
+		return deckCards;
+	}
+	
+	public class GuiCard {
+		
+		private int position;
+		private Card card;
+		
+		public GuiCard(Card c,int p) {
+			card = c;
+			position = p;
+		}
+		
+		public int getPosition() {
+			return position;
+		}
+		
+		public CardValue getValue() {
+			return card.getValue();
+		}
+		
+		public CardFamily getFamily() {
+			return card.getFamily();
+			
+		}
+		
+	}
 }
