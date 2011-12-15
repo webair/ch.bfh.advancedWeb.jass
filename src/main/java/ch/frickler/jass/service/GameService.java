@@ -309,7 +309,7 @@ public class GameService extends PersistanceService {
 		Round r = getCurrentRound();
 		User spAnsager;
 		spAnsager = this.placeStich(r.getCards());
-		log("Strich geht an "+spAnsager.toString());
+		log("Strich geht an "+spAnsager.getName());
 		r.setBeginner(spAnsager);
 		r.setCurrentPlayer(spAnsager);
 		lastCards = new ArrayList<Card>(r.getCards());
