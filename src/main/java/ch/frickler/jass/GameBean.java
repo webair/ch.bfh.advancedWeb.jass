@@ -11,6 +11,7 @@ import javax.faces.context.FacesContext;
 import ch.frickler.jass.db.entity.Card;
 import ch.frickler.jass.db.entity.Game;
 import ch.frickler.jass.db.entity.Game.GameState;
+import ch.frickler.jass.db.entity.Team;
 import ch.frickler.jass.db.entity.User;
 import ch.frickler.jass.db.enums.GameKind;
 import ch.frickler.jass.service.GameService;
@@ -53,6 +54,11 @@ public class GameBean {
 	public List<User> getPlayers() {
 		return GameManager.getInstance().getGameService(getGameId())
 				.getAllSpieler();
+	}
+	
+	public List<Team> getTeams() {
+		return GameManager.getInstance().getGameService(getGameId())
+				.getTeams();
 	}
 
 	public List<Card> getCards() {

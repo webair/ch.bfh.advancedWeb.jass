@@ -132,7 +132,7 @@ public class Team implements Serializable {
 	}
 
 	public void addCard(List<Card> cards) {
-		// TODO Auto-generated method stub
+		woncards.addAll(cards);
 		
 	}
 

@@ -17,13 +17,25 @@
 						  </f:facet>
 							#{player.name}
 					</h:column>
+		</h:dataTable>
+		
+		
+				<b>PlayingTeams:</b>
+		<h:dataTable var="team" value="#{gameBean.teams}">
+			<h:column>
+				<f:facet name="header">
+							 Teamname
+						  </f:facet>
+							#{team.name}
+					</h:column>
 			<h:column>
 				<f:facet name="header">
 							  Points
 						  </f:facet>
-						1
+						#{team.points}
 					</h:column>
 		</h:dataTable>
+		
 
 		<h:panelGroup id="deck">
 

@@ -113,7 +113,7 @@ public class GameService extends PersistanceService {
 		if (_game.getTeamAmount() < 2) {
 			Team team = new Team(spieler);
 			team.setPoints(0);
-			team.setName("a team");
+			team.setName("Team of "+spieler.getName());
 			_game.addTeam(team);
 		} else {
 			if (getTeam(0).getUsers().size() < 2) {
@@ -252,8 +252,11 @@ public class GameService extends PersistanceService {
 			if (getTeamOf(r.getCurrentPlayer()).equals(t)) {
 				pointsTeam += 5;
 			}
-			System.out.println("Punkte diese Runde fuer " + t.getName() + ": "
-					+ pointsTeam);
+			//TODO translate this
+			String msg = ("Team: " + t.getName() + ": macht "
+					+ pointsTeam+ " Punkte in dieser Runde.");
+			log(msg);
+			System.out.println(msg);
 			t.addPoints(pointsTeam * getGameTypeService().getQualifier());
 			t.clearCards();
 		}
@@ -306,6 +309,7 @@ public class GameService extends PersistanceService {
 		Round r = getCurrentRound();
 		User spAnsager;
 		spAnsager = this.placeStich(r.getCards());
+		log("Strich geht an "+spAnsager.toString());
 		r.setBeginner(spAnsager);
 		r.setCurrentPlayer(spAnsager);
 		lastCards = new ArrayList<Card>(r.getCards());
@@ -496,5 +500,10 @@ public class GameService extends PersistanceService {
 	
 	public List<Card> getLastCards(){
 		return this.lastCards;
+	}
+
+	public List<Team> getTeams() {
+		
+		return _game.getTeams();
 	}
 }
