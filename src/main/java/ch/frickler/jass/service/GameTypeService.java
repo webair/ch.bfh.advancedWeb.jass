@@ -27,10 +27,10 @@ public class GameTypeService {
 		case TOPDOWN:
 			spielart = new Obenabe();
 			break;
-		case TRUMPBucket:
-			spielart = new Trumpf(CardFamily.SCHAUFEL);
-			break;
 		case TRUMPCross:
+			spielart = new Trumpf(CardFamily.KREUZ);
+			break;
+		case TRUMPBucket:
 			spielart = new Trumpf(CardFamily.SCHAUFEL);
 			break;
 		case TRUMPHeart:
