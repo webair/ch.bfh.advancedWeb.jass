@@ -9,6 +9,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
+
 import ch.frickler.jass.db.entity.Card;
 import ch.frickler.jass.db.entity.Game;
 import ch.frickler.jass.db.entity.Game.GameState;
@@ -30,6 +31,8 @@ public class GameBean {
 	// we store the four last cards to redisplay them 
 	// (always the last round)
 	private List<Card> lastCards;
+	
+	private int myIndex;
 
 	@ManagedProperty(value = "#{userBean}")
 	private UserBean user;
@@ -90,15 +93,21 @@ public class GameBean {
 	}
 	
 	public List<Card> getDeck() {
+		
+		GameService gs = GameManager.getInstance().getGameService(getGameId());
 		// if the last for cards changed, display them... 
-		List<Card> lastCards = GameManager.getInstance().getGameService(getGameId()).getLastCards();
+		List<Card> lastCards = gs.getLastCards();
 		if(lastCards!=null && !lastCards.equals(this.lastCards)){
 			this.lastCards = lastCards;
 			return lastCards;
 			
 		}
-		return GameManager.getInstance().getGameService(getGameId())
-				.getCurrentRound().getCards();
+		
+		User beginner = gs.getCurrentRound().getBeginner();
+		List<User> sortedUsers = gs.getAllSpielerSorted(beginner);
+		myIndex = sortedUsers.indexOf(user.getUser());
+		
+		return gs.getCurrentRound().getCards();
 	}
 
 	public GameKind[] getGameKinds() {
@@ -142,10 +151,12 @@ public class GameBean {
 	}
 	
 	public List<GuiCard> getCardsSorted() {
+		System.out.println("index: " + myIndex);
 		List<GuiCard> deckCards = new ArrayList<GuiCard>();
-		int i = 1;
+		int i = 4-myIndex;
 		for (Card c : getDeck()) {
-			deckCards.add(new GuiCard(c, i));
+			
+			deckCards.add(new GuiCard(c,i%4));
 			i++;
 		}
 		return deckCards;

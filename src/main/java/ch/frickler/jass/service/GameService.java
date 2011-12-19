@@ -77,7 +77,7 @@ public class GameService extends PersistanceService {
 	 * 
 	 * @return all spieler of the game sorted by the ausspieler
 	 */
-	private List<User> getAllSpielerSorted(User beginner) {
+	public List<User> getAllSpielerSorted(User beginner) {
 		List<User> alleISpieler = getAllSpieler();
 
 		if (alleISpieler.size() == 0)
@@ -514,4 +514,5 @@ public class GameService extends PersistanceService {
 		
 		return _game.getTeams();
 	}
+	
 }
