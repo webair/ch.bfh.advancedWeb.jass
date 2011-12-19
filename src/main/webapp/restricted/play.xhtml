@@ -7,9 +7,10 @@
 	<ui:define name="title">
 		let's play
 	</ui:define>
+	
 	<ui:define name="content">
-
-		<b>Logged in players:</b>
+		<div id="Gameplayers">
+		<h2>Logged in players:</h2>
 		<h:dataTable var="player" value="#{gameBean.players}">
 			<h:column>
 				<f:facet name="header">
@@ -20,7 +21,7 @@
 		</h:dataTable>
 		
 		<h:panelGroup id="teams">
-				<b>PlayingTeams:</b>
+				<h2>PlayingTeams:</h2>
 		<h:dataTable var="team" value="#{gameBean.teams}">
 			<h:column>
 				<f:facet name="header">
@@ -36,10 +37,20 @@
 					</h:column>
 		</h:dataTable>
 		</h:panelGroup>
-
+		</div>
+		
 		<h:panelGroup id="deck">
-
-			<h:panelGroup rendered="#{gameBean.ansager}">
+			
+			<h:panelGroup>
+				<div id="CardDeck">
+				<ui:repeat value="#{gameBean.cardsSorted}" var="card">
+					<h:graphicImage library="im"
+						name="#{card.family}/#{card.value}.jpeg" styleClass="deckCard card-#{card.position}" />
+				</ui:repeat>
+				</div>
+			</h:panelGroup>
+			
+						<h:panelGroup rendered="#{gameBean.ansager}">
 				<h:form>
 					<h:selectOneMenu value="#{gameBean.trump}">
 						<f:selectItems value="#{gameBean.gameKinds}" />
@@ -52,20 +63,10 @@
 					</h:commandButton>
 				</h:form>
 			</h:panelGroup>
-
-			<h:panelGroup>
-				This is the card deck...<br />
-
-				<ui:repeat value="#{gameBean.cardsSorted}" var="card">
-					<h:graphicImage library="im"
-						name="#{card.family}/#{card.value}.jpeg" styleClass="deckCard card-#{card.position}" />
-				</ui:repeat>
-			</h:panelGroup>
+			
 		</h:panelGroup>
-
-		<h:panelGrid id="GameUI" columns="2">
-			<h:column>
-				<h:outputText rendered="#{gameBean.trump != null}">
+		<h:panelGroup id="log">
+							<h:outputText rendered="#{gameBean.trump != null}">
 							Trump is: <b>#{gameBean.trump}</b><br />
 						</h:outputText>
 				<h:dataTable var="l" value="#{gameBean.log}">
@@ -76,7 +77,8 @@
 							#{l}
 					</h:column>
 				</h:dataTable>
-			</h:column>
+		</h:panelGroup>
+		<h:panelGrid id="GameUI" columns="1">
 
 			<h:column>
 				<h:form id="cards">
@@ -93,12 +95,11 @@
 				</h:form>
 
 			</h:column>
-
 		</h:panelGrid>
 
 		<h:outputScript>
 			<!-- enable polling on this page -->
-			reloadUI(#{UI.reload_time}, "cards", "deck GameUI");
+			reloadUI(#{UI.reload_time}, "cards", "deck GameUI log");
 		</h:outputScript>
 	</ui:define>
 </ui:composition>

@@ -10,6 +10,32 @@
 .deckCard {
 	width: 75px;
 }
+#Players,#teams {
+	padding:10px;
+
+}
+#Gameplayers {
+	float:left;
+	width:300px;
+}
+
+#teams {
+	display:block;
+}
+
+#deck {
+	display:block;
+	float:left;
+	width:710px;
+	height:400px;
+}
+
+#CardDeck {
+	width:710px;
+	height:370px;
+}
+
+#GameUI {clear:both;margin-left:300px;}
 
 /* the cards on the users hand */
 .handCard {
@@ -19,4 +45,39 @@
 
 #header a {
 	margin: 0px 20px 0px 0px;
+}
+.deckCard {
+	width:120px;
+}
+
+#deck {
+position:relative;
+}
+
+.card-0,.card-1,.card-2,.card-3 {
+	position:absolute;
+}
+
+.card-0 {
+	top:200px;
+	left:250px;
+}
+
+.card-1 {
+	top:100px;
+	left:390px;
+}
+
+.card-2 {
+	top:0px;
+	left:250px;
+}
+
+.card-3 {
+	top:100px;
+	left:100px;
+}
+
+#cards {
+	width:730px;
 }
