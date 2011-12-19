@@ -202,9 +202,4 @@ public class Game implements Serializable {
 		return teams;
 	}
 
-	// TODO see later
-	public boolean isAcceptingPlayers() {
-		return true;
-	}
-
 }

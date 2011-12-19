@@ -1,9 +1,12 @@
-#Page {height:300px;;}
-
-#deck {
+#Page {
+	height: 300px;;
 }
 
-/* the cards on the deck */ 
+#deck {
+	
+}
+
+/* the cards on the deck */
 .deckCard {
 	width: 75px;
 }
@@ -12,4 +15,8 @@
 .handCard {
 	width: 100px;
 	margin-left: -20px;
+}
+
+#header a {
+	margin: 0px 20px 0px 0px;
 }

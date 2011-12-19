@@ -2,7 +2,10 @@ package ch.frickler.jass;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import com.sun.corba.se.spi.legacy.connection.GetEndPointInfoAgainException;
 
 import ch.frickler.jass.db.entity.Game;
 import ch.frickler.jass.db.entity.User;
@@ -99,5 +102,9 @@ public class GameManager {
 
 	public Collection<Game> getAvailableGames() {
 		return games.values();
+	}
+	
+	public  List<Game> getCompletedGames(){
+		return null;
 	}
 }

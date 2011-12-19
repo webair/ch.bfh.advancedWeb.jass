@@ -1,0 +1,33 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="../templates/main.xhtml">
+	<ui:define name="title">Completed games!</ui:define>
+	<ui:define name="content">
+		<h:panelGroup id="completedGames">
+			<h:dataTable var="game" value="#{gameHistoryBean.completedGames}">
+				<h:column>
+					<f:facet name="header">
+							  Game-Name
+						  </f:facet>
+							#{game.name}
+					</h:column>
+				<h:column>
+					<f:facet name="header">
+							  Started by
+						  </f:facet>
+						#{game.owner.name}
+					</h:column>
+				<h:column>
+					<f:facet name="header">
+							  Started by
+						  </f:facet>
+						#{game.owner.name}
+					</h:column>
+
+			</h:dataTable>
+		</h:panelGroup>
+
+	</ui:define>
+</ui:composition>
