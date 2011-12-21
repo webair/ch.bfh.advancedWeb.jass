@@ -57,8 +57,10 @@ public class UserBean {
 	public String getLocale() {
 		if (locale == null) {
 			FacesContext context = FacesContext.getCurrentInstance();
-			locale = context.getViewRoot().getLocale().toString();
+			// return only the first two chars (en) I don't care about en_US
+			locale = context.getViewRoot().getLocale().toString().substring(0,2);
 		}
+		System.out.println(locale);
 		return locale;
 	}
 
