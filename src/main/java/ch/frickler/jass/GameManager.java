@@ -84,7 +84,7 @@ public class GameManager {
 	public boolean gameIsReady(long gameId) {
 		GameService gs = getGameService(gameId);
 		if (gs != null)
-			return gs.getState().equals(Game.GameState.Play);
+			return gs.getState().equals(Game.GameState.Ansage);
 		return false;
 	}
 
