@@ -17,9 +17,14 @@
 				<h:form>
 					<h:commandLink value="#{UI.logout}" action="#{userBean.logout}"
 						rendered="#{userBean.loggedIn}" />
-					<h:commandLink />
-					<h:commandLink value="#{UI.history}" action="history.jsf?faces-redirect=true" />
-					<h:commandLink />
+					<h:commandLink value="#{UI.overview}"
+						action="overview.jsf?faces-redirect=true"
+						rendered="#{userBean.loggedIn}" />
+					<h:commandLink value="#{UI.history}"
+						action="history.jsf?faces-redirect=true"
+						rendered="#{userBean.loggedIn}" />
+					<h:commandLink value="#{UI.resume}" action="play.jsf?faces-redirect=true"
+						rendered="#{userBean.playing}" />
 					<h:selectOneMenu value="#{userBean.locale}"
 						valueChangeListener="#{userBean.swapLocale}" onchange="submit()"
 						immediate="true">

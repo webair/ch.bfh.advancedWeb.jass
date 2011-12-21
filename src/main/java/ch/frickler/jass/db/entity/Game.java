@@ -202,4 +202,12 @@ public class Game implements Serializable {
 		return teams;
 	}
 
+	public boolean isAcceptingPlayers(){
+		int players = 0;
+		for(Team t : getTeams()){
+			players += t.getUsers().size();
+		}
+		
+		return players == MAXUSER;
+	}
 }

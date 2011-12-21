@@ -9,6 +9,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 
 import ch.frickler.jass.db.entity.Game;
+import ch.frickler.jass.helper.MessageHelper;
 
 @ManagedBean
 public class GameOverviewBean {
@@ -36,6 +37,13 @@ public class GameOverviewBean {
 	}
 
 	public String joinGame() {
+		// only join a game if not already playing
+		if (userBean.isPlaying()) {
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			ctx.addMessage(null,
+					MessageHelper.getMessage(ctx, "already_playing"));
+			return null;
+		}
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		Map<String, String> params = ctx.getExternalContext()
 				.getRequestParameterMap();

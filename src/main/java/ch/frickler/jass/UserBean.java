@@ -58,9 +58,9 @@ public class UserBean {
 		if (locale == null) {
 			FacesContext context = FacesContext.getCurrentInstance();
 			// return only the first two chars (en) I don't care about en_US
-			locale = context.getViewRoot().getLocale().toString().substring(0,2);
+			locale = context.getViewRoot().getLocale().toString()
+					.substring(0, 2);
 		}
-		System.out.println(locale);
 		return locale;
 	}
 
@@ -131,5 +131,11 @@ public class UserBean {
 
 	public User getUser() {
 		return user;
+	}
+
+	public boolean isPlaying() {
+		if (user != null)
+			return user.isPlaying();
+		return false;
 	}
 }

@@ -48,6 +48,9 @@ public class User implements Serializable {
 	@Transient
 	private int botNum=0;
 	
+	@Transient
+	private boolean playing=false;
+	
 	public User() {
 		super();
 	}
@@ -118,5 +121,13 @@ public class User implements Serializable {
 	public void addCard(Card card) {
 		cards.add(card);
 
+	}
+	
+	public void setPlaying(boolean playing){
+		this.playing = playing;
+	}
+	
+	public boolean isPlaying(){
+		return playing;
 	}
 }

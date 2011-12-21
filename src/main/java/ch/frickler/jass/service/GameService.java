@@ -219,6 +219,16 @@ public class GameService extends PersistanceService {
 
 	private void finishRound() {
 		doAbrechnung();
+		
+		// check wether the game has ended
+		int winPoints = _game.getWinPoints();
+		for(Team t : getTeams()){
+			if(t.getPoints() >= winPoints) {
+				finishGame();
+				return;
+			}
+		}
+		
 		int caller = _game.getCallerId();
 		_game.setCallerId(++caller % this.getAllSpieler().size());
 		setGameState(GameState.WaitForCards);
@@ -229,6 +239,13 @@ public class GameService extends PersistanceService {
 		getCurrentRound().setBeginner(getAnsager());
 		getCurrentRound().setCurrentPlayer(getAnsager());
 		forceBotTrump();
+	}
+
+	private void finishGame() {
+		setGameState(GameState.Terminated);
+		for(User u : getAllSpieler()){
+			u.setPlaying(false);
+		}
 	}
 
 	private void forceBotTrump() {
@@ -321,6 +338,10 @@ public class GameService extends PersistanceService {
 		Round r = getCurrentRound();
 		r.setBeginner(getAllSpieler().get(0));
 		r.setCurrentPlayer(getAllSpieler().get(0));
+		
+		for(User u : getAllSpieler()){
+			u.setPlaying(true);
+		}
 	}
 
 	private void initNewRound() {
