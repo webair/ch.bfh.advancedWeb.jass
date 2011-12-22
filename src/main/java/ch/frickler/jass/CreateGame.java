@@ -9,8 +9,7 @@ import ch.frickler.jass.helper.MessageHelper;
 @ManagedBean
 public class CreateGame {
 
-	// TODO remove this value
-	private String name = "defölt";
+	private String name = "";
 
 	@ManagedProperty(value = "#{userBean}")
 	private UserBean userBean;
@@ -24,7 +23,6 @@ public class CreateGame {
 		userBean = u;
 	}
 
-	// TODO remove default points
 	private int winPoints = 1000;
 
 	public String create() {

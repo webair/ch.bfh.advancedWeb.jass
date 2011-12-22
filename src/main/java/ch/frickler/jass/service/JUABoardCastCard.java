@@ -22,7 +22,6 @@ public class JUABoardCastCard extends BaseAction {
 
 	@Override
 	public boolean isActionPossible(GameService game) {
-		// TODO Auto-generated method stub
 		return (game.getState() == GameState.WaitForCards);
 	}
 	

@@ -95,7 +95,6 @@ public class UserBean {
 	}
 
 	public String logout() {
-		// TODO this message is not displayed
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ctx.addMessage(null, MessageHelper.getMessage(ctx, "login_goodbye"));
 

@@ -23,11 +23,10 @@ public class GameService extends PersistanceService {
 	private Game _game;
 	private GameTypeService gametypeService;
 	private List<String> log = new LinkedList<String>();
-	private List<Card> lastCards=null;
-	
+	private List<Card> lastCards = null;
+
 	public GameService(Game g) {
 		this._game = g;
-		// TODO
 		if (g != null && g.getCurrentRound() != null
 				&& g.getCurrentRound().getGameKind() != null)
 			gametypeService = new GameTypeService(g.getCurrentRound()
@@ -113,7 +112,7 @@ public class GameService extends PersistanceService {
 		if (_game.getTeamAmount() < 2) {
 			Team team = new Team(spieler);
 			team.setPoints(0);
-			team.setName("Team of "+spieler.getName());
+			team.setName("Team of " + spieler.getName());
 			_game.addTeam(team);
 		} else {
 			if (getTeam(0).getUsers().size() < 2) {
@@ -219,16 +218,16 @@ public class GameService extends PersistanceService {
 
 	private void finishRound() {
 		doAbrechnung();
-		
+
 		// check wether the game has ended
 		int winPoints = _game.getWinPoints();
-		for(Team t : getTeams()){
-			if(t.getPoints() >= winPoints) {
+		for (Team t : getTeams()) {
+			if (t.getPoints() >= winPoints) {
 				finishGame();
 				return;
 			}
 		}
-		
+
 		int caller = _game.getCallerId();
 		_game.setCallerId(++caller % this.getAllSpieler().size());
 		setGameState(GameState.WaitForCards);
@@ -243,7 +242,7 @@ public class GameService extends PersistanceService {
 
 	private void finishGame() {
 		setGameState(GameState.Terminated);
-		for(User u : getAllSpieler()){
+		for (User u : getAllSpieler()) {
 			u.setPlaying(false);
 		}
 	}
@@ -269,9 +268,8 @@ public class GameService extends PersistanceService {
 			if (getTeamOf(r.getCurrentPlayer()).equals(t)) {
 				pointsTeam += 5;
 			}
-			//TODO translate this
-			String msg = ("Team: " + t.getName() + ": macht "
-					+ pointsTeam+ " Punkte in dieser Runde.");
+			// TODO translate this
+			String msg = ("Team: " + t.getName() + ": macht " + pointsTeam + " Punkte in dieser Runde.");
 			log(msg);
 			System.out.println(msg);
 			t.addPoints(pointsTeam * getGameTypeService().getQualifier());
@@ -318,15 +316,14 @@ public class GameService extends PersistanceService {
 	}
 
 	private boolean allSpielerPlayed() {
-		// TODO Auto-generated method stub
 		return getCurrentRound().getCards().size() == 4;
 	}
-	
+
 	private void finishStich() {
 		Round r = getCurrentRound();
 		User spAnsager;
 		spAnsager = this.placeStich(r.getCards());
-		log("Strich geht an "+spAnsager.getName());
+		log("Strich geht an " + spAnsager.getName());
 		r.setBeginner(spAnsager);
 		r.setCurrentPlayer(spAnsager);
 		lastCards = new ArrayList<Card>(r.getCards());
@@ -338,8 +335,8 @@ public class GameService extends PersistanceService {
 		Round r = getCurrentRound();
 		r.setBeginner(getAllSpieler().get(0));
 		r.setCurrentPlayer(getAllSpieler().get(0));
-		
-		for(User u : getAllSpieler()){
+
+		for (User u : getAllSpieler()) {
 			u.setPlaying(true);
 		}
 	}
@@ -368,9 +365,9 @@ public class GameService extends PersistanceService {
 				spieler.addCard(allCards.remove(0));
 			}
 		}
-		
+
 		// sort alle players cards
-		for(User u : getAllSpieler()){
+		for (User u : getAllSpieler()) {
 			Collections.sort(u.getCards());
 		}
 		setGameState(Game.GameState.Ansage);
@@ -431,7 +428,6 @@ public class GameService extends PersistanceService {
 
 	protected void setGameState(Game.GameState state) {
 		_game.setGameState(state);
-		// todo use correct gamestate
 	}
 
 	private void writeStatistic(Team winnerTeam, Team team) {
@@ -461,13 +457,7 @@ public class GameService extends PersistanceService {
 	}
 
 	protected boolean isValidAnsager(User user) {
-		//TODO not sure about this... someone who knows the rules??
-//		if (_game.getGameState() == GameState.Ansage
-//				&& _game.getCurrentRound().getBeginner().equals(user)) {
-		if (_game.getGameState() == GameState.Ansage
-				&& getAnsager().equals(user)) {
-			return true;
-		} else if (_game.getGameState() == GameState.AnsageGschobe
+		if ((_game.getGameState() == GameState.Ansage || _game.getGameState() == GameState.AnsageGschobe)
 				&& getAnsager().equals(user)) {
 			return true;
 		}
@@ -503,19 +493,19 @@ public class GameService extends PersistanceService {
 		return getCurrentRound().getPlayerWithStoeck().equals(user);
 	}
 
-	public void setTrump(GameKind type,User user){
+	public void setTrump(GameKind type, User user) {
 		setGameType(type);
 		setGameState(Game.GameState.Play);
 		// remove pushed status if existent
 		getCurrentRound().setPushed(false);
 		// TODO translate this...
-		log("Trumpf is now: " + type+ " says "+user.getName());
+		log("Trumpf is now: " + type + " says " + user.getName());
 	}
-	
+
 	public void setGameType(GameKind type) {
 		getCurrentRound().setGameKind(type);
 		gametypeService = new GameTypeService(type);
-		
+
 	}
 
 	/**
@@ -526,14 +516,14 @@ public class GameService extends PersistanceService {
 		// wenn der andere spieler ein bot ist, soll er ansagen
 		forceBotTrump();
 	}
-	
-	public List<Card> getLastCards(){
+
+	public List<Card> getLastCards() {
 		return this.lastCards;
 	}
 
 	public List<Team> getTeams() {
-		
+
 		return _game.getTeams();
 	}
-	
+
 }

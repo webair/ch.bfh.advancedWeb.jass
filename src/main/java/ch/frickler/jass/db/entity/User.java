@@ -15,7 +15,7 @@ import javax.persistence.Transient;
 import ch.frickler.jass.service.UserService;
 
 /**
- * Entity implementation class for Entity: User TODO crypt password
+ * Entity implementation class for Entity: User  
  */
 @Entity
 @Table(name = "USER")
@@ -110,7 +110,6 @@ public class User implements Serializable {
 	}
 
 	public List<Card> getCards() {
-		// TODO Auto-generated method stub
 		return cards;
 	}
 

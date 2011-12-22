@@ -7,7 +7,6 @@ public class JUAStoeck extends BaseAction {
 
 	public JUAStoeck(User user) {
 		super(user);
-		// TODO Auto-generated constructor stub
 	}
 
 	public boolean doAction(GameService spiel) {		

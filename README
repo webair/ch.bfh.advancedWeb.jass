@@ -9,14 +9,32 @@ TIPPS:
  - eclipse fügt die libraries im web-inf verzeichnis automatisch zum classpath hinzu!
  - ohne das hier dreht man fast durch: http://stackoverflow.com/questions/2136218/eclipse-autocomplete-content-assist-with-facelets-jsf-and-xhtml
  
-TODO: 
- - bim erschte lade vor site wird die falschi locale gwählt (bsp, site=en, menu=de)
- - evtl. es package mit ActionListeners mache? und ds swaplocale usem user use nä?
- - Aschax iboue
- - default messages bi register und login übersetze 
- 
  witeri notize: 
   - f:loadbundle isch jsf 1!...
+  
+TEXTE UEBERSETZEN:
+es gibt zwei arten von texten: 1. texte im .xhtml oder texte im java
+
+1. texte im xhtml:
+ - key im properties file definieren
+ - text im xhtml durch #{UI.KEY} ersetzen. Wichtig: UI ist eine variable, die im faces-config definiert wird.
+ 
+2. text im java
+ - key im properties file definieren
+	// display a message
+	FacesContext ctx = FacesContext.getCurrentInstance();
+	ctx.addMessage(null, MessageHelper.getMessage(ctx, "KEY_AUS_DEM_PROPERTIES_FILE"));
+  
+TODO AFTER SPLIT:
+ - properties file umbenennen und faces-config.xml anpassen
+ - alle properties übersetzen (texte ins _de, _en, _fr kopieren und anpassen)
+ - javadoc schreiben
+ - css fricklen
+ - logik umbenennen
+ - db umbenennen
+ - alle texte in allen .xhtml files übersetzen (siehe howto oben)
+ - package-namen wechseln!!! auch der properties im faces-config!
+ - anderes kartenset
   
  ####################
  useful helper links
