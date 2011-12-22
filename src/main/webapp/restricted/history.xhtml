@@ -25,7 +25,30 @@
 						  </f:facet>
 						#{game.owner.name}
 					</h:column>
-
+				<h:column>
+					<f:facet name="header">
+							  Team 1
+						  </f:facet>
+						#{game.teams[0].name}
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+							  Punkte Team 1
+						  </f:facet>
+						#{game.teams[0].points}
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+							  Team 2
+						  </f:facet>
+						#{game.teams[1].name}
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+							 Punkte Team 2
+						  </f:facet>
+						#{game.teams[1].points}
+				</h:column>
 			</h:dataTable>
 		</h:panelGroup>
 
