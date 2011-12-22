@@ -4,15 +4,17 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 
+import ch.frickler.jass.helper.MessageHelper;
+
 @ManagedBean
 public class CreateGame {
 
-	//TODO remove this value
-	private String name="defölt";
+	// TODO remove this value
+	private String name = "defölt";
 
 	@ManagedProperty(value = "#{userBean}")
 	private UserBean userBean;
- 
+
 	/**
 	 * the setter for the injection
 	 * 
@@ -22,12 +24,18 @@ public class CreateGame {
 		userBean = u;
 	}
 
-	//TODO remove default points
-	private int winPoints=1000;
+	// TODO remove default points
+	private int winPoints = 1000;
 
 	public String create() {
-		GameManager gm = GameManager.getInstance();
-		Long gameId = gm.createGame(getName(), userBean.getUser(), getWinPoints());
+		if (userBean.getUser().isPlaying()) {
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			ctx.addMessage(null,
+					MessageHelper.getMessage(ctx, "already_playing"));
+			return null;
+		}		GameManager gm = GameManager.getInstance();
+		Long gameId = gm.createGame(getName(), userBean.getUser(),
+				getWinPoints());
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ctx.getExternalContext().getSessionMap()
 				.put(GameManager.GAME_ID_KEY, gameId);
