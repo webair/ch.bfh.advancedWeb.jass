@@ -8,6 +8,12 @@ import javax.faces.context.ExceptionHandlerWrapper;
 import javax.faces.event.ExceptionQueuedEvent;
 import javax.faces.event.ExceptionQueuedEventContext;
 
+/**
+ * we use this exception handler for displaying the errors in the console
+ * 
+ * @author kaeserst
+ * 
+ */
 public class MyExceptionHandler extends ExceptionHandlerWrapper {
 
 	private ExceptionHandler wrapped;
@@ -21,9 +27,14 @@ public class MyExceptionHandler extends ExceptionHandlerWrapper {
 		return wrapped;
 	}
 
+	/**
+	 * this method handles the exception and prints the stacktrace to the
+	 * console
+	 */
 	@Override
 	public void handle() throws FacesException {
-		Iterator<ExceptionQueuedEvent> i = getUnhandledExceptionQueuedEvents().iterator();
+		Iterator<ExceptionQueuedEvent> i = getUnhandledExceptionQueuedEvents()
+				.iterator();
 		while (i.hasNext()) {
 			ExceptionQueuedEvent event = (ExceptionQueuedEvent) i.next();
 			ExceptionQueuedEventContext context = (ExceptionQueuedEventContext) event
