@@ -11,9 +11,75 @@ import ch.frickler.jass.service.UserService;
 @RequestScoped
 public class RegisterBean {
 
+	/**
+	 * holds the user name for the registrating user
+	 */
 	private String username;
-	private String passwordOne;
-	private String passwordTwo;
+
+	/**
+	 * holds the passwords (1 & 2 for checking typing failures)
+	 */
+	private String pw1;
+	private String pw2;
+
+	private String nick;
+
+	/**
+	 * 
+	 * action for registrating user. user will be registrated if the inputs are
+	 * valid
+	 * 
+	 * @return resdirect to login page, or if inputs are not valid to
+	 *         registration page again
+	 */
+	public String register() {
+
+		String nextPage = null;
+		FacesContext ctx = FacesContext.getCurrentInstance();
+
+		if (!pw1.equals(pw2)) {
+
+			ctx.addMessage(null,
+					MessageHelper.getMessage(ctx, "register_no_pw_match"));
+		} else if (username.equals(pw1)) {
+
+			ctx.addMessage(null, MessageHelper.getMessage(ctx, "user_pw_same"));
+		} else if (!checkUsername()) {
+
+			ctx.addMessage(null,
+					MessageHelper.getMessage(ctx, "register_username_not_free"));
+		} else {
+
+			saveUser();
+			ctx.addMessage(null, MessageHelper.getMessage(ctx, "user_created"));
+			nextPage = "login";
+		}
+
+		return nextPage;
+	}
+
+	/**
+	 * validate user name (valid when username isn't taken yet)
+	 * 
+	 * @return true if username is not taken yet
+	 */
+	private boolean checkUsername() {
+		return new UserService().isUsernameUnused(username);
+	}
+
+	/**
+	 * action for saving user to the database
+	 */
+	private void saveUser() {
+		UserService u = new UserService();
+
+		if (nick == null || nick.length() == 0)
+			nick = username;
+
+		u.createSpieler(username, pw1, nick);
+	}
+
+	// getters & setters
 
 	public String getUsername() {
 		return username;
@@ -23,20 +89,20 @@ public class RegisterBean {
 		this.username = username;
 	}
 
-	public String getPasswordOne() {
-		return passwordOne;
+	public String getPw1() {
+		return pw1;
 	}
 
-	public void setPasswordOne(String passwordOne) {
-		this.passwordOne = passwordOne;
+	public void setPw1(String passwordOne) {
+		this.pw1 = passwordOne;
 	}
 
-	public String getPasswordTwo() {
-		return passwordTwo;
+	public String getPw2() {
+		return pw2;
 	}
 
-	public void setPasswordTwo(String passwordTwo) {
-		this.passwordTwo = passwordTwo;
+	public void setPw2(String passwordTwo) {
+		this.pw2 = passwordTwo;
 	}
 
 	public String getNick() {
@@ -45,58 +111,6 @@ public class RegisterBean {
 
 	public void setNick(String nick) {
 		this.nick = nick;
-	}
-
-	private String nick;
-
-	/**
-	 * registration is possible, if the username is free, and the two passwords
-	 * match.
-	 * 
-	 * @return redirects to the login or stays on the register pages
-	 */
-	public String register() {
-
-		String nextPage = null;
-		FacesContext ctx = FacesContext.getCurrentInstance();
-
-		if (!passwordOne.equals(passwordTwo)) {
-			// pws do not match
-			ctx.addMessage(null,
-					MessageHelper.getMessage(ctx, "register_no_pw_match"));
-		} else if (username.equals(passwordOne)) {
-			// same username and password...
-			ctx.addMessage(null, MessageHelper.getMessage(ctx, "user_pw_same"));
-		} else if (!checkUsername()) {
-			// someone already has this username
-			ctx.addMessage(null,
-					MessageHelper.getMessage(ctx, "register_username_not_free"));
-		} else {
-			// everything's ok, create the user
-			storeUser();
-			ctx.addMessage(null, MessageHelper.getMessage(ctx, "user_created"));
-			nextPage = "login";
-		}
-
-		return nextPage;
-	}
-
-	/**
-	 * a username is valid if it is still free
-	 * 
-	 * @return true if the username is ok
-	 */
-	private boolean checkUsername() {
-		return new UserService().isUsernameUnused(username);
-	}
-
-	private void storeUser() {
-		UserService u = new UserService();
-
-		if (nick == null || nick.length() == 0)
-			nick = username;
-
-		u.createSpieler(username, passwordOne, nick);
 	}
 
 }
