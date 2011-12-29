@@ -5,8 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.sun.corba.se.spi.legacy.connection.GetEndPointInfoAgainException;
-
 import ch.frickler.jass.db.entity.Game;
 import ch.frickler.jass.db.entity.User;
 import ch.frickler.jass.service.GameService;
