@@ -2,12 +2,8 @@
 	height: 300px;;
 }
 
-#deck {
-	
-}
-
 /* the cards on the deck */
-.deckCard {
+.playedCard {
 	width: 75px;
 }
 #Players,#teams {
@@ -23,14 +19,14 @@
 	display:block;
 }
 
-#deck {
+#playTable {
 	display:block;
 	float:left;
 	width:710px;
 	height:400px;
 }
 
-#CardDeck {
+#PlayTableCards {
 	width:710px;
 	height:370px;
 }
@@ -46,12 +42,12 @@
 #header a {
 	margin: 0px 20px 0px 0px;
 }
-.deckCard {
+.playedCard {
 	width:120px;
 }
 
-#deck {
-position:relative;
+#PlayTableCards {
+	position:relative;
 }
 
 .card-0,.card-1,.card-2,.card-3 {
