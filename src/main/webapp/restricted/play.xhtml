@@ -43,18 +43,10 @@
 
 			<h:panelGroup>
 				<div id="CardDeck">
-<<<<<<< HEAD
-					<ui:repeat value="#{gameBean.cardsSorted}" var="card">
-						<h:graphicImage library="im"
-							name="#{card.family}/#{card.value}.jpeg"
-							styleClass="deckCard card-#{card.position}" />
-					</ui:repeat>
-=======
 				<ui:repeat value="#{gameBean.cardsSorted}" var="card">
 					<h:graphicImage library="images"
 						name="cards/#{card.family}-#{card.value}.gif" styleClass="deckCard card-#{card.position}" />
 				</ui:repeat>
->>>>>>> branch 'master' of https://steffstefferson@github.com/webair/ch.bfh.advancedWeb.jass.git
 				</div>
 			</h:panelGroup>
 
