@@ -6,8 +6,8 @@
 	version="2.0">
 	<application>
 		<resource-bundle>
-			<base-name>ch.frickler.jass.res.UI</base-name>
-			<var>UI</var>
+			<base-name>ch.frickler.jass.res.Lang</base-name>
+			<var>Lang</var>
 		</resource-bundle>
 	</application>
 

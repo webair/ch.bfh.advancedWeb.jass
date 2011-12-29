@@ -4,20 +4,20 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	template="templates/main.xhtml">
 	<ui:define name="title">
-	#{UI.title_login}
+	#{Lang.title_login}
 	</ui:define>
 	<ui:define name="content">
 		<h:form>
 			<h:panelGrid id="grid" columns="2">
-				<h:outputLabel value="#{UI.label_user}:" for="username" />
+				<h:outputLabel value="#{Lang.label_user}:" for="username" />
 				<h:inputText id="username" value="#{userBean.username}"
-					required="true" requiredMessage="#{UI.err_username}" />
-				<h:outputLabel value="#{UI.label_password}:" for="password" />
+					required="true" requiredMessage="#{Lang.err_username}" />
+				<h:outputLabel value="#{Lang.label_password}:" for="password" />
 				<h:inputSecret id="password" value="#{userBean.password}"
-					required="true" requiredMessage="#{UI.err_password}" />
-				<h:commandButton value="#{UI.text_login}" action="#{userBean.login}" />
+					required="true" requiredMessage="#{Lang.err_password}" />
+				<h:commandButton value="#{Lang.text_login}" action="#{userBean.login}" />
 				<h:link outcome="register.jsf?faces-redirect=true"
-					value="#{UI.text_register}" />
+					value="#{Lang.text_register}" />
 			</h:panelGrid>
 			<h:messages />
 		</h:form>

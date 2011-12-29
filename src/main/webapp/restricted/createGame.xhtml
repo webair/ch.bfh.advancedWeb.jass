@@ -5,26 +5,26 @@
 	template="/templates/main.xhtml">
 	
 	<ui:define name="title">
-	#{UI.title_createGame}
+	#{Lang.title_createGame}
 	</ui:define>
 	<ui:define name="content">
 		<h:form>
 			<h:panelGrid id="grid" columns="2">
-				<h:outputLabel value="#{UI.game_name}:" for="name" />
+				<h:outputLabel value="#{Lang.game_name}:" for="name" />
 				<h:inputText id="name" value="#{createGame.name}"
-					  required="true" requiredMessage="#{UI.err_game_name}"/>
+					  required="true" requiredMessage="#{Lang.err_game_name}"/>
 				
-				<h:outputLabel value="#{UI.game_winpoints}:" for="winPoints" />
+				<h:outputLabel value="#{Lang.game_winpoints}:" for="winPoints" />
 				<h:inputText id="winPoints" 
 				value="#{createGame.winPoints}" 
 				required="true"
-				validatorMessage="#{UI.err_winpoints}"
-				converterMessage="#{UI.err_number}"
+				validatorMessage="#{Lang.err_winpoints}"
+				converterMessage="#{Lang.err_number}"
 				>
 				<f:validateLongRange minimum="1000" maximum="5000" />
 				</h:inputText>
 
-				<h:commandButton value="#{UI.game_create}"
+				<h:commandButton value="#{Lang.game_create}"
 					action="#{createGame.create}" />
 			</h:panelGrid>
 			<h:messages />

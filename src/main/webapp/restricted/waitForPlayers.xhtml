@@ -36,8 +36,8 @@
 		
 		<h:outputScript>
 			<!-- enable polling on this page -->
-			//reloadUI(#{UI.reload_time}, "HiddenForm:", "WaitForm:players");
-			formPoll(#{UI.reload_time}, 'HiddenForm:invisibleClickTarget');
+			//reloadUI(#{Lang.reload_time}, "HiddenForm:", "WaitForm:players");
+			formPoll(#{Lang.reload_time}, 'HiddenForm:invisibleClickTarget');
 		</h:outputScript>
 	</ui:define>
 </ui:composition>
