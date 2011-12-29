@@ -444,7 +444,7 @@ public class GameService extends PersistanceService {
 
 	public boolean addStoeck(User user) {
 		Team t = getTeamOf(user);
-		t.addPoints(Trump.ValueOfStoeck * getGameTypeService().getQualifier());
+		t.addPoints(Trump.VALUEOFSTOECK * getGameTypeService().getQualifier());
 		return false;
 	}
 
