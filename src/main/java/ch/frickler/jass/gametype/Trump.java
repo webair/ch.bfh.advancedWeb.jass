@@ -141,7 +141,7 @@ public class Trump extends JassGameType {
 	}
 
 	public String toString() {
-		return "Spielart: Trumpf (" + trumpf.name() + ")";
+		return trumpf.name();
 	}
 
 	/**
