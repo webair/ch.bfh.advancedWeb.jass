@@ -15,8 +15,7 @@ import javax.servlet.http.HttpSession;
 import ch.frickler.jass.UserBean;
 
 /**
- * filters all requests to the /restricted/ folder if the session has a UserBean
- * and is logged in, the page is displayed. otherwise the login page is shown.
+ * this class check in all files of the folder /restricted/ if the user is logged in.
  */
 public class AuthenticationFilter implements Filter {
 
@@ -25,7 +24,10 @@ public class AuthenticationFilter implements Filter {
 		//TODO
 	}
 
-	@Override
+	/**
+	 * check if the user is logged in, if not redirect it to the login page
+	 * @see javax.servlet.Filter#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain)
+	 */
 	public void doFilter(ServletRequest req, ServletResponse resp,
 			FilterChain chain) throws IOException, ServletException {
 		HttpSession session = ((HttpServletRequest) req).getSession();
@@ -38,8 +40,7 @@ public class AuthenticationFilter implements Filter {
 	}
 
 	@Override
-	public void init(FilterConfig config) throws ServletException {
-		//TODO
+	public void init(FilterConfig arg0) throws ServletException {
+		// no init required	
 	}
-
 }
