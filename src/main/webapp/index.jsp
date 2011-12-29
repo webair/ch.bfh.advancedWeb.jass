@@ -1,1 +1,1 @@
-<% response.sendRedirect("restricted/overview.jsf"); %>)
+<% response.sendRedirect("restricted/listGames.jsf"); %>)

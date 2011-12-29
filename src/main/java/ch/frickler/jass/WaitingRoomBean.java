@@ -54,7 +54,7 @@ public class WaitingRoomBean {
 			ExternalContext extContext = ctx.getExternalContext();
 			String url = extContext.encodeActionURL(ctx.getApplication()
 					.getViewHandler()
-					.getActionURL(ctx, "/restricted/play.xhtml"));
+					.getActionURL(ctx, "/restricted/playGame.xhtml"));
 			try {
 				extContext.redirect(url);
 			} catch (IOException ioe) {

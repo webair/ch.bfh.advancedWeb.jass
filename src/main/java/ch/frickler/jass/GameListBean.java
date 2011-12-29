@@ -12,7 +12,7 @@ import ch.frickler.jass.db.entity.Game;
 import ch.frickler.jass.helper.MessageHelper;
 
 @ManagedBean
-public class GameOverviewBean {
+public class GameListBean {
 
 	/**
 	 * holds the user bean (injection)
