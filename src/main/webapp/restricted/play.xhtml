@@ -44,8 +44,8 @@
 			<h:panelGroup>
 				<div id="CardDeck">
 				<ui:repeat value="#{gameBean.cardsSorted}" var="card">
-					<h:graphicImage library="im"
-						name="#{card.family}/#{card.value}.jpeg" styleClass="deckCard card-#{card.position}" />
+					<h:graphicImage library="images"
+						name="cards/#{card.family}-#{card.value}.gif" styleClass="deckCard card-#{card.position}" />
 				</ui:repeat>
 				</div>
 			</h:panelGroup>
@@ -88,8 +88,9 @@
 							<f:ajax render=":deck :GameUI :teams" />
 							<f:param name="cardFamily" value="#{card.family}" />
 							<f:param name="cardValue" value="#{card.value}" />
-							<h:graphicImage library="im"
-								name="#{card.family}/#{card.value}.jpeg" styleClass="handCard" />
+							
+							<h:graphicImage library="images"
+								name="cards/#{card.family}-#{card.value}.gif" styleClass="handCard" />
 						</h:commandLink>
 					</ui:repeat>
 				</h:form>
