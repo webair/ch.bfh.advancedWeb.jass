@@ -19,6 +19,7 @@ import ch.frickler.jass.db.entity.User;
 import ch.frickler.jass.db.enums.CardFamily;
 import ch.frickler.jass.db.enums.CardValue;
 import ch.frickler.jass.db.enums.GameKind;
+import ch.frickler.jass.gametype.Trump;
 import ch.frickler.jass.logic.definitions.JassAction;
 
 public class GameService extends PersistanceService {
@@ -443,7 +444,7 @@ public class GameService extends PersistanceService {
 
 	public boolean addStoeck(User user) {
 		Team t = getTeamOf(user);
-		t.addPoints(Trumpf.ValueOfStoeck * getGameTypeService().getQualifier());
+		t.addPoints(Trump.ValueOfStoeck * getGameTypeService().getQualifier());
 		return false;
 	}
 

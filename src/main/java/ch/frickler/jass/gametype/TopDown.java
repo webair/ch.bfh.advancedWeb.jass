@@ -1,4 +1,4 @@
-package ch.frickler.jass.service;
+package ch.frickler.jass.gametype;
 
 
 import java.util.List;
@@ -8,7 +8,8 @@ import ch.frickler.jass.db.entity.Round;
 import ch.frickler.jass.db.entity.User;
 import ch.frickler.jass.logic.definitions.JassGameType;
 
-public class Ungeufe extends JassGameType {
+
+public class TopDown extends JassGameType {
 
 	@Override
 	protected int getPointsOfSpielart(List<Card> cards) {
@@ -21,7 +22,7 @@ public class Ungeufe extends JassGameType {
 	protected int getPoint(Card card) {
 		switch(card.getValue()){
 		case SECHS:
-			return 11;
+			return 0;
 		case SIEBEN:
 			return 0;
 		case ACHT:
@@ -37,7 +38,7 @@ public class Ungeufe extends JassGameType {
 		case KOENIG:
 			return 4;
 		case ASS:
-			return 0;
+			return 11;
 		}
 		return 0;
 	}
@@ -46,11 +47,15 @@ public class Ungeufe extends JassGameType {
 	public boolean isSecondCardHigher(Card highestCard, Card card) {
 		
 		if(isSameFamily(highestCard,card.getFamily())){
-			if(highestCard.getOrderValue() > card.getOrderValue())
+			if(highestCard.getOrderValue() < card.getOrderValue())
 				return true;
 		}
 		return false;
 	}
+	
+	public String toString(){
+		 return "Spielart: Obename";
+		}
 
 	@Override
 	public boolean isPlayedCardVaild(User spl, Card layedCard, Round r) {
@@ -60,7 +65,7 @@ public class Ungeufe extends JassGameType {
 		
 		Card firstcard = r.getCards().get(0);
 		
-		if(firstcard.getFamily() == layedCard.getFamily())
+		if(isSameFamily(firstcard,layedCard.getFamily()))
 			return true;
 		
 		
@@ -70,14 +75,11 @@ public class Ungeufe extends JassGameType {
 		return true;
 	}
 	
-	
-	public String toString(){
-		 return "Spielart: Ungeufe";
-		}
+
 
 	@Override
 	public int getQualifier() {
 		return 3; 
 	}
+
 }
-	
