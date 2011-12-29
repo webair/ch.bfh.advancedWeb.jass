@@ -5,85 +5,87 @@
 	template="../templates/main.xhtml">
 
 	<ui:define name="title">
-		let's play
+		#{Lang.title_play}
 	</ui:define>
-	
+
 	<ui:define name="content">
 		<div id="Gameplayers">
-		<h2>Logged in players:</h2>
-		<h:dataTable var="player" value="#{gameBean.players}">
-			<h:column>
-				<f:facet name="header">
-							  Name
+			<h2>#{Lang.title_playerstakepart}:</h2>
+			<h:dataTable var="player" value="#{gameBean.players}">
+				<h:column>
+					<f:facet name="header">
+							  #{Lang.name}
 						  </f:facet>
 							#{player.name}
 					</h:column>
-		</h:dataTable>
-		
-		<h:panelGroup id="teams">
-				<h2>PlayingTeams:</h2>
-		<h:dataTable var="team" value="#{gameBean.teams}">
-			<h:column>
-				<f:facet name="header">
-							 Teamname
+			</h:dataTable>
+
+			<h:panelGroup id="teams">
+				<h2>#{Lang.teams}:</h2>
+				<h:dataTable var="team" value="#{gameBean.teams}">
+					<h:column>
+						<f:facet name="header">
+							 #{Lang.teamname}
 						  </f:facet>
 							#{team.name}
 					</h:column>
-			<h:column>
-				<f:facet name="header">
-							  Points
+					<h:column>
+						<f:facet name="header">
+							  #{Lang.points}
 						  </f:facet>
 						#{team.points}
 					</h:column>
-		</h:dataTable>
-		</h:panelGroup>
+				</h:dataTable>
+			</h:panelGroup>
 		</div>
-		
+
 		<h:panelGroup id="deck">
-			
+
 			<h:panelGroup>
 				<div id="CardDeck">
-				<ui:repeat value="#{gameBean.cardsSorted}" var="card">
-					<h:graphicImage library="im"
-						name="#{card.family}/#{card.value}.jpeg" styleClass="deckCard card-#{card.position}" />
-				</ui:repeat>
+					<ui:repeat value="#{gameBean.cardsSorted}" var="card">
+						<h:graphicImage library="im"
+							name="#{card.family}/#{card.value}.jpeg"
+							styleClass="deckCard card-#{card.position}" />
+					</ui:repeat>
 				</div>
 			</h:panelGroup>
-			
-						<h:panelGroup rendered="#{gameBean.ansager}">
+
+			<h:panelGroup rendered="#{gameBean.ansager}">
 				<h:form>
 					<h:selectOneMenu value="#{gameBean.trump}">
 						<f:selectItems value="#{gameBean.gameKinds}" />
 					</h:selectOneMenu>
-					<h:commandButton value="Ansagen" action="#{gameBean.ansagen}">
+					<h:commandButton value="#{Lang.annonce}" action="#{gameBean.ansagen}">
 						<f:ajax render=":deck :GameUI" execute="@form" />
 					</h:commandButton>
-					<h:commandButton value="Schieben" action="#{gameBean.schieben}">
+					<h:commandButton value="#{Lang.schieben}" action="#{gameBean.schieben}">
 						<f:ajax render=":deck :GameUI" />
 					</h:commandButton>
 				</h:form>
 			</h:panelGroup>
-			
+
 		</h:panelGroup>
 		<h:panelGroup id="log">
-							<h:outputText rendered="#{gameBean.trump != null}">
-							Trump is: <b>#{gameBean.trump}</b><br />
-						</h:outputText>
-				<h:dataTable var="l" value="#{gameBean.log}">
-					<h:column>
-						<f:facet name="header">
-							  Last Log messages
+			<h:outputText rendered="#{gameBean.trump != null}">
+							 #{Lang.trumpis}: <b>#{gameBean.trump}</b>
+				<br />
+			</h:outputText>
+			<h:dataTable var="msg" value="#{gameBean.log}">
+				<h:column>
+					<f:facet name="header">
+							  #{Lang.logmessages}:
 						  </f:facet>
-							#{l}
+							#{msg}
 					</h:column>
-				</h:dataTable>
+			</h:dataTable>
 		</h:panelGroup>
 		<h:panelGrid id="GameUI" columns="1">
 
 			<h:column>
 				<h:form id="cards">
 					<ui:repeat value="#{gameBean.cards}" var="card">
-						
+
 						<h:commandLink action="#{gameBean.playCard}">
 							<f:ajax render=":deck :GameUI :teams" />
 							<f:param name="cardFamily" value="#{card.family}" />
