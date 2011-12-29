@@ -7,10 +7,10 @@ import ch.frickler.jass.db.entity.Round;
 import ch.frickler.jass.db.entity.User;
 import ch.frickler.jass.db.enums.CardFamily;
 import ch.frickler.jass.db.enums.GameKind;
+import ch.frickler.jass.definitions.JassGameType;
 import ch.frickler.jass.gametype.TopDown;
 import ch.frickler.jass.gametype.Trump;
 import ch.frickler.jass.gametype.BottomUp;
-import ch.frickler.jass.logic.definitions.JassGameType;
 
 public class GameTypeService {
 

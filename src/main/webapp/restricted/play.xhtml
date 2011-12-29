@@ -43,11 +43,18 @@
 
 			<h:panelGroup>
 				<div id="CardDeck">
+<<<<<<< HEAD
 					<ui:repeat value="#{gameBean.cardsSorted}" var="card">
 						<h:graphicImage library="im"
 							name="#{card.family}/#{card.value}.jpeg"
 							styleClass="deckCard card-#{card.position}" />
 					</ui:repeat>
+=======
+				<ui:repeat value="#{gameBean.cardsSorted}" var="card">
+					<h:graphicImage library="images"
+						name="cards/#{card.family}-#{card.value}.gif" styleClass="deckCard card-#{card.position}" />
+				</ui:repeat>
+>>>>>>> branch 'master' of https://steffstefferson@github.com/webair/ch.bfh.advancedWeb.jass.git
 				</div>
 			</h:panelGroup>
 
@@ -90,8 +97,9 @@
 							<f:ajax render=":deck :GameUI :teams" />
 							<f:param name="cardFamily" value="#{card.family}" />
 							<f:param name="cardValue" value="#{card.value}" />
-							<h:graphicImage library="im"
-								name="#{card.family}/#{card.value}.jpeg" styleClass="handCard" />
+							
+							<h:graphicImage library="images"
+								name="cards/#{card.family}-#{card.value}.gif" styleClass="handCard" />
 						</h:commandLink>
 					</ui:repeat>
 				</h:form>

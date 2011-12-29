@@ -9,7 +9,6 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
-
 import ch.frickler.jass.action.ActionAnnounce;
 import ch.frickler.jass.action.ActionLayCard;
 import ch.frickler.jass.db.entity.Card;
@@ -27,11 +26,11 @@ import ch.frickler.jass.service.GameService;
 public class GameBean {
 
 	private Long gameId = null;
-	
-	// we store the four last cards to redisplay them 
+
+	// we store the four last cards to redisplay them
 	// (always the last round)
 	private List<Card> lastCards;
-	
+
 	private int myIndex;
 
 	@ManagedProperty(value = "#{userBean}")
@@ -61,10 +60,9 @@ public class GameBean {
 		return GameManager.getInstance().getGameService(getGameId())
 				.getAllSpieler();
 	}
-	
+
 	public List<Team> getTeams() {
-		return GameManager.getInstance().getGameService(getGameId())
-				.getTeams();
+		return GameManager.getInstance().getGameService(getGameId()).getTeams();
 	}
 
 	public List<Card> getCards() {
@@ -91,22 +89,22 @@ public class GameBean {
 					.getInstance().getGameService(getGameId()));
 		}
 	}
-	
+
 	public List<Card> getDeck() {
-		
+
 		GameService gs = GameManager.getInstance().getGameService(getGameId());
-		// if the last for cards changed, display them... 
+		// if the last for cards changed, display them...
 		List<Card> lastCards = gs.getLastCards();
-		if(lastCards!=null && !lastCards.equals(this.lastCards)){
+		if (lastCards != null && !lastCards.equals(this.lastCards)) {
 			this.lastCards = lastCards;
 			return lastCards;
-			
+
 		}
-		
+
 		User beginner = gs.getCurrentRound().getBeginner();
 		List<User> sortedUsers = gs.getAllSpielerSorted(beginner);
 		myIndex = sortedUsers.indexOf(user.getUser());
-		
+
 		return gs.getCurrentRound().getCards();
 	}
 
@@ -124,9 +122,9 @@ public class GameBean {
 
 	public String getTrump() {
 		GameService gs = GameManager.getInstance().getGameService(getGameId());
-		if(gs.getState().equals(GameState.Play)){
+		if (gs.getState().equals(GameState.Play)) {
 			return gs.getCurrentRound().getGameKind().toString();
-		} 
+		}
 		return null;
 	}
 
@@ -140,50 +138,51 @@ public class GameBean {
 		new ActionAnnounce(user.getUser(), gk).doAction(gs);
 	}
 
-	public List<String> getLog(){
+	public List<String> getLog() {
 		GameService gs = GameManager.getInstance().getGameService(getGameId());
 		return gs.getLog();
 	}
-	
+
 	public void schieben() {
 		GameService gs = GameManager.getInstance().getGameService(getGameId());
 		gs.pushGame();
 	}
-	
+
 	public List<GuiCard> getCardsSorted() {
 		System.out.println("index: " + myIndex);
 		List<GuiCard> deckCards = new ArrayList<GuiCard>();
-		int i = 4-myIndex;
+		int i = 4 - myIndex;
 		for (Card c : getDeck()) {
-			
-			deckCards.add(new GuiCard(c,i%4));
+
+			deckCards.add(new GuiCard(c, i % 4));
 			i++;
 		}
 		return deckCards;
 	}
-	
+
 	public class GuiCard {
-		
+
 		private int position;
 		private Card card;
-		
-		public GuiCard(Card c,int p) {
+
+		public GuiCard(Card c, int p) {
 			card = c;
 			position = p;
 		}
-		
+
 		public int getPosition() {
 			return position;
 		}
-		
+
 		public CardValue getValue() {
 			return card.getValue();
 		}
-		
+
 		public CardFamily getFamily() {
 			return card.getFamily();
-			
+
 		}
-		
+
 	}
+
 }

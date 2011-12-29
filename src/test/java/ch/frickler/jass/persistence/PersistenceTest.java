@@ -143,6 +143,7 @@ public class PersistenceTest extends AbstractEntityTest {
 	//
 	// }
 
+
 	@Test
 	public void historyCardTest() {
 		/*
@@ -159,4 +160,5 @@ public class PersistenceTest extends AbstractEntityTest {
 		assertFalse(g.isEmpty());
 */
 	}
+
 }
