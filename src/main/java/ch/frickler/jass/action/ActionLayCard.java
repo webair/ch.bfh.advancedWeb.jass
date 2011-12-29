@@ -1,18 +1,19 @@
-package ch.frickler.jass.service;
+package ch.frickler.jass.action;
 
 import ch.frickler.jass.db.entity.Card;
 import ch.frickler.jass.db.entity.User;
-import ch.frickler.jass.logic.definitions.BaseAction;
+import ch.frickler.jass.logic.definitions.JassAction;
+import ch.frickler.jass.service.GameService;
 
-public class JUALayCard extends BaseAction {
+public class ActionLayCard extends JassAction {
 
-	public JUALayCard(User user) {
+	public ActionLayCard(User user) {
 		super(user);
 	}
 
 	private Card card;
 
-	public JUALayCard(User u, Card c) {
+	public ActionLayCard(User u, Card c) {
 		super(u);
 		this.card = c;
 	}

@@ -7,11 +7,11 @@ import ch.frickler.jass.db.entity.Round;
 import ch.frickler.jass.db.entity.User;
 import ch.frickler.jass.db.enums.CardFamily;
 import ch.frickler.jass.db.enums.GameKind;
-import ch.frickler.jass.logic.definitions.ISpielart;
+import ch.frickler.jass.logic.definitions.JassGameType;
 
 public class GameTypeService {
 
-	private ISpielart spielart;
+	private JassGameType spielart;
 	private GameKind type;
 	
 	public GameTypeService(GameKind type){

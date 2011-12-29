@@ -1,15 +1,16 @@
-package ch.frickler.jass.service;
+package ch.frickler.jass.action;
 
 
 import ch.frickler.jass.db.entity.Game.GameState;
 import ch.frickler.jass.db.entity.User;
-import ch.frickler.jass.logic.definitions.BaseAction;
+import ch.frickler.jass.logic.definitions.JassAction;
+import ch.frickler.jass.service.GameService;
 
 
 
-public class JUABoardCastCard extends BaseAction {
+public class ActionDealOutCards extends JassAction {
 
-	public JUABoardCastCard() {
+	public ActionDealOutCards() {
 		super(null);
 	}
 

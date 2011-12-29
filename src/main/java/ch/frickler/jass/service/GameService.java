@@ -7,6 +7,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
+import ch.frickler.jass.action.ActionAnnounce;
+import ch.frickler.jass.action.ActionDealOutCards;
+import ch.frickler.jass.action.ActionLayCard;
 import ch.frickler.jass.db.entity.Card;
 import ch.frickler.jass.db.entity.Game;
 import ch.frickler.jass.db.entity.Game.GameState;
@@ -16,7 +19,7 @@ import ch.frickler.jass.db.entity.User;
 import ch.frickler.jass.db.enums.CardFamily;
 import ch.frickler.jass.db.enums.CardValue;
 import ch.frickler.jass.db.enums.GameKind;
-import ch.frickler.jass.logic.definitions.BaseAction;
+import ch.frickler.jass.logic.definitions.JassAction;
 
 public class GameService extends PersistanceService {
 
@@ -124,7 +127,7 @@ public class GameService extends PersistanceService {
 		mergeObject(_game); // store the created teams
 		if (getAllSpieler().size() == Game.MAXUSER) {
 			initGame();
-			new JUABoardCastCard().doAction(this);
+			new ActionDealOutCards().doAction(this);
 		}
 	}
 
@@ -232,7 +235,7 @@ public class GameService extends PersistanceService {
 		_game.setCallerId(++caller % this.getAllSpieler().size());
 		setGameState(GameState.WaitForCards);
 		// neue karten verteilen
-		new JUABoardCastCard().doAction(this);
+		new ActionDealOutCards().doAction(this);
 		// when we start a new round, the beginner is the ansager
 		// and not the one that placed the last stich!
 		getCurrentRound().setBeginner(getAnsager());
@@ -252,7 +255,7 @@ public class GameService extends PersistanceService {
 		if (u.isABot()) {
 			int num = GameKind.values().length;
 			GameKind k = GameKind.values()[new Random().nextInt(num)];
-			new JUAAnsagen(u, k).doAction(this);
+			new ActionAnnounce(u, k).doAction(this);
 			System.out.println("New Trump is " + k);
 		}
 		// now that we have a trump, let the first bot plays (if it's his turn)
@@ -282,7 +285,7 @@ public class GameService extends PersistanceService {
 		}
 	}
 
-	protected void playCard(User spl, Card layedCard) {
+	public void playCard(User spl, Card layedCard) {
 		// TODO translate this
 		log(spl.getName() + " played " + layedCard.getFamily() + " "
 				+ layedCard.getValue());
@@ -309,7 +312,7 @@ public class GameService extends PersistanceService {
 			int i = 0;
 			do {
 				Card c = u.getCards().get(i);
-				isCardValid = new JUALayCard(u, c).doAction(this);
+				isCardValid = new ActionLayCard(u, c).doAction(this);
 				i++;
 			} while (!isCardValid);
 		}
@@ -346,7 +349,7 @@ public class GameService extends PersistanceService {
 		_game.setCurrentRound(new Round());
 	}
 
-	protected void kartenVerteilen() {
+	public void kartenVerteilen() {
 		List<Card> allCards = new ArrayList<Card>();
 
 		if (getAllSpieler().size() == 0) {
@@ -412,7 +415,7 @@ public class GameService extends PersistanceService {
 		return loosing;
 	}
 
-	protected void terminate(User terminateUser) {
+	public void terminate(User terminateUser) {
 		Team team = getTeamOf(terminateUser);
 		if (team == null) {
 			team = getLoosingTeam();
@@ -438,7 +441,7 @@ public class GameService extends PersistanceService {
 		return _game.getGameState();
 	}
 
-	protected boolean addStoeck(User user) {
+	public boolean addStoeck(User user) {
 		Team t = getTeamOf(user);
 		t.addPoints(Trumpf.ValueOfStoeck * getGameTypeService().getQualifier());
 		return false;
@@ -448,7 +451,7 @@ public class GameService extends PersistanceService {
 		return gametypeService;
 	}
 
-	public boolean doAction(BaseAction action) {
+	public boolean doAction(JassAction action) {
 
 		if (action.isActionPossible(this)) {
 			return action.doAction(this);
@@ -456,7 +459,7 @@ public class GameService extends PersistanceService {
 		return false;
 	}
 
-	protected boolean isValidAnsager(User user) {
+	public boolean isValidAnsager(User user) {
 		if ((_game.getGameState() == GameState.Ansage || _game.getGameState() == GameState.AnsageGschobe)
 				&& getAnsager().equals(user)) {
 			return true;

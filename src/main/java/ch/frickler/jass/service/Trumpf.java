@@ -7,10 +7,10 @@ import ch.frickler.jass.db.entity.Round;
 import ch.frickler.jass.db.entity.User;
 import ch.frickler.jass.db.enums.CardFamily;
 import ch.frickler.jass.db.enums.CardValue;
-import ch.frickler.jass.logic.definitions.ISpielart;
+import ch.frickler.jass.logic.definitions.JassGameType;
 
 
-public class Trumpf extends ISpielart {
+public class Trumpf extends JassGameType {
 
 	public static final int ValueOfStoeck = 20;
 	private CardFamily trumpf;

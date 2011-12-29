@@ -3,11 +3,11 @@ package ch.frickler.jass.logic.definitions;
 import ch.frickler.jass.db.entity.User;
 import ch.frickler.jass.service.GameService;
 
-public abstract class BaseAction {
+public abstract class JassAction {
 		
 		protected User user;
 		
-		public BaseAction(User user){
+		public JassAction(User user){
 			this.user = user;
 		}
 		
