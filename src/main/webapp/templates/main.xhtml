@@ -15,20 +15,20 @@
 			<!-- Header mit Sprachwahl -->
 			<div id="header">
 				<h:form>
-					<h:commandLink value="#{UI.logout}" action="#{userBean.logout}"
+					<h:commandLink value="#{Lang.logout}" action="#{userBean.logout}"
 						rendered="#{userBean.loggedIn}" />
 					<h:commandLink />
-					<h:commandLink value="#{UI.history}"
+					<h:commandLink value="#{Lang.history}"
 						action="gameHistory.jsf?faces-redirect=true"
 						rendered="#{userBean.loggedIn}" />
 					<h:commandLink />
-					<h:commandLink value="#{UI.overview}"
+					<h:commandLink value="#{Lang.overview}"
 						action="listGames.jsf?faces-redirect=true"
 						rendered="#{userBean.loggedIn}" />
-					<h:commandLink value="#{UI.history}"
+					<h:commandLink value="#{Lang.history}"
 						action="gameHistory.jsf?faces-redirect=true"
 						rendered="#{userBean.loggedIn}" />
-					<h:commandLink value="#{UI.resume}" action="playGame.jsf?faces-redirect=true"
+					<h:commandLink value="#{Lang.resume}" action="playGame.jsf?faces-redirect=true"
 						rendered="#{userBean.playing}" />
 					<h:selectOneMenu value="#{userBean.locale}"
 						valueChangeListener="#{userBean.swapLocale}" onchange="submit()"
