@@ -22,7 +22,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
- * Entity implementation class for Entity: Game
+ * this class is the implementation for the Entity: Game
  * 
  */
 @Entity
@@ -38,7 +38,13 @@ public class Game implements Serializable {
 	}
 
 	private static final long serialVersionUID = 1L;
+	/**
+	 * How many users a game has.
+	 */
 	public static final int MAXUSER = 4;
+	/**
+	 * how many teams a game has
+	 */
 	public static final int TEAMAMOUNT = 2;
 
 	@Id
@@ -75,6 +81,11 @@ public class Game implements Serializable {
 	@Column(name = "GameState", nullable = false)
 	private GameState gameState = GameState.WaitForPlayers;
 
+	/**
+	 * the enum stores all the possible game states
+	 * @author kaeserst
+	 *
+	 */
 	public static enum GameState {
 		WaitForPlayers, Play, Ansage, AnsageGschobe, Terminated, RediForPlay, WaitForCards
 	}
@@ -192,8 +203,11 @@ public class Game implements Serializable {
 			throw new RuntimeException("not possible to add third team");
 	}
 
+	/**
+	 * 
+	 * @return a list of all teams joining the game
+	 */
 	public List<Team> getTeams() {
-
 		List<Team> teams = new ArrayList<Team>();
 		if (team1 != null)
 			teams.add(team1);
@@ -202,13 +216,15 @@ public class Game implements Serializable {
 		return teams;
 	}
 	
-
+	/**
+	 * does the game still accept players
+	 * @return
+	 */
 	public boolean isAcceptingPlayers(){
 		int players = 0;
 		for(Team t : getTeams()){
 			players += t.getUsers().size();
-		}
-		
+		}		
 		return players == MAXUSER;
 	}
 }

@@ -6,7 +6,8 @@ import java.util.Set;
 import javax.persistence.*;
 
 /**
- * Entity implementation class for Entity: Player
+ * this class is the implementation for the Entity: RoundCard
+ * it describes in witch round witch player has witch cards
  * 
  */
 @Entity

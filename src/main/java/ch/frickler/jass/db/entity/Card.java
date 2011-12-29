@@ -16,7 +16,8 @@ import ch.frickler.jass.db.enums.CardValue;
 import ch.frickler.jass.db.enums.GameKind;
 
 /**
- * Entity implementation class for Entity: Card
+ * this class is the implementation for the Entity: Card the card consists of a
+ * cardtype and a cardfamily
  * 
  */
 @Entity
@@ -25,7 +26,10 @@ public class Card implements Serializable, Comparable<Card> {
 
 	private static final long serialVersionUID = 1L;
 
-	public static final int TOTALCARD = 36;
+	/**
+	 * Total cards of the game
+	 */
+	public static final int TOTALCARD = CardFamily.values().length * CardValue.values().length;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -72,6 +76,10 @@ public class Card implements Serializable, Comparable<Card> {
 		this.value = value;
 	}
 
+	/**
+	 * 
+	 * @return the order value of the card
+	 */
 	public int getOrderValue() {
 
 		switch (value) {
@@ -98,6 +106,9 @@ public class Card implements Serializable, Comparable<Card> {
 		return 0;
 	}
 
+	/**
+	 * compares to cards, if same family compare to the ordervalue else to familyorder
+	 */
 	@Override
 	public int compareTo(Card o) {
 
@@ -117,6 +128,11 @@ public class Card implements Serializable, Comparable<Card> {
 
 	}
 
+	/**
+	 * the family order is defined as herz, kreuz, ecke, schaufel
+	 * @param Family
+	 * @return ordernumber
+	 */
 	private int getFamilyOrder(CardFamily f) {
 		int ret = 0;
 		if (CardFamily.HERZ.equals(f)) {
