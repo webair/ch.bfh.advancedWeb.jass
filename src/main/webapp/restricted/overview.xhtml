@@ -3,7 +3,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	template="../templates/main.xhtml">
-	<ui:define name="title">The Overview!</ui:define>
+	<ui:define name="title">#{Lang.overview}</ui:define>
 	<ui:define name="content">
 		<h:form id="OverviewForm">
 			<h:commandLink value="refresh" id="GameLink">
@@ -16,19 +16,19 @@
 				<h:dataTable var="game" value="#{gameOverviewBean.games}">
 					<h:column>
 						<f:facet name="header">
-							  Game-Name
+							  #{Lang.game_name}
 						  </f:facet>
 							#{game.name}
 					</h:column>
 					<h:column>
 						<f:facet name="header">
-							  Points
+							  #{Lang.points}
 						  </f:facet>
 						#{game.winPoints}
 					</h:column>					
 					<h:column>
 						<f:facet name="header">
-							  Started by
+							  #{Lang.gestartetvon}
 						  </f:facet>
 						#{game.owner.name}
 					</h:column>

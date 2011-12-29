@@ -4,11 +4,11 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	template="../templates/main.xhtml">
 	<ui:define name="title">
-		Warteraum für Spiel <h:outputText value="#{waitingRoomBean.game.name}" />
+		#{Lang.warteraum}<h:outputText value="#{waitingRoomBean.game.name}" />
 	</ui:define>
 	<ui:define name="content">
 		<h:form id="WaitForm">
-		Players:
+		#{Lang.beigetretenespieler}:
 			<h:panelGroup id="players">
 
 				<h:dataTable var="p" value="#{waitingRoomBean.players}">
@@ -19,11 +19,11 @@
 
 			</h:panelGroup>
 
-			<h:commandButton value="Add Bot" action="#{waitingRoomBean.addBot}"
+			<h:commandButton value="#{Lang.addcomputer}" action="#{waitingRoomBean.addBot}"
 				rendered="#{waitingRoomBean.game.owner == userBean.user}">
 				<f:ajax render="WaitForm:players" />
 			</h:commandButton>
-			<h:commandButton value="Start Game" action="#{waitingRoomBean.start}"
+			<h:commandButton value="#{Lang.startgame}" action="#{waitingRoomBean.start}"
 				rendered="#{waitingRoomBean.game.owner == userBean.user}" />
 		</h:form>
 

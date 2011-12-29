@@ -3,49 +3,42 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	template="../templates/main.xhtml">
-	<ui:define name="title">Completed games!</ui:define>
+	<ui:define name="title">#{Lang.overviewdonegames}</ui:define>
 	<ui:define name="content">
 		<h:panelGroup id="completedGames">
 			<h:dataTable var="game" value="#{gameHistoryBean.completedGames}">
 				<h:column>
 					<f:facet name="header">
-							  Game-Name
+							  #{Lang.game_name}
 						  </f:facet>
 							#{game.name}
 					</h:column>
-				<h:column>
 					<f:facet name="header">
-							  Started by
+							   #{Lang.gestartetvon}
 						  </f:facet>
 						#{game.owner.name}
 					</h:column>
 				<h:column>
 					<f:facet name="header">
-							  Started by
-						  </f:facet>
-						#{game.owner.name}
-					</h:column>
-				<h:column>
-					<f:facet name="header">
-							  Team 1
+							   #{Lang.team1}
 						  </f:facet>
 						#{game.teams[0].name}
 				</h:column>
 				<h:column>
 					<f:facet name="header">
-							  Punkte Team 1
+							 #{Lang.team1} #{Lang.points} 
 						  </f:facet>
 						#{game.teams[0].points}
 				</h:column>
 				<h:column>
 					<f:facet name="header">
-							  Team 2
+							  #{Lang.team2}
 						  </f:facet>
 						#{game.teams[1].name}
 				</h:column>
 				<h:column>
 					<f:facet name="header">
-							 Punkte Team 2
+							  #{Lang.team2} #{Lang.points} 
 						  </f:facet>
 						#{game.teams[1].points}
 				</h:column>
