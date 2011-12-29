@@ -8,9 +8,17 @@ import javax.faces.bean.ManagedProperty;
 import ch.frickler.jass.db.entity.Game;
 import ch.frickler.jass.service.GameHistoryService;
 
+/**
+ * @author seed
+ *
+ * managed the presentation of the history
+ */
 @ManagedBean
 public class GameHistoryBean {
 	
+	/**
+	 * holds the user bean (injection)
+	 */
 	@ManagedProperty(value = "#{userBean}")
 	private UserBean userBean;
 
@@ -22,6 +30,11 @@ public class GameHistoryBean {
 		this.userBean = userBean;
 	}
 	
+	/**
+	 * reads all completed games and returns them
+	 * 
+	 * @return list of all completed games
+	 */
 	public List<Game> getCompletedGames(){
 		GameHistoryService b = GameHistoryService.getInstance();		
 		return b.getCompletedGames(userBean.getUser());

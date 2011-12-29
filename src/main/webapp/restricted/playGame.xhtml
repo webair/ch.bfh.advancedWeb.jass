@@ -39,27 +39,27 @@
 			</h:panelGroup>
 		</div>
 
-		<h:panelGroup id="deck">
+		<h:panelGroup id="playTable">
 
 			<h:panelGroup>
-				<div id="CardDeck">
-				<ui:repeat value="#{gameBean.cardsSorted}" var="card">
+				<div id="PlayTableCards">
+				<ui:repeat value="#{gameBean.guiCards}" var="card">
 					<h:graphicImage library="images"
-						name="cards/#{card.family}-#{card.value}.gif" styleClass="deckCard card-#{card.position}" />
+						name="cards/#{card.family}-#{card.value}.gif" styleClass="playedCard card-#{card.position}" />
 				</ui:repeat>
 				</div>
 			</h:panelGroup>
 
-			<h:panelGroup rendered="#{gameBean.ansager}">
+			<h:panelGroup rendered="#{gameBean.announcer}">
 				<h:form>
 					<h:selectOneMenu value="#{gameBean.trump}">
 						<f:selectItems value="#{gameBean.gameKinds}" />
 					</h:selectOneMenu>
-					<h:commandButton value="#{Lang.annonce}" action="#{gameBean.ansagen}">
-						<f:ajax render=":deck :GameUI" execute="@form" />
+					<h:commandButton value="#{Lang.annonce}" action="#{gameBean.announce}">
+						<f:ajax render=":playTable :GameUI" execute="@form" />
 					</h:commandButton>
-					<h:commandButton value="#{Lang.schieben}" action="#{gameBean.schieben}">
-						<f:ajax render=":deck :GameUI" />
+					<h:commandButton value="#{Lang.schieben}" action="#{gameBean.push}">
+						<f:ajax render=":playTable :GameUI" />
 					</h:commandButton>
 				</h:form>
 			</h:panelGroup>
@@ -86,7 +86,7 @@
 					<ui:repeat value="#{gameBean.cards}" var="card">
 
 						<h:commandLink action="#{gameBean.playCard}">
-							<f:ajax render=":deck :GameUI :teams" />
+							<f:ajax render=":playTable :GameUI :teams" />
 							<f:param name="cardFamily" value="#{card.family}" />
 							<f:param name="cardValue" value="#{card.value}" />
 							
@@ -101,7 +101,7 @@
 
 		<h:outputScript>
 			<!-- enable polling on this page -->
-			reloadUI(#{Lang.reload_time}, "cards", "deck GameUI log");
+			reloadUI(#{Lang.reload_time}, "cards", "playTable GameUI log");
 		</h:outputScript>
 	</ui:define>
 </ui:composition>

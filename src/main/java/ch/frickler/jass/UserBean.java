@@ -74,7 +74,7 @@ public class UserBean {
 		if (checkUserAndPw()) {
 			// yeah, the user is logged in
 			loggedIn = true;
-			nextPage = "restricted/overview?faces-redirect=true";
+			nextPage = "restricted/listGames?faces-redirect=true";
 		} else {
 			// display a message
 			FacesContext ctx = FacesContext.getCurrentInstance();

@@ -13,7 +13,7 @@
 				action="createGame?faces-redirect=true" />
 			<h:panelGroup id="games">
 				<h:messages />
-				<h:dataTable var="game" value="#{gameOverviewBean.games}">
+				<h:dataTable var="game" value="#{GameListBean.games}">
 					<h:column>
 						<f:facet name="header">
 							  #{Lang.game_name}
@@ -34,7 +34,7 @@
 					</h:column>
 					<h:column>
 						<h:commandLink value="#{Lang.join_game}"
-							action="#{gameOverviewBean.joinGame}"
+							action="#{GameListBean.joinGame}"
 							rendered="#{game.acceptingPlayers}">
 							<f:param name="gameId" value="#{game.id}" />
 						</h:commandLink>

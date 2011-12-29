@@ -21,21 +21,44 @@ import ch.frickler.jass.db.enums.CardValue;
 import ch.frickler.jass.db.enums.GameKind;
 import ch.frickler.jass.service.GameService;
 
+/**
+ * @author seed
+ * Bean for managing the game interactions and the game logic
+ */
+/**
+ * @author seed
+ *
+ */
 @ManagedBean
 @SessionScoped
 public class GameBean {
 
+	/**
+	 * holds the current game id
+	 */
 	private Long gameId = null;
 
-	// we store the four last cards to redisplay them
-	// (always the last round)
+
+	/**
+	 * holds the cards from the last round, so we can present them
+	 * for some seconds to the user
+	 */
 	private List<Card> lastCards;
 
+	/**
+	 * holds the player index 0=first ... 3=last
+	 */
 	private int myIndex;
 
+	/**
+	 * holds the user bean (injection)
+	 */
 	@ManagedProperty(value = "#{userBean}")
 	private UserBean user;
 
+	/**
+	 * holds the current trump
+	 */
 	private String trump = null;
 
 	/**
@@ -47,6 +70,10 @@ public class GameBean {
 		user = u;
 	}
 
+	/**
+	 * @return the current gameid, reads it from the session 
+	 * when its not set.
+	 */
 	private long getGameId() {
 		if (gameId == null) {
 			gameId = (Long) FacesContext.getCurrentInstance()
@@ -56,19 +83,39 @@ public class GameBean {
 		return gameId;
 	}
 
+	/**
+	 * returns a list of players from the game service
+	 * 
+	 * @return list of players
+	 */
 	public List<User> getPlayers() {
 		return GameManager.getInstance().getGameService(getGameId())
 				.getAllSpieler();
 	}
 
+	/**
+	 * returns a list of the teams from the game service
+	 * 
+	 * @return list of teams
+	 */
 	public List<Team> getTeams() {
 		return GameManager.getInstance().getGameService(getGameId()).getTeams();
 	}
 
+	/**
+	 * returns a list of the users card
+	 * 
+	 * @return list of cards
+	 */
 	public List<Card> getCards() {
 		return user.getUser().getCards();
 	}
 
+	
+	/**
+	 *  starts a play action, reads the user input and determine 
+	 *  the action
+	 */
 	public void playCard() {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		Map<String, String> params = ctx.getExternalContext()
@@ -90,7 +137,12 @@ public class GameBean {
 		}
 	}
 
-	public List<Card> getDeck() {
+	/**
+	 * returns the played cards on the player table
+	 * 
+	 * @return list of cards
+	 */
+	public List<Card> getCardsOnTable() {
 
 		GameService gs = GameManager.getInstance().getGameService(getGameId());
 		// if the last for cards changed, display them...
@@ -112,7 +164,10 @@ public class GameBean {
 		return GameKind.values();
 	}
 
-	public boolean isAnsager() {
+	/**
+	 * @return return if user is the current announcer (Ansager)
+	 */
+	public boolean isAnnouncer() {
 		GameService gs = GameManager.getInstance().getGameService(getGameId());
 		if (gs.getState().equals(Game.GameState.Ansage)) {
 			return gs.getAnsager().equals(user.getUser());
@@ -120,6 +175,9 @@ public class GameBean {
 		return false;
 	}
 
+	/**
+	 * @return the current trump, determined by the game service
+	 */
 	public String getTrump() {
 		GameService gs = GameManager.getInstance().getGameService(getGameId());
 		if (gs.getState().equals(GameState.Play)) {
@@ -132,7 +190,10 @@ public class GameBean {
 		this.trump = trump;
 	}
 
-	public void ansagen() {
+	/**
+	 * announce the current trump
+	 */
+	public void announce() {
 		GameKind gk = GameKind.valueOf(trump);
 		GameService gs = GameManager.getInstance().getGameService(getGameId());
 		new ActionAnnounce(user.getUser(), gk).doAction(gs);
@@ -143,16 +204,24 @@ public class GameBean {
 		return gs.getLog();
 	}
 
-	public void schieben() {
+	/**
+	 *  push the announcement (Schieben)
+	 */
+	public void push() {
 		GameService gs = GameManager.getInstance().getGameService(getGameId());
 		gs.pushGame();
 	}
 
-	public List<GuiCard> getCardsSorted() {
+	/**
+	 * returns a list of gui cards with the right player index
+	 * 
+	 * @return list of cards
+	 */
+	public List<GuiCard> getGuiCards() {
 		System.out.println("index: " + myIndex);
 		List<GuiCard> deckCards = new ArrayList<GuiCard>();
 		int i = 4 - myIndex;
-		for (Card c : getDeck()) {
+		for (Card c : getCardsOnTable()) {
 
 			deckCards.add(new GuiCard(c, i % 4));
 			i++;
@@ -160,9 +229,23 @@ public class GameBean {
 		return deckCards;
 	}
 
+	/**
+	 * @author seed
+	 *
+	 * inner class for adding player index to the card
+	 */
 	public class GuiCard {
-
+		
+		
+		/**
+		 * holds the player indey
+		 */
 		private int position;
+		
+		
+		/**
+		 * holds the card entity
+		 */
 		private Card card;
 
 		public GuiCard(Card c, int p) {
