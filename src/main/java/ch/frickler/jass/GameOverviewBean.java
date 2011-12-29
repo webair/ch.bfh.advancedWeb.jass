@@ -14,11 +14,14 @@ import ch.frickler.jass.helper.MessageHelper;
 @ManagedBean
 public class GameOverviewBean {
 
+	/**
+	 * holds the user bean (injection)
+	 */
 	@ManagedProperty(value = "#{userBean}")
 	private UserBean userBean;
 
 	/**
-	 * the setter for the injection
+	 * injection setter
 	 * 
 	 * @param u
 	 */
@@ -28,7 +31,7 @@ public class GameOverviewBean {
 
 	/**
 	 * 
-	 * @return a list of the current (and not yet started) games
+	 * @return a list of games in waiting queue
 	 */
 	public List<Game> getGames() {
 		List<Game> list = new ArrayList<Game>();
@@ -36,6 +39,11 @@ public class GameOverviewBean {
 		return list;
 	}
 
+	/**
+	 * action for joining the game
+	 * 
+	 * @return redirect string to waitingRoom page
+	 */
 	public String joinGame() {
 		// only join a game if not already playing
 		if (userBean.isPlaying()) {
@@ -51,6 +59,6 @@ public class GameOverviewBean {
 		GameManager.getInstance().addUserToGame(userBean.getUser(), gameId);
 		ctx.getExternalContext().getSessionMap()
 				.put(GameManager.GAME_ID_KEY, gameId);
-		return "waitForPlayers?faces-redirect=true";
+		return "waitingRoom?faces-redirect=true";
 	}
 }

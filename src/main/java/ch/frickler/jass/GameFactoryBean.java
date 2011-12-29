@@ -53,7 +53,7 @@ public class GameFactoryBean {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ctx.getExternalContext().getSessionMap()
 				.put(GameManager.GAME_ID_KEY, gameId);
-		return "waitForPlayers?faces-redirect=true";
+		return "waitingRoom?faces-redirect=true";
 	}
 
 	// Getters & Setters
