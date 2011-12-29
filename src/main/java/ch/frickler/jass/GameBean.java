@@ -10,6 +10,8 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 
+import ch.frickler.jass.action.ActionAnnounce;
+import ch.frickler.jass.action.ActionLayCard;
 import ch.frickler.jass.db.entity.Card;
 import ch.frickler.jass.db.entity.Game;
 import ch.frickler.jass.db.entity.Game.GameState;
@@ -19,8 +21,6 @@ import ch.frickler.jass.db.enums.CardFamily;
 import ch.frickler.jass.db.enums.CardValue;
 import ch.frickler.jass.db.enums.GameKind;
 import ch.frickler.jass.service.GameService;
-import ch.frickler.jass.service.JUAAnsagen;
-import ch.frickler.jass.service.JUALayCard;
 
 @ManagedBean
 @SessionScoped
@@ -87,7 +87,7 @@ public class GameBean {
 			}
 		}
 		if (found != null) {
-			new JUALayCard(user.getUser(), found).doAction(GameManager
+			new ActionLayCard(user.getUser(), found).doAction(GameManager
 					.getInstance().getGameService(getGameId()));
 		}
 	}
@@ -137,7 +137,7 @@ public class GameBean {
 	public void ansagen() {
 		GameKind gk = GameKind.valueOf(trump);
 		GameService gs = GameManager.getInstance().getGameService(getGameId());
-		new JUAAnsagen(user.getUser(), gk).doAction(gs);
+		new ActionAnnounce(user.getUser(), gk).doAction(gs);
 	}
 
 	public List<String> getLog(){

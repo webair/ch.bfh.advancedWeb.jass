@@ -8,7 +8,7 @@ import ch.frickler.jass.db.entity.User;
 import ch.frickler.jass.db.enums.CardFamily;
 
 
-public abstract class ISpielart {
+public abstract class JassGameType {
 
 	public int getPoints(List<Card> cards){
 		int points = getMatchPoints(cards);

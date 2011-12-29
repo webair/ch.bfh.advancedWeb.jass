@@ -7,11 +7,14 @@ import ch.frickler.jass.db.entity.Round;
 import ch.frickler.jass.db.entity.User;
 import ch.frickler.jass.db.enums.CardFamily;
 import ch.frickler.jass.db.enums.GameKind;
-import ch.frickler.jass.logic.definitions.ISpielart;
+import ch.frickler.jass.gametype.TopDown;
+import ch.frickler.jass.gametype.Trump;
+import ch.frickler.jass.gametype.BottomUp;
+import ch.frickler.jass.logic.definitions.JassGameType;
 
 public class GameTypeService {
 
-	private ISpielart spielart;
+	private JassGameType spielart;
 	private GameKind type;
 	
 	public GameTypeService(GameKind type){
@@ -22,22 +25,22 @@ public class GameTypeService {
 	private void Init() {
 		switch(type){
 		case BOTTOMUP:
-			spielart = new Ungeufe();
+			spielart = new BottomUp();
 			break;
 		case TOPDOWN:
-			spielart = new Obenabe();
+			spielart = new TopDown();
 			break;
 		case TRUMPCross:
-			spielart = new Trumpf(CardFamily.KREUZ);
+			spielart = new Trump(CardFamily.KREUZ);
 			break;
 		case TRUMPBucket:
-			spielart = new Trumpf(CardFamily.SCHAUFEL);
+			spielart = new Trump(CardFamily.SCHAUFEL);
 			break;
 		case TRUMPHeart:
-			spielart = new Trumpf(CardFamily.HERZ);
+			spielart = new Trump(CardFamily.HERZ);
 			break;
 		case TRUMPEdge:
-			spielart = new Trumpf(CardFamily.ECKEN);
+			spielart = new Trump(CardFamily.ECKEN);
 			break;
 		}
 	}
@@ -47,11 +50,11 @@ public class GameTypeService {
 	}
 
 	public boolean isTrumpf() {
-		return spielart instanceof Trumpf;
+		return spielart instanceof Trump;
 	}
 
 	public CardFamily getTrumpfCardFamily() {
-		Trumpf pf = (Trumpf)spielart;
+		Trump pf = (Trump)spielart;
 		if(pf == null)
 			return null;		
 		return pf.getCardFamily();

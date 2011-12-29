@@ -1,13 +1,13 @@
 package ch.frickler.jass.logic;
 
 
-import ch.frickler.jass.logic.definitions.ISpielart;
+import ch.frickler.jass.logic.definitions.JassGameType;
 import ch.frickler.jass.service.GameService;
 
 public class BaseTest {
 
 	
-	public GameService GetSpiel(ISpielart spielart) throws Exception{
+	public GameService GetSpiel(JassGameType spielart) throws Exception{
 		/*
 		Spiel p = new Spiel("u");
 		Round round = new Round(spielart);
@@ -33,7 +33,7 @@ public class BaseTest {
 		return null;
 	}
 
-	public GameService GetVerteiltesSpiel(ISpielart spielart) throws Exception{
+	public GameService GetVerteiltesSpiel(JassGameType spielart) throws Exception{
 		/*
 		Spiel p = GetSpiel(spielart);
 		KartenVerteilAction kva = new KartenVerteilAction(null);

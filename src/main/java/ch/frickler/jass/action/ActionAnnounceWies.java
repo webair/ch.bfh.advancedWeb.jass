@@ -1,11 +1,12 @@
-package ch.frickler.jass.service;
+package ch.frickler.jass.action;
 
 import ch.frickler.jass.db.entity.User;
-import ch.frickler.jass.logic.definitions.BaseAction;
+import ch.frickler.jass.logic.definitions.JassAction;
+import ch.frickler.jass.service.GameService;
 
-public class JUAWies extends BaseAction {
+public class ActionAnnounceWies extends JassAction {
 
-	public JUAWies(User user) {
+	public ActionAnnounceWies(User user) {
 		super(user);
 		// TODO Auto-generated constructor stub
 	}

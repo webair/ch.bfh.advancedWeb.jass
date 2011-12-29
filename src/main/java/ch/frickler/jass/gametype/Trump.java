@@ -1,4 +1,4 @@
-package ch.frickler.jass.service;
+package ch.frickler.jass.gametype;
 
 import java.util.List;
 
@@ -7,15 +7,15 @@ import ch.frickler.jass.db.entity.Round;
 import ch.frickler.jass.db.entity.User;
 import ch.frickler.jass.db.enums.CardFamily;
 import ch.frickler.jass.db.enums.CardValue;
-import ch.frickler.jass.logic.definitions.ISpielart;
+import ch.frickler.jass.logic.definitions.JassGameType;
 
 
-public class Trumpf extends ISpielart {
+public class Trump extends JassGameType {
 
 	public static final int ValueOfStoeck = 20;
 	private CardFamily trumpf;
 
-	public Trumpf(CardFamily herz) {
+	public Trump(CardFamily herz) {
 		this.trumpf = herz;
 	}
 

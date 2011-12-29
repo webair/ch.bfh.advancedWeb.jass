@@ -143,19 +143,22 @@ public class PersistenceTest extends AbstractEntityTest {
 	//
 	// }
 
-//	@Test
-//	public void historyCardTest() {
-//		User u = getEm().find(User.class, new Long(12));
-//
-//		List<Game> g = getEm()
-//				.createQuery(
-//						"select G from Game G inner join G.team1 t1 inner join G.team2 t2 where t1.user1.id = :id or t1.user2.id = :id or t2.user1.id = :id or t2.user2.id = :id",
-//						Game.class).setParameter("id", new Long("994"))
-//				.getResultList();
-//
-//		System.out.println("Game size: " + g.size());
-//
-//		assertFalse(g.isEmpty());
-//
-//	}
+
+	@Test
+	public void historyCardTest() {
+		/*
+		User u = getEm().find(User.class, new Long(12));
+
+		List<Game> g = getEm()
+				.createQuery(
+						"select G from Game G inner join G.team1 t1 inner join G.team2 t2 where t1.user1.id = :id or t1.user2.id = :id or t2.user1.id = :id or t2.user2.id = :id",
+						Game.class).setParameter("id", new Long("994"))
+				.getResultList();
+
+		System.out.println("Game size" + g.size());
+
+		assertFalse(g.isEmpty());
+*/
+	}
+
 }

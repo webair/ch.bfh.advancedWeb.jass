@@ -1,4 +1,4 @@
-package ch.frickler.jass.service;
+package ch.frickler.jass.gametype;
 
 
 import java.util.List;
@@ -6,10 +6,10 @@ import java.util.List;
 import ch.frickler.jass.db.entity.Card;
 import ch.frickler.jass.db.entity.Round;
 import ch.frickler.jass.db.entity.User;
-import ch.frickler.jass.logic.definitions.ISpielart;
+import ch.frickler.jass.logic.definitions.JassGameType;
 
 
-public class Obenabe extends ISpielart {
+public class TopDown extends JassGameType {
 
 	@Override
 	protected int getPointsOfSpielart(List<Card> cards) {

@@ -1,12 +1,13 @@
-package ch.frickler.jass.service;
+package ch.frickler.jass.action;
 
 import ch.frickler.jass.db.entity.User;
-import ch.frickler.jass.logic.definitions.BaseAction;
+import ch.frickler.jass.logic.definitions.JassAction;
+import ch.frickler.jass.service.GameService;
 
 
-public class JUAQuit extends BaseAction {
+public class ActionLeaveGame extends JassAction {
 
-	public JUAQuit(User user) {
+	public ActionLeaveGame(User user) {
 		super(user);
 	}
 
