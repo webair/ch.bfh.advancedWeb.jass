@@ -12,22 +12,37 @@ import ch.frickler.jass.helper.MessageHelper;
 import ch.frickler.jass.service.UserService;
 
 /**
- * managed bean that represents a user. authentication is done by checking
- * isLoggedIn() of this bean. also handles the users language settings
+ * 
+ * Bean to represent a user and his authentication
  * 
  */
 @ManagedBean
 @SessionScoped
 public class UserBean {
 
+	/**
+	 * holds the locale from the user
+	 */
 	private String locale;
 
+	/**
+	 *  holds the username
+	 */
 	private String username;
 
+	/**
+	 * holds the password
+	 */
 	private String password;
 
+	/**
+	 * holds a boolean if the user is logged in
+	 */
 	private boolean loggedIn = false;
 
+	/**
+	 * holds the dataqbase representation of the user
+	 */
 	private User user = null;
 
 	public String getUsername() {
@@ -46,6 +61,11 @@ public class UserBean {
 		this.password = password;
 	}
 
+	/**
+	 * @param newLocale
+	 * 
+	 * set the new locale, and changes the faces context to it
+	 */
 	public void setLocale(String newLocale) {
 		if (newLocale != null)
 			FacesContext.getCurrentInstance().getViewRoot()
@@ -65,8 +85,9 @@ public class UserBean {
 	}
 
 	/**
+	 * action for letting user logging in
 	 * 
-	 * @return null or the next page
+	 * @return redirect to the listGames page or login page if login failed
 	 */
 	public String login() {
 		String nextPage = null;
@@ -84,6 +105,10 @@ public class UserBean {
 		return nextPage;
 	}
 
+	/**
+	 * check given credentials
+	 * @return true if user & password credential are right
+	 */
 	private boolean checkUserAndPw() {
 
 		user = new UserService().checkUserNameAndPassword(username, password);
@@ -94,6 +119,11 @@ public class UserBean {
 		}
 	}
 
+	/**
+	 * logs out user, session gets cleared
+	 * 
+	 * @return redirect to login page
+	 */
 	public String logout() {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ctx.addMessage(null, MessageHelper.getMessage(ctx, "login_goodbye"));
@@ -119,7 +149,7 @@ public class UserBean {
 	}
 
 	/**
-	 * the action listener for the languages menu
+	 * listens to the language dropdown
 	 * 
 	 * @param event
 	 */
@@ -132,6 +162,11 @@ public class UserBean {
 		return user;
 	}
 
+	
+	/**
+	 * checks if the user is currently playing
+	 * @return true if player is playing
+	 */
 	public boolean isPlaying() {
 		if (user != null)
 			return user.isPlaying();
