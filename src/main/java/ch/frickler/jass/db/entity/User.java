@@ -15,7 +15,9 @@ import javax.persistence.Transient;
 import ch.frickler.jass.service.UserService;
 
 /**
- * Entity implementation class for Entity: User  
+ * this class is the implementation for the Entity: User
+ * the user has a username, name password and the current holding cards. a computer bot
+ * is also a user, in this case the flag bot is set to true.
  */
 @Entity
 @Table(name = "USER")

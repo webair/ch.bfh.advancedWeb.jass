@@ -20,8 +20,9 @@ import ch.frickler.jass.db.enums.GameKind;
 
 
 /**
- * Entity implementation class for Entity: Round
- * 
+ * this class is the implementation for the Entity: Round
+ * a round stores witch gamekind is selected, if the announcer and if he had pushed,
+ * the current player and the layed cards
  */
 @Entity
 @Table(name = "ROUND")
@@ -139,8 +140,4 @@ public class Round implements Serializable {
 	public void addCard(Card c) {
 		this.cards.add(c);
 	}
-
-
-
-
 }

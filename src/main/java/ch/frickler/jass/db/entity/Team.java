@@ -15,10 +15,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-
 /**
- * Entity implementation class for Entity: Team
- * 
+ * this class is the implementation for the Entity: Team
+ * the team contains of a team name, two users, the current points, and the cards made at the current round.
  */
 @Entity
 @Table(name = "TEAM")
@@ -44,27 +43,24 @@ public class Team implements Serializable {
 
 	@Column(name = "NAME", nullable = false)
 	private String name = "";
-	
+
 	@Transient
-    private List<Card> woncards = new ArrayList<Card>();
-	
+	private List<Card> woncards = new ArrayList<Card>();
+
 	public Team() {
 		super();
-	}	
+	}
 
 	public Team(User user1, User user2) {
 		super();
 		this.user1 = user1;
 		this.user2 = user2;
 	}
-	
+
 	public Team(User user1) {
 		super();
 		this.user1 = user1;
 	}
-
-
-
 
 	public long getId() {
 		return id;
@@ -98,25 +94,27 @@ public class Team implements Serializable {
 		this.points = points;
 	}
 
-	public List<User> getUsers(){
+	public List<User> getUsers() {
 		List<User> users = new ArrayList<User>();
-			if(user1 != null) users.add(user1);
-			if(user2 != null) users.add(user2);
-			return users;
+		if (user1 != null)
+			users.add(user1);
+		if (user2 != null)
+			users.add(user2);
+		return users;
 	}
-
 
 	public boolean isUserInTeam(User user) {
 		return getUsers().contains(user);
 	}
 
 	public void addUser(User newuser) {
-		if(user1 == null)
+		if (user1 == null)
 			user1 = newuser;
-		if(user2 == null)
+		if (user2 == null)
 			user2 = newuser;
 		else
-			throw new RuntimeException("tried to add a third user for this team");
+			throw new RuntimeException(
+					"tried to add a third user for this team");
 	}
 
 	public String getName() {
@@ -133,18 +131,15 @@ public class Team implements Serializable {
 
 	public void addCard(List<Card> cards) {
 		woncards.addAll(cards);
-		
 	}
 
 	public void clearCards() {
 		woncards = new ArrayList<Card>();
-		
+
 	}
 
 	public List<Card> getCards() {
-		
 		return woncards;
 	}
-
 
 }
