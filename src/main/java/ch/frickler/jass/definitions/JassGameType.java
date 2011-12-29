@@ -1,4 +1,4 @@
-package ch.frickler.jass.logic.definitions;
+package ch.frickler.jass.definitions;
 
 import java.util.List;
 

@@ -20,7 +20,7 @@ import ch.frickler.jass.db.enums.CardFamily;
 import ch.frickler.jass.db.enums.CardValue;
 import ch.frickler.jass.db.enums.GameKind;
 import ch.frickler.jass.gametype.Trump;
-import ch.frickler.jass.logic.definitions.JassAction;
+import ch.frickler.jass.definitions.JassAction;
 
 public class GameService extends PersistanceService {
 

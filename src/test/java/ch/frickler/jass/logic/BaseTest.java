@@ -1,7 +1,7 @@
 package ch.frickler.jass.logic;
 
 
-import ch.frickler.jass.logic.definitions.JassGameType;
+import ch.frickler.jass.definitions.JassGameType;
 import ch.frickler.jass.service.GameService;
 
 public class BaseTest {

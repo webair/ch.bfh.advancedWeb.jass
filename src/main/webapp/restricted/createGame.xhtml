@@ -11,12 +11,12 @@
 		<h:form>
 			<h:panelGrid id="grid" columns="2">
 				<h:outputLabel value="#{UI.game_name}:" for="name" />
-				<h:inputText id="name" value="#{createGame.name}"
+				<h:inputText id="name" value="#{gameFactoryBean.name}"
 					  required="true" requiredMessage="#{UI.err_game_name}"/>
 				
-				<h:outputLabel value="#{UI.game_winpoints}:" for="winPoints" />
-				<h:inputText id="winPoints" 
-				value="#{createGame.winPoints}" 
+				<h:outputLabel value="#{UI.game_winpoints}:" for="winningPoints" />
+				<h:inputText id="winningPoints" 
+				value="#{gameFactoryBean.winningPoints}" 
 				required="true"
 				validatorMessage="#{UI.err_winpoints}"
 				converterMessage="#{UI.err_number}"
@@ -25,7 +25,7 @@
 				</h:inputText>
 
 				<h:commandButton value="#{UI.game_create}"
-					action="#{createGame.create}" />
+					action="#{gameFactoryBean.create}" />
 			</h:panelGrid>
 			<h:messages />
 		</h:form>

@@ -1,4 +1,4 @@
-package ch.frickler.jass.logic.definitions;
+package ch.frickler.jass.definitions;
 
 import ch.frickler.jass.db.entity.User;
 import ch.frickler.jass.service.GameService;

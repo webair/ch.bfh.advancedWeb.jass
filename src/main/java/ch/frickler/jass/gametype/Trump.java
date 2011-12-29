@@ -7,7 +7,7 @@ import ch.frickler.jass.db.entity.Round;
 import ch.frickler.jass.db.entity.User;
 import ch.frickler.jass.db.enums.CardFamily;
 import ch.frickler.jass.db.enums.CardValue;
-import ch.frickler.jass.logic.definitions.JassGameType;
+import ch.frickler.jass.definitions.JassGameType;
 
 
 public class Trump extends JassGameType {
