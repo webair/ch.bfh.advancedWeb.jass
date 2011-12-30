@@ -19,15 +19,15 @@
 
 			</h:panelGroup>
 
-			<h:commandButton value="#{Lang.addcomputer}" action="#{waitingRoomBean.addBot}"
+			<h:commandButton class="button" value="#{Lang.addcomputer}" action="#{waitingRoomBean.addBot}"
 				rendered="#{waitingRoomBean.game.owner == userBean.user}">
 				<f:ajax render="WaitForm:players" />
 			</h:commandButton>
-			<h:commandButton value="#{Lang.startgame}" action="#{waitingRoomBean.start}"
+			<h:commandButton class="button" value="#{Lang.startgame}" action="#{waitingRoomBean.start}"
 				rendered="#{waitingRoomBean.game.owner == userBean.user}" />
 		</h:form>
 
-		<h:form id="HiddenForm" style="display: none;">
+		<h:form id="HiddenForm" class="invisible">
 			<h:commandButton id="invisibleClickTarget"
 				action="#{waitingRoomBean.refresh}">
 				<f:ajax render="WaitForm:players" />

@@ -11,7 +11,7 @@ import javax.faces.context.FacesContext;
  */
 public class MessageHelper {
 
-	private static final String UI_PROPERTY = "ch.frickler.jass.res.UI";
+	private static final String UI_PROPERTY = "ch.frickler.jass.res.Lang";
 
 	public static FacesMessage getMessage(FacesContext ctx, String message) {
 		ResourceBundle bundle = ResourceBundle.getBundle(UI_PROPERTY, ctx

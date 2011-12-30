@@ -6,10 +6,10 @@
 	<ui:define name="title">#{Lang.overview}</ui:define>
 	<ui:define name="content">
 		<h:form id="OverviewForm">
-			<h:commandLink value="refresh" id="GameLink">
+			<h:commandLink class="invisible" value="refresh" id="GameLink">
 				<f:ajax render="games" />
 			</h:commandLink>
-			<h:commandLink value="#{Lang.createGame}" id="CreateGameLink"
+			<h:commandLink class="button" value="#{Lang.createGame}" id="CreateGameLink"
 				action="createGame?faces-redirect=true" />
 			<h:panelGroup id="games">
 				<h:messages />
@@ -33,7 +33,7 @@
 						#{game.owner.name}
 					</h:column>
 					<h:column>
-						<h:commandLink value="#{Lang.join_game}"
+						<h:commandLink class="button" value="#{Lang.join_game}"
 							action="#{GameListBean.joinGame}"
 							rendered="#{game.acceptingPlayers}">
 							<f:param name="gameId" value="#{game.id}" />
