@@ -7,6 +7,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
+import javax.faces.context.FacesContext;
+
 import ch.frickler.jass.action.ActionAnnounce;
 import ch.frickler.jass.action.ActionDealOutCards;
 import ch.frickler.jass.action.ActionLayCard;
@@ -20,6 +22,7 @@ import ch.frickler.jass.db.enums.CardFamily;
 import ch.frickler.jass.db.enums.CardValue;
 import ch.frickler.jass.db.enums.GameKind;
 import ch.frickler.jass.gametype.Trump;
+import ch.frickler.jass.helper.MessageHelper;
 import ch.frickler.jass.definitions.JassAction;
 
 public class GameService extends PersistanceService {
@@ -257,7 +260,7 @@ public class GameService extends PersistanceService {
 			int num = GameKind.values().length;
 			GameKind k = GameKind.values()[new Random().nextInt(num)];
 			new ActionAnnounce(u, k).doAction(this);
-			System.out.println("New Trump is " + k);
+			System.out.println("New Trump is (by bot) " + k);
 		}
 		// now that we have a trump, let the first bot plays (if it's his turn)
 		forceBotPlay();
@@ -272,26 +275,32 @@ public class GameService extends PersistanceService {
 			if (getTeamOf(r.getCurrentPlayer()).equals(t)) {
 				pointsTeam += 5;
 			}
-			// TODO translate this
-			String msg = ("Team: " + t.getName() + ": macht " + pointsTeam + " Punkte in dieser Runde.");
+			String msg = translateAndFormat("teammakespoint",new String[]{t.getName(),pointsTeam+""});
 			log(msg);
 			System.out.println(msg);
 			t.addPoints(pointsTeam * getGameTypeService().getQualifier());
 			t.clearCards();
 		}
-
+		//console ounly
 		for (Team t : _game.getTeams()) {
 			System.out.println("Punktestand " + t.getName() + ": "
 					+ t.getPoints());
 		}
 	}
+	
+	public String translateAndFormat(String key,String [] args){
+		String res = MessageHelper.getString(FacesContext.getCurrentInstance(), key);
+		if(res.length() == 0)
+			return "Translation Key "+key+" not found";
+		
+		return String.format(res,args);
+	}
 
 	public void playCard(User spl, Card layedCard) {
-		// TODO translate this
-		log(spl.getName() + " played " + layedCard.getFamily() + " "
-				+ layedCard.getValue());
-		System.out.println("User " + spl.getName() + " layed card"
-				+ layedCard.toString());
+		String card = translateCard(layedCard);
+		String log = translateAndFormat("playerplayed",new String[]{spl.getName(),card});
+		System.out.println(log);
+		log(log);
 		Round r = getCurrentRound();
 		r.addCard(layedCard);
 		spl.removeCard(layedCard);
@@ -303,6 +312,12 @@ public class GameService extends PersistanceService {
 			}
 		}
 		forceBotPlay();
+	}
+
+	private String translateCard(Card layedCard) {
+		String resFamily = MessageHelper.getString(FacesContext.getCurrentInstance(), layedCard.getFamily().toString());
+		String resValue = MessageHelper.getString(FacesContext.getCurrentInstance(), layedCard.getValue().toString());
+		return resFamily+" "+resValue;
 	}
 
 	public void forceBotPlay() {
@@ -502,8 +517,11 @@ public class GameService extends PersistanceService {
 		setGameState(Game.GameState.Play);
 		// remove pushed status if existent
 		getCurrentRound().setPushed(false);
-		// TODO translate this...
-		log("Trumpf is now: " + type + " says " + user.getName());
+
+		String typTranslated = MessageHelper.getString(FacesContext.getCurrentInstance(), type.toString());
+		String log = translateAndFormat("trumpfisnow", new String[]{typTranslated,user.getName()});
+		//log("Trumpf is now: " + type + " says " + user.getName());
+		log(log);
 	}
 
 	public void setGameType(GameKind type) {

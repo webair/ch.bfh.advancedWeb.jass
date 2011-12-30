@@ -19,6 +19,7 @@ import ch.frickler.jass.db.entity.User;
 import ch.frickler.jass.db.enums.CardFamily;
 import ch.frickler.jass.db.enums.CardValue;
 import ch.frickler.jass.db.enums.GameKind;
+import ch.frickler.jass.helper.MessageHelper;
 import ch.frickler.jass.service.GameService;
 
 /**
@@ -189,6 +190,15 @@ public class GameBean {
 	public void setTrump(String trump) {
 		this.trump = trump;
 	}
+	
+	public String getLangTrump(){
+		if(trump != null){
+			return MessageHelper.getString(FacesContext.getCurrentInstance(), trump.toString());
+		}else{
+			return MessageHelper.getString(FacesContext.getCurrentInstance(), "notyetchoosed");
+		}
+	}
+	
 
 	/**
 	 * announce the current trump
