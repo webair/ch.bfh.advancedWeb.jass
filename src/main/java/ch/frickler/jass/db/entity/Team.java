@@ -94,6 +94,16 @@ public class Team implements Serializable {
 		this.points = points;
 	}
 
+	public String getUserString(){
+		String retString = "";
+		if (user1 != null)
+			retString += user1.getUserName();
+		if (user2 != null)
+			retString += retString.length() == 0 ? "" : ", "+user2.getUserName();
+		
+		return retString;
+	}
+	
 	public List<User> getUsers() {
 		List<User> users = new ArrayList<User>();
 		if (user1 != null)

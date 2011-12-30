@@ -10,16 +10,6 @@
 
 	<ui:define name="content">
 		<div id="Gameplayers">
-			<h2>#{Lang.title_playerstakepart}:</h2>
-			<h:dataTable var="player" value="#{gameBean.players}">
-				<h:column>
-					<f:facet name="header">
-							  #{Lang.name}
-						  </f:facet>
-							#{player.name}
-					</h:column>
-			</h:dataTable>
-
 			<h:panelGroup id="teams">
 				<h2>#{Lang.teams}:</h2>
 				<h:dataTable var="team" value="#{gameBean.teams}">
@@ -27,8 +17,10 @@
 						<f:facet name="header">
 							 #{Lang.teamname}
 						  </f:facet>
-							#{team.name}
+							#{team.name}<br/>
+							#{team.userString}
 					</h:column>
+					
 					<h:column>
 						<f:facet name="header">
 							  #{Lang.points}
@@ -55,10 +47,10 @@
 					<h:selectOneMenu value="#{gameBean.trump}">
 						<f:selectItems value="#{gameBean.gameKinds}" />
 					</h:selectOneMenu>
-					<h:commandButton value="#{Lang.annonce}" action="#{gameBean.announce}">
+					<h:commandButton class="button" value="#{Lang.annonce}" action="#{gameBean.announce}">
 						<f:ajax render=":playTable :GameUI" execute="@form" />
 					</h:commandButton>
-					<h:commandButton value="#{Lang.schieben}" action="#{gameBean.push}">
+					<h:commandButton class="button" value="#{Lang.schieben}" action="#{gameBean.push}">
 						<f:ajax render=":playTable :GameUI" />
 					</h:commandButton>
 				</h:form>

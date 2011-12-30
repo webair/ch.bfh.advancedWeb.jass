@@ -218,7 +218,7 @@ public class GameBean {
 	 * @return list of cards
 	 */
 	public List<GuiCard> getGuiCards() {
-		System.out.println("index: " + myIndex);
+		//System.out.println("index: " + myIndex);
 		List<GuiCard> deckCards = new ArrayList<GuiCard>();
 		int i = 4 - myIndex;
 		for (Card c : getCardsOnTable()) {

@@ -19,5 +19,13 @@ public class MessageHelper {
 
 		return new FacesMessage(bundle.getString(message));
 	}
+	
+	public static String getString(FacesContext ctx, String message) {
+		ResourceBundle bundle = ResourceBundle.getBundle(UI_PROPERTY, ctx
+				.getViewRoot().getLocale());
+
+		return bundle.getString(message);
+	}
+	
 
 }
