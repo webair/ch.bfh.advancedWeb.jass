@@ -9,7 +9,7 @@ import javax.faces.context.FacesContext;
  * helper class for creating translated FacesMessages
  * 
  */
-public class MessageHelper {
+public class Translator {
 
 	private static final String UI_PROPERTY = "ch.frickler.jass.res.Lang";
 

@@ -10,7 +10,7 @@ import javax.faces.context.FacesContext;
 import javax.persistence.Query;
 
 import ch.frickler.jass.db.entity.User;
-import ch.frickler.jass.helper.MessageHelper;
+import ch.frickler.jass.helper.Translator;
 
 public class UserService extends PersistanceService {
 
@@ -88,7 +88,7 @@ public class UserService extends PersistanceService {
 
 	public User createBot() {
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		String cName = MessageHelper.getString(ctx, "computername");
+		String cName = Translator.getString(ctx, "computername");
 		User u = new User(cName);
 		u = mergeObject(u);
 		return u;

@@ -8,7 +8,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 
 import ch.frickler.jass.db.entity.User;
-import ch.frickler.jass.helper.MessageHelper;
+import ch.frickler.jass.helper.Translator;
 import ch.frickler.jass.service.UserService;
 
 /**
@@ -99,7 +99,7 @@ public class UserBean {
 		} else {
 			// display a message
 			FacesContext ctx = FacesContext.getCurrentInstance();
-			ctx.addMessage(null, MessageHelper.getMessage(ctx, "login_failed"));
+			ctx.addMessage(null, Translator.getMessage(ctx, "login_failed"));
 		}
 
 		return nextPage;
@@ -126,7 +126,7 @@ public class UserBean {
 	 */
 	public String logout() {
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ctx.addMessage(null, MessageHelper.getMessage(ctx, "login_goodbye"));
+		ctx.addMessage(null, Translator.getMessage(ctx, "login_goodbye"));
 
 		setPassword(null);
 		setUsername(null);

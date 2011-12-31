@@ -4,7 +4,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 
-import ch.frickler.jass.helper.MessageHelper;
+import ch.frickler.jass.helper.Translator;
 
 /**
  * @author seed
@@ -44,7 +44,7 @@ public class GameFactoryBean {
 		if (user.getUser().isPlaying()) {
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			ctx.addMessage(null,
-					MessageHelper.getMessage(ctx, "already_playing"));
+					Translator.getMessage(ctx, "already_playing"));
 			return null;
 		}
 		GameManager gm = GameManager.getInstance();

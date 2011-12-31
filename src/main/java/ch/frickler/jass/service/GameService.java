@@ -22,7 +22,7 @@ import ch.frickler.jass.db.enums.CardValue;
 import ch.frickler.jass.db.enums.GameKind;
 import ch.frickler.jass.db.enums.GameState;
 import ch.frickler.jass.gametype.Trump;
-import ch.frickler.jass.helper.MessageHelper;
+import ch.frickler.jass.helper.Translator;
 import ch.frickler.jass.definitions.JassAction;
 
 public class GameService extends PersistanceService {
@@ -290,7 +290,7 @@ public class GameService extends PersistanceService {
 	}
 
 	public String translateAndFormat(String key, String[] args) {
-		String res = MessageHelper.getString(FacesContext.getCurrentInstance(),
+		String res = Translator.getString(FacesContext.getCurrentInstance(),
 				key);
 		if (res.length() == 0)
 			return "Translation Key " + key + " not found";
@@ -318,9 +318,9 @@ public class GameService extends PersistanceService {
 	}
 
 	private String translateCard(Card layedCard) {
-		String resFamily = MessageHelper.getString(FacesContext
+		String resFamily = Translator.getString(FacesContext
 				.getCurrentInstance(), layedCard.getFamily().toString());
-		String resValue = MessageHelper.getString(FacesContext
+		String resValue = Translator.getString(FacesContext
 				.getCurrentInstance(), layedCard.getValue().toString());
 		return resFamily + " " + resValue;
 	}
@@ -527,7 +527,7 @@ public class GameService extends PersistanceService {
 		// remove pushed status if existent
 		getCurrentRound().setPushed(false);
 
-		String typTranslated = MessageHelper.getString(
+		String typTranslated = Translator.getString(
 				FacesContext.getCurrentInstance(), type.toString());
 		String log = translateAndFormat("trumpfisnow", new String[] {
 				typTranslated, user.getName() });
