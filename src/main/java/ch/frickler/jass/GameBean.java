@@ -8,6 +8,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 
 import ch.frickler.jass.action.ActionAnnounce;
 import ch.frickler.jass.action.ActionLayCard;
@@ -162,6 +163,19 @@ public class GameBean {
 
 	public GameKind[] getGameKinds() {
 		return GameKind.values();
+	}
+	
+	/**
+	 * 
+	 * @return all game kinds translated in the current language
+	 */
+	public SelectItem[] getGameKindsTranslated(){
+		SelectItem[] kinds = new SelectItem[GameKind.values().length];
+		int i = 0;
+		for(GameKind kind : GameKind.values()){
+			kinds[i++] = new SelectItem(kind.name(),Translator.getString(FacesContext.getCurrentInstance(), kind.name()));
+		}
+		return kinds;
 	}
 
 	/**

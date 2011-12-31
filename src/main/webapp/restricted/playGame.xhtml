@@ -30,7 +30,7 @@
 				</h:dataTable>
 			</h:panelGroup>
 			<br />
-			<h:outputText rendered="#{gameBean.trump != null}">
+			<h:outputText rendered="#{gameBean.trump != null}">sdf
 							 #{Lang.trumpis}: <b>#{gameBean.langTrump}</b>
 			</h:outputText>
 		</div>
@@ -50,7 +50,7 @@
 			<h:panelGroup rendered="#{gameBean.announcer}">
 				<h:form>
 					<h:selectOneMenu value="#{gameBean.trump}">
-						<f:selectItems value="#{gameBean.gameKinds}" />
+						<f:selectItems value="#{gameBean.gameKindsTranslated}"  var="kind" itemLabel="kind.label" itemValue="kind.value" />
 					</h:selectOneMenu>
 					<h:commandButton class="button" value="#{Lang.annonce}"
 						action="#{gameBean.announce}">
@@ -72,7 +72,9 @@
 					<f:facet name="header">
 							  #{Lang.logmessages}:
 						  </f:facet>
+						  <span class="logmessage">
 							#{msg}
+							</span>
 					</h:column>
 			</h:dataTable>
 		</h:panelGroup>

@@ -125,11 +125,20 @@ body {
 }
 
 #header select {
-	background: none repeat scroll 0 0 #CBFF0D;
-	border: 1px solid #CBFF0D;
 	width: 60px;
 }
 
+select {
+	background: none repeat scroll 0 0 #CBFF0D;
+	border: 1px solid #CBFF0D;
+	margin-right: 10px;
+}
+
+.logmessage {
+	font-size: 12px;
+}
+
+}
 input {
 	font-family: Arial, sans-serif;
 	color: #8F8F8F;
@@ -170,8 +179,9 @@ th {
 #Gameplayers td {
 	vertical-align: top;
 }
-.italic{
+
+.italic {
 	font-style: italic;
 	font-size: 12px;
-	}
+}
 }
