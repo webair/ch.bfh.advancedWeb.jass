@@ -12,13 +12,12 @@ import javax.faces.context.FacesContext;
 import ch.frickler.jass.action.ActionAnnounce;
 import ch.frickler.jass.action.ActionLayCard;
 import ch.frickler.jass.db.entity.Card;
-import ch.frickler.jass.db.entity.Game;
-import ch.frickler.jass.db.entity.Game.GameState;
 import ch.frickler.jass.db.entity.Team;
 import ch.frickler.jass.db.entity.User;
 import ch.frickler.jass.db.enums.CardFamily;
 import ch.frickler.jass.db.enums.CardValue;
 import ch.frickler.jass.db.enums.GameKind;
+import ch.frickler.jass.db.enums.GameState;
 import ch.frickler.jass.helper.MessageHelper;
 import ch.frickler.jass.service.GameService;
 
@@ -170,7 +169,7 @@ public class GameBean {
 	 */
 	public boolean isAnnouncer() {
 		GameService gs = GameManager.getInstance().getGameService(getGameId());
-		if (gs.getState().equals(Game.GameState.Ansage)) {
+		if (gs.getState().equals(GameState.Ansage)) {
 			return gs.getAnsager().equals(user.getUser());
 		}
 		return false;

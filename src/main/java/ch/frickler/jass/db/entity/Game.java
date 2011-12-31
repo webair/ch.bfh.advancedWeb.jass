@@ -21,6 +21,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import ch.frickler.jass.db.enums.GameState;
+
 /**
  * this class is the implementation for the Entity: Game
  * 
@@ -81,15 +83,6 @@ public class Game implements Serializable {
 	@Column(name = "GameState", nullable = false)
 	private GameState gameState = GameState.WaitForPlayers;
 
-	/**
-	 * the enum stores all the possible game states
-	 * @author kaeserst
-	 *
-	 */
-	public static enum GameState {
-		WaitForPlayers, Play, Ansage, AnsageGschobe, Terminated, RediForPlay, WaitForCards
-	}
-
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "START_DATE", nullable = false)
 	private Date startDate;
@@ -111,7 +104,7 @@ public class Game implements Serializable {
 		this.nextAnnouncer = owner;
 		this.winPoints = winPoints;
 		this.startDate = new Date();
-		this.gameState = Game.GameState.WaitForPlayers;
+		this.gameState = GameState.WaitForPlayers;
 	}
 
 	public long getId() {

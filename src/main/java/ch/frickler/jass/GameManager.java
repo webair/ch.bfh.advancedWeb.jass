@@ -7,6 +7,7 @@ import java.util.Map;
 
 import ch.frickler.jass.db.entity.Game;
 import ch.frickler.jass.db.entity.User;
+import ch.frickler.jass.db.enums.GameState;
 import ch.frickler.jass.service.GameService;
 import ch.frickler.jass.service.UserService;
 
@@ -121,7 +122,7 @@ public class GameManager {
 	public boolean gameIsReady(long gameId) {
 		GameService gs = getGameService(gameId);
 		if (gs != null)
-			return gs.getState().equals(Game.GameState.Ansage);
+			return gs.getState().equals(GameState.Ansage);
 		return false;
 	}
 

@@ -14,13 +14,13 @@ import ch.frickler.jass.action.ActionDealOutCards;
 import ch.frickler.jass.action.ActionLayCard;
 import ch.frickler.jass.db.entity.Card;
 import ch.frickler.jass.db.entity.Game;
-import ch.frickler.jass.db.entity.Game.GameState;
 import ch.frickler.jass.db.entity.Round;
 import ch.frickler.jass.db.entity.Team;
 import ch.frickler.jass.db.entity.User;
 import ch.frickler.jass.db.enums.CardFamily;
 import ch.frickler.jass.db.enums.CardValue;
 import ch.frickler.jass.db.enums.GameKind;
+import ch.frickler.jass.db.enums.GameState;
 import ch.frickler.jass.gametype.Trump;
 import ch.frickler.jass.helper.MessageHelper;
 import ch.frickler.jass.definitions.JassAction;
@@ -55,7 +55,7 @@ public class GameService extends PersistanceService {
 		Game g = new Game();
 		g.setWinPoints(winPoints);
 		g.setName(name);
-		g.setGameState(Game.GameState.WaitForPlayers);
+		g.setGameState(GameState.WaitForPlayers);
 		g.setStartDate(new Date());
 		g = mergeObject(g);
 		_game = g;
@@ -275,30 +275,33 @@ public class GameService extends PersistanceService {
 			if (getTeamOf(r.getCurrentPlayer()).equals(t)) {
 				pointsTeam += 5;
 			}
-			String msg = translateAndFormat("teammakespoint",new String[]{t.getName(),pointsTeam+""});
+			String msg = translateAndFormat("teammakespoint",
+					new String[] { t.getName(), pointsTeam + "" });
 			log(msg);
 			System.out.println(msg);
 			t.addPoints(pointsTeam * getGameTypeService().getQualifier());
 			t.clearCards();
 		}
-		//console ounly
+		// console ounly
 		for (Team t : _game.getTeams()) {
 			System.out.println("Punktestand " + t.getName() + ": "
 					+ t.getPoints());
 		}
 	}
-	
-	public String translateAndFormat(String key,String [] args){
-		String res = MessageHelper.getString(FacesContext.getCurrentInstance(), key);
-		if(res.length() == 0)
-			return "Translation Key "+key+" not found";
-		
-		return String.format(res,args);
+
+	public String translateAndFormat(String key, String[] args) {
+		String res = MessageHelper.getString(FacesContext.getCurrentInstance(),
+				key);
+		if (res.length() == 0)
+			return "Translation Key " + key + " not found";
+
+		return String.format(res, args);
 	}
 
 	public void playCard(User spl, Card layedCard) {
 		String card = translateCard(layedCard);
-		String log = translateAndFormat("playerplayed",new String[]{spl.getName(),card});
+		String log = translateAndFormat("playerplayed",
+				new String[] { spl.getName(), card });
 		System.out.println(log);
 		log(log);
 		Round r = getCurrentRound();
@@ -315,9 +318,11 @@ public class GameService extends PersistanceService {
 	}
 
 	private String translateCard(Card layedCard) {
-		String resFamily = MessageHelper.getString(FacesContext.getCurrentInstance(), layedCard.getFamily().toString());
-		String resValue = MessageHelper.getString(FacesContext.getCurrentInstance(), layedCard.getValue().toString());
-		return resFamily+" "+resValue;
+		String resFamily = MessageHelper.getString(FacesContext
+				.getCurrentInstance(), layedCard.getFamily().toString());
+		String resValue = MessageHelper.getString(FacesContext
+				.getCurrentInstance(), layedCard.getValue().toString());
+		return resFamily + " " + resValue;
 	}
 
 	public void forceBotPlay() {
@@ -361,7 +366,7 @@ public class GameService extends PersistanceService {
 	}
 
 	private void initNewRound() {
-		setGameState(Game.GameState.WaitForCards);
+		setGameState(GameState.WaitForCards);
 		_game.setCurrentRound(new Round());
 	}
 
@@ -385,11 +390,15 @@ public class GameService extends PersistanceService {
 			}
 		}
 
-		// sort alle players cards
+		// sorting cards if user, suffle if it is a roboter
 		for (User u : getAllSpieler()) {
-			Collections.sort(u.getCards());
+			if (u.isABot()) {
+				Collections.shuffle(u.getCards());
+			} else {
+				Collections.sort(u.getCards());
+			}
 		}
-		setGameState(Game.GameState.Ansage);
+		setGameState(GameState.Ansage);
 	}
 
 	public User getAnsager() {
@@ -445,7 +454,7 @@ public class GameService extends PersistanceService {
 		setGameState(GameState.Terminated);
 	}
 
-	protected void setGameState(Game.GameState state) {
+	protected void setGameState(GameState state) {
 		_game.setGameState(state);
 	}
 
@@ -514,13 +523,15 @@ public class GameService extends PersistanceService {
 
 	public void setTrump(GameKind type, User user) {
 		setGameType(type);
-		setGameState(Game.GameState.Play);
+		setGameState(GameState.Play);
 		// remove pushed status if existent
 		getCurrentRound().setPushed(false);
 
-		String typTranslated = MessageHelper.getString(FacesContext.getCurrentInstance(), type.toString());
-		String log = translateAndFormat("trumpfisnow", new String[]{typTranslated,user.getName()});
-		//log("Trumpf is now: " + type + " says " + user.getName());
+		String typTranslated = MessageHelper.getString(
+				FacesContext.getCurrentInstance(), type.toString());
+		String log = translateAndFormat("trumpfisnow", new String[] {
+				typTranslated, user.getName() });
+		// log("Trumpf is now: " + type + " says " + user.getName());
 		log(log);
 	}
 
