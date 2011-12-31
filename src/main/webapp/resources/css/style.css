@@ -107,8 +107,12 @@ body {
 	margin: 0px;
 }
 
+.mainImages {
+	padding-left: 15px;
+}
+
 .mainImage {
-	height: 40px;
+	height: 70px;
 	float: left;
 	padding: 5px;
 }
@@ -184,4 +188,11 @@ th {
 	font-style: italic;
 	font-size: 12px;
 }
+.rowEven{
+	background-color: blue;
+	border-bottom: 1px solid  #8F8F8F;
+}
+.rowOdd{
+	background-color: red;
+	border-bottom: 1px solid  #8F8F8F;
 }

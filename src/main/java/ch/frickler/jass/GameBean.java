@@ -26,10 +26,6 @@ import ch.frickler.jass.service.GameService;
  * @author seed
  * Bean for managing the game interactions and the game logic
  */
-/**
- * @author seed
- *
- */
 @ManagedBean
 @SessionScoped
 public class GameBean {

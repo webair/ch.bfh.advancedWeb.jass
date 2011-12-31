@@ -6,37 +6,34 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <f:view contentType="text/html" locale="#{userBean.locale}">
 	<h:head>
-		<title>#{Lang.titleOfJass}  <ui:insert name="title">.</ui:insert></title>
+		<title>#{Lang.titleOfJass} <ui:insert name="title">.</ui:insert></title>
 		<h:outputScript library="js" name="poll.js" />
 		<h:outputStylesheet library="css" name="style.css" />
 	</h:head>
 	<h:body>
 		<div id="Page">
-			<!-- Header mit Sprachwahl -->
+			<!-- Header with selecting language and avaiables menu points -->
 			<div id="header">
 				<h:form>
-					<h:graphicImage library="images" name="cards/ECKEN-DAME.gif"
-						styleClass="mainImage" alt="mainImage" />
-					<h:graphicImage library="images" name="cards/SCHAUFEL-DAME.gif"
-						styleClass="mainImage" alt="mainImage" />
-					<h:graphicImage library="images" name="cards/HERZ-DAME.gif"
-						styleClass="mainImage" alt="mainImage" />
-					<h:graphicImage library="images" name="cards/KREUZ-DAME.gif"
-						styleClass="mainImage" alt="mainImage" />
-					<div class="mainTitle">#{Lang.titleOfJass}</div>
-
+					<div class="mainImages">
+						<h:graphicImage library="images" name="cards/ECKEN-DAME.gif"
+							styleClass="mainImage" alt="mainImage" />
+						<h:graphicImage library="images" name="cards/HERZ-DAME.gif"
+							styleClass="mainImage" alt="mainImage" />
+						<div class="mainTitle">#{Lang.titleOfJass}</div>
+					</div>
 					<h:commandLink class="headerItem" value="#{Lang.overview}"
-						action="listGames.jsf?faces-redirect=true"
+						action="listGames?faces-redirect=true"
 						rendered="#{userBean.loggedIn}" />
 					<h:commandLink class="headerItem" value="#{Lang.history}"
-						action="gameHistory.jsf?faces-redirect=true"
+						action="gameHistory?faces-redirect=true"
 						rendered="#{userBean.loggedIn}" />
 					<h:commandLink class="headerItem" value="#{Lang.resume}"
-						action="playGame.jsf?faces-redirect=true"
+						action="playGame?faces-redirect=true"
 						rendered="#{userBean.playing}" />
 					<div id="langSelect" class="headerItem">
 						#{Lang.sprachwahl}:&nbsp;&nbsp;
-						<h:selectOneMenu  value="#{userBean.locale}"
+						<h:selectOneMenu value="#{userBean.locale}"
 							valueChangeListener="#{userBean.swapLocale}" onchange="submit()"
 							immediate="true">
 							<f:selectItems value="#{userBean.availableLocales}" />
@@ -48,13 +45,11 @@
 				</h:form>
 			</div>
 			<div class="content">
-			<h1>
-				<ui:insert name="title">Default Title</ui:insert>
-			</h1>
-			
-
-			<ui:insert name="content">Default Content</ui:insert>
-</div>
+				<h1>
+					<ui:insert name="title">Default Title</ui:insert>
+				</h1>
+				<ui:insert name="content">Default Content</ui:insert>
+			</div>
 		</div>
 	</h:body>
 </f:view>

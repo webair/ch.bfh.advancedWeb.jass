@@ -16,5 +16,4 @@
 				ch.frickler.jass.err.MyExceptionHandlerFactory
 			</exception-handler-factory>
 		</factory>
-
 </faces-config>

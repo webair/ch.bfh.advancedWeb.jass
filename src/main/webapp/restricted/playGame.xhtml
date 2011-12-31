@@ -12,7 +12,7 @@
 		<div id="Gameplayers">
 			<h:panelGroup id="teams">
 				<h2>#{Lang.teams}:</h2>
-				<h:dataTable var="team" value="#{gameBean.teams}">
+				<h:dataTable var="team" value="#{gameBean.teams}" rowClasses="rowEven,rowOdd">
 					<h:column>
 						<f:facet name="header">
 							 #{Lang.teamname}
@@ -72,9 +72,7 @@
 					<f:facet name="header">
 							  #{Lang.logmessages}:
 						  </f:facet>
-						  <span class="logmessage">
-							#{msg}
-							</span>
+						  <h:outputText styleClass="logmessage" escape="false" value="#{msg}" />
 					</h:column>
 			</h:dataTable>
 		</h:panelGroup>
