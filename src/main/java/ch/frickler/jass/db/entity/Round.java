@@ -15,6 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import sun.util.logging.resources.logging;
+
 import ch.frickler.jass.db.enums.GameKind;
 
 
@@ -61,6 +63,9 @@ public class Round implements Serializable {
 	
 	@Transient
     private List<Card> cards = new ArrayList<Card>();
+
+	@Transient
+    private List<Wies> wieses = new ArrayList<Wies>();
 
 	
 	public Round() {
@@ -139,5 +144,13 @@ public class Round implements Serializable {
 	
 	public void addCard(Card c) {
 		this.cards.add(c);
+	}
+
+	public void addWies(Wies wies) {
+			this.wieses.add(wies);
+	}
+
+	public List<Wies> getAnnouncedWies() {
+		return this.wieses;
 	}
 }

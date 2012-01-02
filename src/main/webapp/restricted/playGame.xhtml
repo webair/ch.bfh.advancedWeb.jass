@@ -79,31 +79,49 @@
 				</h:form>
 			</h:panelGroup>
 
-		</h:panelGroup>
 
-		<h:panelGrid id="GameUI" columns="1">
 
-			<h:column>
-				<h:form id="cards">
-					<ui:repeat value="#{gameBean.cards}" var="card">
-
-						<h:commandLink action="#{gameBean.playCard}">
-							<f:ajax render=":playTable :GameUI :teams" />
-							<f:param name="cardFamily" value="#{card.family}" />
-							<f:param name="cardValue" value="#{card.value}" />
-
-							<h:graphicImage library="images"
-								name="cards/#{card.family}-#{card.value}.gif"
-								styleClass="handCard" />
-						</h:commandLink>
-					</ui:repeat>
+			<h:panelGroup rendered="#{gameBean.wiesPossible}">
+				<h:form>
+					<h:selectOneMenu value="#{gameBean.wies}">
+						<f:selectItems value="#{gameBean.possibleWiesTranslated}"
+							var="kind" itemLabel="kind.label" itemValue="kind.value" />
+					</h:selectOneMenu>
+					<h:commandButton class="button" value="#{Lang.wies}"
+						action="#{gameBean.wies}">
+						<f:ajax render=":playTable :GameUI" execute="@form" />
+					</h:commandButton>
 				</h:form>
+			</h:panelGroup>
 
-			</h:column>
-		</h:panelGrid>
+			<h:commandButton class="button" value="#{Lang.quitgame}"
+				action="#{gameBean.quitgame}">
+				<f:ajax render=":playTable :GameUI :teams" />
+			</h:commandButton>
 
-		<h:outputScript>
-			<!-- enable polling on this page -->
+			<h:panelGrid id="GameUI" columns="1">
+
+				<h:column>
+					<h:form id="cards">
+						<ui:repeat value="#{gameBean.cards}" var="card">
+
+							<h:commandLink action="#{gameBean.playCard}">
+								<f:ajax render=":playTable :GameUI :teams" />
+								<f:param name="cardFamily" value="#{card.family}" />
+								<f:param name="cardValue" value="#{card.value}" />
+
+								<h:graphicImage library="images"
+									name="cards/#{card.family}-#{card.value}.gif"
+									styleClass="handCard" />
+							</h:commandLink>
+						</ui:repeat>
+					</h:form>
+
+				</h:column>
+			</h:panelGrid>
+
+			<h:outputScript>
+				<!-- enable polling on this page -->
 			reloadUI(#{Lang.reload_time}, "cards", "playTable GameUI log");
 		</h:outputScript>
 	</ui:define>

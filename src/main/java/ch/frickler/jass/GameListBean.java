@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
@@ -12,6 +13,7 @@ import ch.frickler.jass.db.entity.Game;
 import ch.frickler.jass.helper.Translator;
 
 @ManagedBean
+@ApplicationScoped
 public class GameListBean {
 
 	/**

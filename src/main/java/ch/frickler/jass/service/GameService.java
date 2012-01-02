@@ -17,6 +17,7 @@ import ch.frickler.jass.db.entity.Game;
 import ch.frickler.jass.db.entity.Round;
 import ch.frickler.jass.db.entity.Team;
 import ch.frickler.jass.db.entity.User;
+import ch.frickler.jass.db.entity.Wies;
 import ch.frickler.jass.db.enums.CardFamily;
 import ch.frickler.jass.db.enums.CardValue;
 import ch.frickler.jass.db.enums.GameKind;
@@ -347,12 +348,47 @@ public class GameService extends PersistanceService {
 		Round r = getCurrentRound();
 		User spAnsager;
 		spAnsager = this.placeStich(r.getCards());
-		//log("Strich geht an " + spAnsager.getName());
-		log(translateAndFormat("stichgoesto", new String[] {spAnsager.getName()}));
+		// log("Strich geht an " + spAnsager.getName());
+		log(translateAndFormat("stichgoesto",
+				new String[] { spAnsager.getName() }));
 		r.setBeginner(spAnsager);
 		r.setCurrentPlayer(spAnsager);
 		lastCards = new ArrayList<Card>(r.getCards());
 		r.removeCards();
+		// after one round is played we have to do the wies things
+		if (spAnsager.getCards().size() == 8) {
+			placeWies(r.getAnnouncedWies());
+		}
+	}
+
+	private void placeWies(List<Wies> list) {
+		if (list.size() == 0)
+			return;
+		Wies highest = list.get(0);
+
+		for (int i = 1; i < list.size(); i++) {
+			int compare = highest.compareTo(list.get(i));
+			if (compare == 0) {
+				if (list.get(i).isTrumpf(
+						getGameTypeService().getTrumpfCardFamily())) {
+					highest = list.get(i);
+				}
+			} else if (compare < 0)
+				highest = list.get(i);
+		}
+
+		// all wies counts for the team with the highest wies.
+		User user = highest.getUser();
+		Team t = getTeamOf(user);
+		int points = 0;
+		for (User u : t.getUsers()) {
+			for (Wies w : list) {
+				if (w.getUser().equals(u)) {
+					points += w.getPoints();
+				}
+			}
+		}
+		t.addPoints(points*gametypeService.getQualifier());
 	}
 
 	private void initGame() {
@@ -443,13 +479,15 @@ public class GameService extends PersistanceService {
 
 	/**
 	 * the team witch doesn't terminate the game gets the full points.
+	 * 
 	 * @param terminateUser
 	 */
 	public void cancelGame(User terminateUser) {
 		Team teminateTeam = getTeamOf(terminateUser);
 		for (Team winnerTeam : _game.getTeams()) {
 			if (!teminateTeam.equals(winnerTeam)) {
-				winnerTeam.addPoints(_game.getWinPoints()-winnerTeam.getPoints());
+				winnerTeam.addPoints(_game.getWinPoints()
+						- winnerTeam.getPoints());
 				break;
 			}
 		}

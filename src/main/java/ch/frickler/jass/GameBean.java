@@ -1,6 +1,7 @@
 package ch.frickler.jass;
 
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
 
@@ -11,10 +12,13 @@ import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
 import ch.frickler.jass.action.ActionAnnounce;
+import ch.frickler.jass.action.ActionAnnounceWies;
 import ch.frickler.jass.action.ActionLayCard;
+import ch.frickler.jass.action.ActionLeaveGame;
 import ch.frickler.jass.db.entity.Card;
 import ch.frickler.jass.db.entity.Team;
 import ch.frickler.jass.db.entity.User;
+import ch.frickler.jass.db.entity.Wies;
 import ch.frickler.jass.db.enums.CardFamily;
 import ch.frickler.jass.db.enums.CardValue;
 import ch.frickler.jass.db.enums.GameKind;
@@ -55,6 +59,11 @@ public class GameBean {
 	 * holds the current trump
 	 */
 	private String trump = null;
+
+	/**
+	 * holds the current wies
+	 */
+	private String wies = null;
 
 	/**
 	 * the setter for the injection
@@ -171,6 +180,21 @@ public class GameBean {
 	}
 
 	/**
+	 * 
+	 * @return all game kinds translated in the current language
+	 */
+	public SelectItem[] getPossibleWiesTranslated() {
+		List<Wies> possibleWies = Wies.getPossibleWies(user.getUser());
+		SelectItem[] allWies = new SelectItem[possibleWies.size()];
+		int i = 0;
+		for (Wies w : possibleWies) {
+			allWies[i++] = new SelectItem(w.getKey(), Translator.getString(
+					FacesContext.getCurrentInstance(), w.getName()));
+		}
+		return allWies;
+	}
+
+	/**
 	 * @return return if user is the current announcer (Ansager)
 	 */
 	public boolean isAnnouncer() {
@@ -194,6 +218,10 @@ public class GameBean {
 
 	public void setTrump(String trump) {
 		this.trump = trump;
+	}
+
+	public void setWies(String wies) {
+		this.wies = wies;
 	}
 
 	public String getLangTrump() {
@@ -229,6 +257,36 @@ public class GameBean {
 	public void push() {
 		GameService gs = GameManager.getInstance().getGameService(getGameId());
 		gs.pushGame();
+	}
+
+	public void quitgame() {
+		GameService gs = GameManager.getInstance().getGameService(getGameId());
+		new ActionLeaveGame(user.getUser()).doAction(gs);
+	}
+
+	/**
+	 * it must be the first round, and the user must have a wies in his hand
+	 * cards.
+	 * 
+	 * @return true if user can wies
+	 */
+	public boolean isWiesPossible() {
+		return user.getUser().getCards().size() == 9
+				&& Wies.getPossibleWies(user.getUser()).size() > 0;
+	}
+
+	public void wies() {
+		GameService gs = GameManager.getInstance().getGameService(getGameId());
+		new ActionAnnounceWies(user.getUser(),getAnouncedWies()).doAction(gs);
+	}
+
+	private List<Card> getAnouncedWies() {
+		String[] arr = wies.split(";");
+		List<Card> cards = new ArrayList<Card>();
+		for(String a : arr){
+			cards.add(new Card(CardFamily.valueOf(a.split(".")[0]),CardValue.valueOf(a.split(".")[1])));
+		}
+		return cards;
 	}
 
 	/**
