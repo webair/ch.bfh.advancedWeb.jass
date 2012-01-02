@@ -14,9 +14,10 @@
 				action="createGame?faces-redirect=true" />
 				<br/>
 				<br/>
-			<h:panelGroup id="games">
-				<h:messages />
-				<h:dataTable var="game" columnClasses="rowEven,rowOdd" value="#{GameListBean.games}">
+			
+			<h:panelGroup id="games">				
+				<h:outputText value="#{Lang.currentlynogamestarted}" rendered="#{empty GameListBean.games}" />
+				<h:dataTable var="game" columnClasses="rowEven,rowOdd" value="#{GameListBean.games}" rendered="#{not empty GameListBean.games}">
 					<h:column>
 						<f:facet name="header">
 							  #{Lang.game_name}

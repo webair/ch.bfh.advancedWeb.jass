@@ -15,12 +15,12 @@
 				<h:outputLabel value="#{Lang.label_nick}:" for="nick" />
 				<h:inputText id="nick" value="#{registerBean.nick}" />
 				<h:outputLabel value="#{Lang.label_password}*:" for="password1" />
-				<h:inputSecret id="password1" value="#{registerBean.passwordOne}"
+				<h:inputSecret id="password1" value="#{registerBean.pw1}"
 					required="true" />
 				<h:outputLabel value="#{Lang.label_password2}*:" for="password2" />
-				<h:inputSecret id="password2" value="#{registerBean.passwordTwo}"
+				<h:inputSecret id="password2" value="#{registerBean.pw2}"
 					required="true" />
-				<h:commandButton value="#{Lang.text_register}"
+				<h:commandButton class="button" value="#{Lang.text_register}"
 					action="#{registerBean.register}" />
 				<h:outputText value="#{Lang.login_required}" />
 			</h:panelGrid>
