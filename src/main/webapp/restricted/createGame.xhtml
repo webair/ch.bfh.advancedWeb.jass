@@ -11,11 +11,11 @@
 		<h:form>
 			<h:panelGrid id="grid" columns="2">
 				<h:outputLabel value="#{Lang.game_name}:" for="name" />
-				<h:inputText class="button" id="name" value="#{gameFactoryBean.name}"
+				<h:inputText id="name" value="#{gameFactoryBean.name}"
 					  required="true" requiredMessage="#{Lang.err_game_name}"/>
 				
 				<h:outputLabel value="#{Lang.game_winpoints}:" for="winningPoints" />
-				<h:inputText class="button" id="winningPoints" 
+				<h:inputText id="winningPoints" 
 				value="#{gameFactoryBean.winningPoints}" 
 				required="true"
 				validatorMessage="#{Lang.err_winpoints}"

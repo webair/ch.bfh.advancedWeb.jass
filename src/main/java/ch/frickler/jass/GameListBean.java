@@ -38,6 +38,10 @@ public class GameListBean {
 		list.addAll(GameManager.getInstance().getAvailableGames());
 		return list;
 	}
+	
+	public int getGameCount(){
+		return getGames().size();
+	}
 
 	/**
 	 * action for joining the game

@@ -347,7 +347,8 @@ public class GameService extends PersistanceService {
 		Round r = getCurrentRound();
 		User spAnsager;
 		spAnsager = this.placeStich(r.getCards());
-		log("Strich geht an " + spAnsager.getName());
+		//log("Strich geht an " + spAnsager.getName());
+		log(translateAndFormat("stichgoesto", new String[] {spAnsager.getName()}));
 		r.setBeginner(spAnsager);
 		r.setCurrentPlayer(spAnsager);
 		lastCards = new ArrayList<Card>(r.getCards());
@@ -440,18 +441,19 @@ public class GameService extends PersistanceService {
 		return loosing;
 	}
 
-	public void terminate(User terminateUser) {
-		Team team = getTeamOf(terminateUser);
-		if (team == null) {
-			team = getLoosingTeam();
-		}
+	/**
+	 * the team witch doesn't terminate the game gets the full points.
+	 * @param terminateUser
+	 */
+	public void cancelGame(User terminateUser) {
+		Team teminateTeam = getTeamOf(terminateUser);
 		for (Team winnerTeam : _game.getTeams()) {
-			if (!team.equals(winnerTeam)) {
-				writeStatistic(winnerTeam, team);
+			if (!teminateTeam.equals(winnerTeam)) {
+				winnerTeam.addPoints(_game.getWinPoints()-winnerTeam.getPoints());
 				break;
 			}
 		}
-		setGameState(GameState.Terminated);
+		finishGame();
 	}
 
 	protected void setGameState(GameState state) {

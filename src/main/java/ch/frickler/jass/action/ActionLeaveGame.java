@@ -13,7 +13,7 @@ public class ActionLeaveGame extends JassAction {
 
 	@Override
 	public boolean doAction(GameService spiel) {
-		spiel.terminate(user);
+		spiel.cancelGame(user);
 		return true;
 	}
 

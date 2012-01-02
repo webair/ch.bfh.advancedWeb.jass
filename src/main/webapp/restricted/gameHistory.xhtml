@@ -6,14 +6,15 @@
 	<ui:define name="title">#{Lang.overviewdonegames}</ui:define>
 	<ui:define name="content">
 		<h:panelGroup id="completedGames">
-			<h:dataTable var="game" value="#{gameHistoryBean.completedGames}">
+			<h:dataTable var="game" columnClasses="rowEven,rowOdd" value="#{gameHistoryBean.completedGames}">
 				<h:column>
 					<f:facet name="header">
 							  #{Lang.game_name}
 						  </f:facet>
 							#{game.name}
 					</h:column>
-				<f:facet name="header">
+				<h:column>
+					<f:facet name="header">
 							   #{Lang.gestartetvon}
 						  </f:facet>
 						#{game.owner.name}

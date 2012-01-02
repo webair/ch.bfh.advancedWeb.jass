@@ -6,16 +6,17 @@
 	<ui:define name="title">#{Lang.overview}</ui:define>
 	<ui:define name="content">
 		<h:form id="OverviewForm">
-			<h:commandLink class="invisible" value="refresh" id="GameLink">
+			<h:commandLink  value="refresh" class="invisible" id="GameLink">
 				<f:ajax render="games" />
 			</h:commandLink>
+			<br/>
 			<h:commandLink class="button" value="#{Lang.createGame}" id="CreateGameLink"
 				action="createGame?faces-redirect=true" />
 				<br/>
 				<br/>
 			<h:panelGroup id="games">
 				<h:messages />
-				<h:dataTable var="game" value="#{GameListBean.games}">
+				<h:dataTable var="game" columnClasses="rowEven,rowOdd" value="#{GameListBean.games}">
 					<h:column>
 						<f:facet name="header">
 							  #{Lang.game_name}

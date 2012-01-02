@@ -23,8 +23,7 @@ import ch.frickler.jass.helper.Translator;
 import ch.frickler.jass.service.GameService;
 
 /**
- * @author seed
- * Bean for managing the game interactions and the game logic
+ * @author seed Bean for managing the game interactions and the game logic
  */
 @ManagedBean
 @SessionScoped
@@ -35,10 +34,9 @@ public class GameBean {
 	 */
 	private Long gameId = null;
 
-
 	/**
-	 * holds the cards from the last round, so we can present them
-	 * for some seconds to the user
+	 * holds the cards from the last round, so we can present them for some
+	 * seconds to the user
 	 */
 	private List<Card> lastCards;
 
@@ -68,8 +66,7 @@ public class GameBean {
 	}
 
 	/**
-	 * @return the current gameid, reads it from the session 
-	 * when its not set.
+	 * @return the current gameid, reads it from the session when its not set.
 	 */
 	private long getGameId() {
 		if (gameId == null) {
@@ -108,10 +105,8 @@ public class GameBean {
 		return user.getUser().getCards();
 	}
 
-	
 	/**
-	 *  starts a play action, reads the user input and determine 
-	 *  the action
+	 * starts a play action, reads the user input and determine the action
 	 */
 	public void playCard() {
 		FacesContext ctx = FacesContext.getCurrentInstance();
@@ -160,16 +155,17 @@ public class GameBean {
 	public GameKind[] getGameKinds() {
 		return GameKind.values();
 	}
-	
+
 	/**
 	 * 
 	 * @return all game kinds translated in the current language
 	 */
-	public SelectItem[] getGameKindsTranslated(){
+	public SelectItem[] getGameKindsTranslated() {
 		SelectItem[] kinds = new SelectItem[GameKind.values().length];
 		int i = 0;
-		for(GameKind kind : GameKind.values()){
-			kinds[i++] = new SelectItem(kind.name(),Translator.getString(FacesContext.getCurrentInstance(), kind.name()));
+		for (GameKind kind : GameKind.values()) {
+			kinds[i++] = new SelectItem(kind.name(), Translator.getString(
+					FacesContext.getCurrentInstance(), kind.name()));
 		}
 		return kinds;
 	}
@@ -199,15 +195,19 @@ public class GameBean {
 	public void setTrump(String trump) {
 		this.trump = trump;
 	}
-	
-	public String getLangTrump(){
-		if(trump != null){
-			return Translator.getString(FacesContext.getCurrentInstance(), trump.toString());
-		}else{
-			return Translator.getString(FacesContext.getCurrentInstance(), "notyetchoosed");
+
+	public String getLangTrump() {
+		GameService gs = GameManager.getInstance().getGameService(getGameId());
+		if (gs.getCurrentRound() != null) {
+			GameKind k = gs.getCurrentRound().getGameKind();
+			if (k != null) {
+				return Translator.getString(FacesContext.getCurrentInstance(),
+						k.name());
+			}
 		}
+		return Translator.getString(FacesContext.getCurrentInstance(),
+				"notyetchoosed");
 	}
-	
 
 	/**
 	 * announce the current trump
@@ -224,7 +224,7 @@ public class GameBean {
 	}
 
 	/**
-	 *  push the announcement (Schieben)
+	 * push the announcement (Schieben)
 	 */
 	public void push() {
 		GameService gs = GameManager.getInstance().getGameService(getGameId());
@@ -237,7 +237,7 @@ public class GameBean {
 	 * @return list of cards
 	 */
 	public List<GuiCard> getGuiCards() {
-		//System.out.println("index: " + myIndex);
+		// System.out.println("index: " + myIndex);
 		List<GuiCard> deckCards = new ArrayList<GuiCard>();
 		int i = 4 - myIndex;
 		for (Card c : getCardsOnTable()) {
@@ -250,18 +250,16 @@ public class GameBean {
 
 	/**
 	 * @author seed
-	 *
-	 * inner class for adding player index to the card
+	 * 
+	 *         inner class for adding player index to the card
 	 */
 	public class GuiCard {
-		
-		
+
 		/**
 		 * holds the player indey
 		 */
 		private int position;
-		
-		
+
 		/**
 		 * holds the card entity
 		 */

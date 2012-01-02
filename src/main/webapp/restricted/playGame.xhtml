@@ -11,11 +11,12 @@
 	<ui:define name="content">
 		<div id="Gameplayers">
 			<h:panelGroup id="teams">
-				<h2>#{Lang.teams}:</h2>
-				<h:dataTable var="team" value="#{gameBean.teams}" rowClasses="rowEven,rowOdd">
+
+				<h:dataTable class="infotable" var="team" value="#{gameBean.teams}"
+					columnClasses="rowEven,rowOdd">
 					<h:column>
 						<f:facet name="header">
-							 #{Lang.teamname}
+							 #{Lang.teams}:
 						  </f:facet>
 							#{team.name}<br />
 						<span class="italic">#{team.userString}</span>
@@ -23,16 +24,30 @@
 
 					<h:column>
 						<f:facet name="header">
-							  #{Lang.points}
+
+						</f:facet>
+						#{team.points} #{Lang.points}
+					</h:column>
+				</h:dataTable>
+				<br />
+				<h:outputText>
+							 #{Lang.trumpis}: <b>#{gameBean.langTrump}</b>
+				</h:outputText>
+			</h:panelGroup>
+
+
+			<h:panelGroup id="log">
+				<h:dataTable class="infotable" var="msg" value="#{gameBean.log}">
+					<h:column>
+						<f:facet name="header">
+							  #{Lang.logmessages}:
 						  </f:facet>
-						#{team.points}
+						<h:outputText styleClass="logmessage" escape="false"
+							value="#{msg}" />
 					</h:column>
 				</h:dataTable>
 			</h:panelGroup>
-			<br />
-			<h:outputText rendered="#{gameBean.trump != null}">sdf
-							 #{Lang.trumpis}: <b>#{gameBean.langTrump}</b>
-			</h:outputText>
+
 		</div>
 
 		<h:panelGroup id="playTable">
@@ -50,7 +65,8 @@
 			<h:panelGroup rendered="#{gameBean.announcer}">
 				<h:form>
 					<h:selectOneMenu value="#{gameBean.trump}">
-						<f:selectItems value="#{gameBean.gameKindsTranslated}"  var="kind" itemLabel="kind.label" itemValue="kind.value" />
+						<f:selectItems value="#{gameBean.gameKindsTranslated}" var="kind"
+							itemLabel="kind.label" itemValue="kind.value" />
 					</h:selectOneMenu>
 					<h:commandButton class="button" value="#{Lang.annonce}"
 						action="#{gameBean.announce}">
@@ -58,24 +74,13 @@
 					</h:commandButton>
 					<h:commandButton class="button" value="#{Lang.schieben}"
 						action="#{gameBean.push}">
-						<f:ajax render=":playTable :GameUI" />
+						<f:ajax render=":playTable :GameUI :teams" />
 					</h:commandButton>
 				</h:form>
 			</h:panelGroup>
 
 		</h:panelGroup>
-		<h:panelGroup id="log">
 
-
-			<h:dataTable var="msg" value="#{gameBean.log}">
-				<h:column>
-					<f:facet name="header">
-							  #{Lang.logmessages}:
-						  </f:facet>
-						  <h:outputText styleClass="logmessage" escape="false" value="#{msg}" />
-					</h:column>
-			</h:dataTable>
-		</h:panelGroup>
 		<h:panelGrid id="GameUI" columns="1">
 
 			<h:column>
