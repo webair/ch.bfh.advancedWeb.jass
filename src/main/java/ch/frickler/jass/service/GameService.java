@@ -348,7 +348,6 @@ public class GameService extends PersistanceService {
 		Round r = getCurrentRound();
 		User spAnsager;
 		spAnsager = this.placeStich(r.getCards());
-		// log("Strich geht an " + spAnsager.getName());
 		log(translateAndFormat("stichgoesto",
 				new String[] { spAnsager.getName() }));
 		r.setBeginner(spAnsager);
@@ -358,6 +357,7 @@ public class GameService extends PersistanceService {
 		// after one round is played we have to do the wies things
 		if (spAnsager.getCards().size() == 8) {
 			placeWies(r.getAnnouncedWies());
+			r.clearWies();
 		}
 	}
 
@@ -388,9 +388,11 @@ public class GameService extends PersistanceService {
 				}
 			}
 		}
-		t.addPoints(points*gametypeService.getQualifier());
-		String log = translateAndFormat("andthewiesgoesto", new String[] {
-				t.getName(),points*gametypeService.getQualifier()+"" });
+		t.addPoints(points * gametypeService.getQualifier());
+		String log = translateAndFormat(
+				"andthewiesgoesto",
+				new String[] { t.getName(),
+						points * gametypeService.getQualifier() + "" });
 		log(log);
 		System.out.println(log);
 	}
@@ -431,7 +433,7 @@ public class GameService extends PersistanceService {
 			}
 		}
 
-		// sorting cards if user, suffle if it is a roboter
+		// sorting cards if user, shuffle if it is a roboter
 		for (User u : getAllSpieler()) {
 			if (u.isABot()) {
 				Collections.shuffle(u.getCards());
@@ -487,11 +489,11 @@ public class GameService extends PersistanceService {
 	 * @param terminateUser
 	 */
 	public void cancelGame(User terminateUser) {
-		String log = translateAndFormat("usercanceledgame", new String[] {
-				terminateUser.getName() });
+		String log = translateAndFormat("usercanceledgame",
+				new String[] { terminateUser.getName() });
 		// log("Trumpf is now: " + type + " says " + user.getName());
 		log(log);
-		
+
 		Team teminateTeam = getTeamOf(terminateUser);
 		for (Team winnerTeam : _game.getTeams()) {
 			if (!teminateTeam.equals(winnerTeam)) {
@@ -610,8 +612,8 @@ public class GameService extends PersistanceService {
 
 	public void addWies(Wies wies) {
 		getCurrentRound().addWies(wies);
-		String log = translateAndFormat("userannouceswies", new String[] {
-				wies.getUser().getName() });
+		String log = translateAndFormat("userannouceswies", new String[] { wies
+				.getUser().getName() });
 		log(log);
 		System.out.println(log);
 	}

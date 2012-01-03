@@ -31,7 +31,8 @@
 
 #GameUI {
 	clear: both;
-	margin-left: 330px;
+	margin-left: 30px;
+	margin-top: 70px;
 }
 
 /* the cards on the users hand */
@@ -219,4 +220,16 @@ td {
 .infotable {
 	width: 300px;
 	margin-top: 20px;
+}
+
+.optionsBeforePlay {
+    left: 500px;
+    position: absolute;
+    top: 300px;
+}
+
+.optionsAfterPlay {
+    left: 500px;
+    position: absolute;
+    top: 300px;
 }

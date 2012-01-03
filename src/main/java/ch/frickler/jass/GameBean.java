@@ -92,8 +92,7 @@ public class GameBean {
 	 * @return list of players
 	 */
 	public List<User> getPlayers() {
-		return GameManager.getInstance().getGameService(getGameId())
-				.getAllSpieler();
+		return getGameService().getAllSpieler();
 	}
 
 	/**
@@ -102,7 +101,7 @@ public class GameBean {
 	 * @return list of teams
 	 */
 	public List<Team> getTeams() {
-		return GameManager.getInstance().getGameService(getGameId()).getTeams();
+		return getGameService().getTeams();
 	}
 
 	/**
@@ -145,7 +144,7 @@ public class GameBean {
 	 */
 	public List<Card> getCardsOnTable() {
 
-		GameService gs = GameManager.getInstance().getGameService(getGameId());
+		GameService gs = getGameService();
 		// if the last for cards changed, display them...
 		List<Card> lastCards = gs.getLastCards();
 		if (lastCards != null && !lastCards.equals(this.lastCards)) {
@@ -164,6 +163,17 @@ public class GameBean {
 	public GameKind[] getGameKinds() {
 		return GameKind.values();
 	}
+
+	public GameService getGameService() {
+
+		if (_gameService == null) {
+			_gameService = GameManager.getInstance()
+					.getGameService(getGameId());
+		}
+		return _gameService;
+	}
+
+	GameService _gameService = null;
 
 	/**
 	 * 
@@ -200,7 +210,7 @@ public class GameBean {
 	 * @return return if user is the current announcer (Ansager)
 	 */
 	public boolean isAnnouncer() {
-		GameService gs = GameManager.getInstance().getGameService(getGameId());
+		GameService gs = getGameService();
 		if (gs.getState().equals(GameState.Ansage)) {
 			return gs.getAnsager().equals(user.getUser());
 		}
@@ -211,7 +221,7 @@ public class GameBean {
 	 * @return the current trump, determined by the game service
 	 */
 	public String getTrump() {
-		GameService gs = GameManager.getInstance().getGameService(getGameId());
+		GameService gs = getGameService();
 		if (gs.getState().equals(GameState.Play)) {
 			return gs.getCurrentRound().getGameKind().toString();
 		}
@@ -231,7 +241,7 @@ public class GameBean {
 	}
 
 	public String getLangTrump() {
-		GameService gs = GameManager.getInstance().getGameService(getGameId());
+		GameService gs = getGameService();
 		if (gs.getCurrentRound() != null) {
 			GameKind k = gs.getCurrentRound().getGameKind();
 			if (k != null) {
@@ -248,12 +258,12 @@ public class GameBean {
 	 */
 	public void announce() {
 		GameKind gk = GameKind.valueOf(trump);
-		GameService gs = GameManager.getInstance().getGameService(getGameId());
+		GameService gs = getGameService();
 		new ActionAnnounce(user.getUser(), gk).doAction(gs);
 	}
 
 	public List<String> getLog() {
-		GameService gs = GameManager.getInstance().getGameService(getGameId());
+		GameService gs = getGameService();
 		return gs.getLog();
 	}
 
@@ -261,15 +271,27 @@ public class GameBean {
 	 * push the announcement (Schieben)
 	 */
 	public void push() {
-		GameService gs = GameManager.getInstance().getGameService(getGameId());
+		GameService gs = getGameService();
 		gs.pushGame();
 	}
 
 	public void quitgame() {
-		GameService gs = GameManager.getInstance().getGameService(getGameId());
+		GameService gs = getGameService();
 		new ActionLeaveGame(user.getUser()).doAction(gs);
 	}
+	
+	public String newgame(){
+		return "createGame?faces-redirect=true";
+	}
+	
+	public String showstatistic(){
+		return "gameHistory?faces-redirect=true";
+	}
 
+	public boolean isFinished(){
+		return getGameService().getState() == GameState.Terminated;
+	}
+	
 	/**
 	 * it must be the first round, and the user must have a wies in his hand
 	 * cards.
@@ -282,7 +304,7 @@ public class GameBean {
 	}
 
 	public void wiesen() {
-		GameService gs = GameManager.getInstance().getGameService(getGameId());
+		GameService gs = getGameService();
 		new ActionAnnounceWies(user.getUser(), getAnouncedWies()).doAction(gs);
 
 	}
@@ -291,7 +313,7 @@ public class GameBean {
 		List<Card> cards = new ArrayList<Card>();
 		try {
 			String[] arr = wies.split(";");
-			System.out.println("ä wies isch mies: "+wies);
+			System.out.println("ä wies isch mies: " + wies);
 			for (String a : arr) {
 				cards.add(new Card(CardFamily.valueOf(a.split(",")[0]),
 						CardValue.valueOf(a.split(",")[1])));
