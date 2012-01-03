@@ -557,6 +557,9 @@ public class GameService extends PersistanceService {
 
 		if (getGameTypeService() == null)
 			return false; // no trump yet
+		
+		if(user.getCards().size() == 1)
+			return true; // it was the last card.
 
 		return isPlayedCardVaild(user, layedCard, r);
 	}
@@ -618,4 +621,27 @@ public class GameService extends PersistanceService {
 		System.out.println(log);
 	}
 
+	public boolean hasUserWon(User user) {
+		if (getState() == GameState.Terminated) {
+			return getLeadingTeam().getUsers().contains(user);
+		}
+		return false;
+	}
+
+	public String getTwitterText(User user) {
+		User partner = getTeamOf(user).getUser1().equals(user) ? getTeamOf(user).getUser2() : getTeamOf(user).getUser1();
+		Team otherTeam = getTeamOf(user).equals(getTeams().get(0)) ? getTeams().get(1) : getTeams().get(0);
+		String tweettext = "";
+		if(GameState.Terminated.equals(getState())){
+			if(hasUserWon(user)){
+				tweettext = "tweet_userwinsagainst";
+			}else{
+			tweettext = "tweet_userlosesagainst";
+			}
+		}else{
+		//is currently playing Jass with %s in team %s Score: %s:%s
+			tweettext = "tweet_userplayingstadings";		
+		}
+		return "&text="+translateAndFormat(tweettext, new String[]{ partner.getName(), getTeamOf(user).getName(),otherTeam.getName(), getTeamOf(user).getPoints()+"",otherTeam.getPoints()+"" });
+	}
 }

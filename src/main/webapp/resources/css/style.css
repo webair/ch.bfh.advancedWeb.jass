@@ -32,7 +32,7 @@
 #GameUI {
 	clear: both;
 	margin-left: 30px;
-	margin-top: 70px;
+	
 }
 
 /* the cards on the users hand */
@@ -134,6 +134,7 @@ select {
 	background: none repeat scroll 0 0 #CBFF0D;
 	border: 1px solid #CBFF0D;
 	margin-right: 10px;
+	border: 1px solid black;
 }
 
 .logmessage {
@@ -232,4 +233,17 @@ td {
     left: 500px;
     position: absolute;
     top: 300px;
+}
+.playoptions{
+	background: none repeat scroll 0 0 white;
+    border: medium solid black;
+    padding: 20px;
+}
+
+.twitter{
+	background: url("https://platform.twitter.com/widgets/images/btn.c5bcc9de085c51bf889f6a8f33128be2.png") no-repeat scroll -24px 0 transparent;
+
+    margin-left: -5px;
+    padding-left: 25px;
+	}
 }

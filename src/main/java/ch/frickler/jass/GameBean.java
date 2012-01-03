@@ -308,6 +308,10 @@ public class GameBean {
 		new ActionAnnounceWies(user.getUser(), getAnouncedWies()).doAction(gs);
 
 	}
+	
+	public String getTwittertext(){
+		return getGameService().getTwitterText(user.getUser());
+	}
 
 	private List<Card> getAnouncedWies() {
 		List<Card> cards = new ArrayList<Card>();

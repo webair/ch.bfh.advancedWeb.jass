@@ -32,7 +32,7 @@ public class GameFactoryBean {
 	/**
 	 * winning points
 	 */
-	private int winningPoints = 1000;
+	private int winningPoints = 500;
 
 	/**
 	 * initializes a new game, with the winningPoints & name setted by the user
