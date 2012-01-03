@@ -198,11 +198,11 @@ th {
 	font-size: 12px;
 }
 
-.rowEven {
+.rowEven td {
 	border-bottom: 1px solid black;
 }
 
-.rowOdd {
+.rowOdd td {
 	border-bottom: 1px solid black;
 }
 

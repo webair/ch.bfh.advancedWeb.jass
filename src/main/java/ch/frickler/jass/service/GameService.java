@@ -389,6 +389,10 @@ public class GameService extends PersistanceService {
 			}
 		}
 		t.addPoints(points*gametypeService.getQualifier());
+		String log = translateAndFormat("andthewiesgoesto", new String[] {
+				t.getName(),points*gametypeService.getQualifier()+"" });
+		log(log);
+		System.out.println(log);
 	}
 
 	private void initGame() {
@@ -483,6 +487,11 @@ public class GameService extends PersistanceService {
 	 * @param terminateUser
 	 */
 	public void cancelGame(User terminateUser) {
+		String log = translateAndFormat("usercanceledgame", new String[] {
+				terminateUser.getName() });
+		// log("Trumpf is now: " + type + " says " + user.getName());
+		log(log);
+		
 		Team teminateTeam = getTeamOf(terminateUser);
 		for (Team winnerTeam : _game.getTeams()) {
 			if (!teminateTeam.equals(winnerTeam)) {
@@ -597,6 +606,14 @@ public class GameService extends PersistanceService {
 	public List<Team> getTeams() {
 
 		return _game.getTeams();
+	}
+
+	public void addWies(Wies wies) {
+		getCurrentRound().addWies(wies);
+		String log = translateAndFormat("userannouceswies", new String[] {
+				wies.getUser().getName() });
+		log(log);
+		System.out.println(log);
 	}
 
 }

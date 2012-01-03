@@ -188,8 +188,10 @@ public class GameBean {
 		SelectItem[] allWies = new SelectItem[possibleWies.size()];
 		int i = 0;
 		for (Wies w : possibleWies) {
-			allWies[i++] = new SelectItem(w.getKey(), Translator.getString(
-					FacesContext.getCurrentInstance(), w.getName()));
+			// System.out.println(w.getKey());
+			allWies[i++] = new SelectItem(w.getKey(), w.getKey());
+			// Translator.getString(
+			// FacesContext.getCurrentInstance(), w.getName()));
 		}
 		return allWies;
 	}
@@ -222,6 +224,10 @@ public class GameBean {
 
 	public void setWies(String wies) {
 		this.wies = wies;
+	}
+
+	public String getWies() {
+		return this.wies;
 	}
 
 	public String getLangTrump() {
@@ -275,16 +281,23 @@ public class GameBean {
 				&& Wies.getPossibleWies(user.getUser()).size() > 0;
 	}
 
-	public void wies() {
+	public void wiesen() {
 		GameService gs = GameManager.getInstance().getGameService(getGameId());
-		new ActionAnnounceWies(user.getUser(),getAnouncedWies()).doAction(gs);
+		new ActionAnnounceWies(user.getUser(), getAnouncedWies()).doAction(gs);
+
 	}
 
 	private List<Card> getAnouncedWies() {
-		String[] arr = wies.split(";");
 		List<Card> cards = new ArrayList<Card>();
-		for(String a : arr){
-			cards.add(new Card(CardFamily.valueOf(a.split(".")[0]),CardValue.valueOf(a.split(".")[1])));
+		try {
+			String[] arr = wies.split(";");
+			System.out.println("ä wies isch mies: "+wies);
+			for (String a : arr) {
+				cards.add(new Card(CardFamily.valueOf(a.split(",")[0]),
+						CardValue.valueOf(a.split(",")[1])));
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
 		}
 		return cards;
 	}

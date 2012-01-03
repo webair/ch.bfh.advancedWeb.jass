@@ -13,7 +13,7 @@
 			<h:panelGroup id="teams">
 
 				<h:dataTable class="infotable" var="team" value="#{gameBean.teams}"
-					columnClasses="rowEven,rowOdd">
+					rowClasses="rowEven,rowOdd">
 					<h:column>
 						<f:facet name="header">
 							 #{Lang.teams}:
@@ -88,7 +88,7 @@
 							var="kind" itemLabel="kind.label" itemValue="kind.value" />
 					</h:selectOneMenu>
 					<h:commandButton class="button" value="#{Lang.wies}"
-						action="#{gameBean.wies}">
+						action="#{gameBean.wiesen}">
 						<f:ajax render=":playTable :GameUI" execute="@form" />
 					</h:commandButton>
 				</h:form>
@@ -119,9 +119,9 @@
 
 				</h:column>
 			</h:panelGrid>
-
-			<h:outputScript>
-				<!-- enable polling on this page -->
+		</h:panelGroup>
+		<h:outputScript>
+			<!-- enable polling on this page -->
 			reloadUI(#{Lang.reload_time}, "cards", "playTable GameUI log");
 		</h:outputScript>
 	</ui:define>

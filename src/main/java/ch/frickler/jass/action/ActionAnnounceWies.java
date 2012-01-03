@@ -24,7 +24,7 @@ public class ActionAnnounceWies extends JassAction {
 	@Override
 	public boolean doAction(GameService game) {
 		if(isActionPossible(game)){
-			game.getCurrentRound().addWies(new Wies(cards,user));
+			game.addWies(new Wies(cards,user));
 			return true;
 		}
 		return false;

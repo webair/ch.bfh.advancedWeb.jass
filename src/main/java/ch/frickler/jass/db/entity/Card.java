@@ -75,6 +75,10 @@ public class Card implements Serializable, Comparable<Card> {
 	public void setValue(CardValue value) {
 		this.value = value;
 	}
+	
+	public String toString(){
+		return this.family+"."+this.value;
+	}
 
 	/**
 	 * 
@@ -141,7 +145,7 @@ public class Card implements Serializable, Comparable<Card> {
 			ret = 3;
 		} else if (CardFamily.ECKEN.equals(this.getFamily())) {
 			ret = 2;
-		} else if (CardFamily.KREUZ.equals(this.getFamily())) {
+		} else if (CardFamily.SCHAUFEL.equals(this.getFamily())) {
 			ret = 1;
 		}
 		return ret;
