@@ -7,19 +7,23 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
+import javax.faces.context.FacesContext;
+
 import ch.frickler.jass.action.ActionAnnounce;
 import ch.frickler.jass.action.ActionDealOutCards;
 import ch.frickler.jass.action.ActionLayCard;
 import ch.frickler.jass.db.entity.Card;
 import ch.frickler.jass.db.entity.Game;
-import ch.frickler.jass.db.entity.Game.GameState;
 import ch.frickler.jass.db.entity.Round;
 import ch.frickler.jass.db.entity.Team;
 import ch.frickler.jass.db.entity.User;
+import ch.frickler.jass.db.entity.Wies;
 import ch.frickler.jass.db.enums.CardFamily;
 import ch.frickler.jass.db.enums.CardValue;
 import ch.frickler.jass.db.enums.GameKind;
+import ch.frickler.jass.db.enums.GameState;
 import ch.frickler.jass.gametype.Trump;
+import ch.frickler.jass.helper.Translator;
 import ch.frickler.jass.definitions.JassAction;
 
 public class GameService extends PersistanceService {
@@ -52,7 +56,7 @@ public class GameService extends PersistanceService {
 		Game g = new Game();
 		g.setWinPoints(winPoints);
 		g.setName(name);
-		g.setGameState(Game.GameState.WaitForPlayers);
+		g.setGameState(GameState.WaitForPlayers);
 		g.setStartDate(new Date());
 		g = mergeObject(g);
 		_game = g;
@@ -257,7 +261,7 @@ public class GameService extends PersistanceService {
 			int num = GameKind.values().length;
 			GameKind k = GameKind.values()[new Random().nextInt(num)];
 			new ActionAnnounce(u, k).doAction(this);
-			System.out.println("New Trump is " + k);
+			System.out.println("New Trump is (by bot) " + k);
 		}
 		// now that we have a trump, let the first bot plays (if it's his turn)
 		forceBotPlay();
@@ -272,26 +276,35 @@ public class GameService extends PersistanceService {
 			if (getTeamOf(r.getCurrentPlayer()).equals(t)) {
 				pointsTeam += 5;
 			}
-			// TODO translate this
-			String msg = ("Team: " + t.getName() + ": macht " + pointsTeam + " Punkte in dieser Runde.");
+			String msg = translateAndFormat("teammakespoint",
+					new String[] { t.getName(), pointsTeam + "" });
 			log(msg);
 			System.out.println(msg);
 			t.addPoints(pointsTeam * getGameTypeService().getQualifier());
 			t.clearCards();
 		}
-
+		// console ounly
 		for (Team t : _game.getTeams()) {
 			System.out.println("Punktestand " + t.getName() + ": "
 					+ t.getPoints());
 		}
 	}
 
+	public String translateAndFormat(String key, String[] args) {
+		String res = Translator.getString(FacesContext.getCurrentInstance(),
+				key);
+		if (res.length() == 0)
+			return "Translation Key " + key + " not found";
+
+		return String.format(res, args);
+	}
+
 	public void playCard(User spl, Card layedCard) {
-		// TODO translate this
-		log(spl.getName() + " played " + layedCard.getFamily() + " "
-				+ layedCard.getValue());
-		System.out.println("User " + spl.getName() + " layed card"
-				+ layedCard.toString());
+		String card = translateCard(layedCard);
+		String log = translateAndFormat("playerplayed",
+				new String[] { spl.getName(), card });
+		System.out.println(log);
+		log(log);
 		Round r = getCurrentRound();
 		r.addCard(layedCard);
 		spl.removeCard(layedCard);
@@ -303,6 +316,14 @@ public class GameService extends PersistanceService {
 			}
 		}
 		forceBotPlay();
+	}
+
+	private String translateCard(Card layedCard) {
+		String resFamily = Translator.getString(FacesContext
+				.getCurrentInstance(), layedCard.getFamily().toString());
+		String resValue = Translator.getString(FacesContext
+				.getCurrentInstance(), layedCard.getValue().toString());
+		return resFamily + " " + resValue;
 	}
 
 	public void forceBotPlay() {
@@ -327,11 +348,53 @@ public class GameService extends PersistanceService {
 		Round r = getCurrentRound();
 		User spAnsager;
 		spAnsager = this.placeStich(r.getCards());
-		log("Strich geht an " + spAnsager.getName());
+		log(translateAndFormat("stichgoesto",
+				new String[] { spAnsager.getName() }));
 		r.setBeginner(spAnsager);
 		r.setCurrentPlayer(spAnsager);
 		lastCards = new ArrayList<Card>(r.getCards());
 		r.removeCards();
+		// after one round is played we have to do the wies things
+		if (spAnsager.getCards().size() == 8) {
+			placeWies(r.getAnnouncedWies());
+			r.clearWies();
+		}
+	}
+
+	private void placeWies(List<Wies> list) {
+		if (list.size() == 0)
+			return;
+		Wies highest = list.get(0);
+
+		for (int i = 1; i < list.size(); i++) {
+			int compare = highest.compareTo(list.get(i));
+			if (compare == 0) {
+				if (list.get(i).isTrumpf(
+						getGameTypeService().getTrumpfCardFamily())) {
+					highest = list.get(i);
+				}
+			} else if (compare < 0)
+				highest = list.get(i);
+		}
+
+		// all wies counts for the team with the highest wies.
+		User user = highest.getUser();
+		Team t = getTeamOf(user);
+		int points = 0;
+		for (User u : t.getUsers()) {
+			for (Wies w : list) {
+				if (w.getUser().equals(u)) {
+					points += w.getPoints();
+				}
+			}
+		}
+		t.addPoints(points * gametypeService.getQualifier());
+		String log = translateAndFormat(
+				"andthewiesgoesto",
+				new String[] { t.getName(),
+						points * gametypeService.getQualifier() + "" });
+		log(log);
+		System.out.println(log);
 	}
 
 	private void initGame() {
@@ -346,7 +409,7 @@ public class GameService extends PersistanceService {
 	}
 
 	private void initNewRound() {
-		setGameState(Game.GameState.WaitForCards);
+		setGameState(GameState.WaitForCards);
 		_game.setCurrentRound(new Round());
 	}
 
@@ -370,11 +433,15 @@ public class GameService extends PersistanceService {
 			}
 		}
 
-		// sort alle players cards
+		// sorting cards if user, shuffle if it is a roboter
 		for (User u : getAllSpieler()) {
-			Collections.sort(u.getCards());
+			if (u.isABot()) {
+				Collections.shuffle(u.getCards());
+			} else {
+				Collections.sort(u.getCards());
+			}
 		}
-		setGameState(Game.GameState.Ansage);
+		setGameState(GameState.Ansage);
 	}
 
 	public User getAnsager() {
@@ -416,21 +483,29 @@ public class GameService extends PersistanceService {
 		return loosing;
 	}
 
-	public void terminate(User terminateUser) {
-		Team team = getTeamOf(terminateUser);
-		if (team == null) {
-			team = getLoosingTeam();
-		}
+	/**
+	 * the team witch doesn't terminate the game gets the full points.
+	 * 
+	 * @param terminateUser
+	 */
+	public void cancelGame(User terminateUser) {
+		String log = translateAndFormat("usercanceledgame",
+				new String[] { terminateUser.getName() });
+		// log("Trumpf is now: " + type + " says " + user.getName());
+		log(log);
+
+		Team teminateTeam = getTeamOf(terminateUser);
 		for (Team winnerTeam : _game.getTeams()) {
-			if (!team.equals(winnerTeam)) {
-				writeStatistic(winnerTeam, team);
+			if (!teminateTeam.equals(winnerTeam)) {
+				winnerTeam.addPoints(_game.getWinPoints()
+						- winnerTeam.getPoints());
 				break;
 			}
 		}
-		setGameState(GameState.Terminated);
+		finishGame();
 	}
 
-	protected void setGameState(Game.GameState state) {
+	protected void setGameState(GameState state) {
 		_game.setGameState(state);
 	}
 
@@ -444,7 +519,7 @@ public class GameService extends PersistanceService {
 
 	public boolean addStoeck(User user) {
 		Team t = getTeamOf(user);
-		t.addPoints(Trump.ValueOfStoeck * getGameTypeService().getQualifier());
+		t.addPoints(Trump.VALUEOFSTOECK * getGameTypeService().getQualifier());
 		return false;
 	}
 
@@ -482,6 +557,9 @@ public class GameService extends PersistanceService {
 
 		if (getGameTypeService() == null)
 			return false; // no trump yet
+		
+		if(user.getCards().size() == 1)
+			return true; // it was the last card.
 
 		return isPlayedCardVaild(user, layedCard, r);
 	}
@@ -499,11 +577,16 @@ public class GameService extends PersistanceService {
 
 	public void setTrump(GameKind type, User user) {
 		setGameType(type);
-		setGameState(Game.GameState.Play);
+		setGameState(GameState.Play);
 		// remove pushed status if existent
 		getCurrentRound().setPushed(false);
-		// TODO translate this...
-		log("Trumpf is now: " + type + " says " + user.getName());
+
+		String typTranslated = Translator.getString(
+				FacesContext.getCurrentInstance(), type.toString());
+		String log = translateAndFormat("trumpfisnow", new String[] {
+				typTranslated, user.getName() });
+		// log("Trumpf is now: " + type + " says " + user.getName());
+		log(log);
 	}
 
 	public void setGameType(GameKind type) {
@@ -530,4 +613,35 @@ public class GameService extends PersistanceService {
 		return _game.getTeams();
 	}
 
+	public void addWies(Wies wies) {
+		getCurrentRound().addWies(wies);
+		String log = translateAndFormat("userannouceswies", new String[] { wies
+				.getUser().getName() });
+		log(log);
+		System.out.println(log);
+	}
+
+	public boolean hasUserWon(User user) {
+		if (getState() == GameState.Terminated) {
+			return getLeadingTeam().getUsers().contains(user);
+		}
+		return false;
+	}
+
+	public String getTwitterText(User user) {
+		User partner = getTeamOf(user).getUser1().equals(user) ? getTeamOf(user).getUser2() : getTeamOf(user).getUser1();
+		Team otherTeam = getTeamOf(user).equals(getTeams().get(0)) ? getTeams().get(1) : getTeams().get(0);
+		String tweettext = "";
+		if(GameState.Terminated.equals(getState())){
+			if(hasUserWon(user)){
+				tweettext = "tweet_userwinsagainst";
+			}else{
+			tweettext = "tweet_userlosesagainst";
+			}
+		}else{
+		//is currently playing Jass with %s in team %s Score: %s:%s
+			tweettext = "tweet_userplayingstadings";		
+		}
+		return "&text="+translateAndFormat(tweettext, new String[]{ partner.getName(), getTeamOf(user).getName(),otherTeam.getName(), getTeamOf(user).getPoints()+"",otherTeam.getPoints()+"" });
+	}
 }

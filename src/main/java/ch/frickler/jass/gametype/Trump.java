@@ -9,16 +9,25 @@ import ch.frickler.jass.db.enums.CardFamily;
 import ch.frickler.jass.db.enums.CardValue;
 import ch.frickler.jass.definitions.JassGameType;
 
-
+/**
+ * this class describes the TRUMP GameType, the trump card family is defined as member and is
+ * used for every calculation.
+ * 
+ * @author kaeserst
+ * 
+ */
 public class Trump extends JassGameType {
 
-	public static final int ValueOfStoeck = 20;
+	public static final int VALUEOFSTOECK = 20;
 	private CardFamily trumpf;
 
-	public Trump(CardFamily herz) {
-		this.trumpf = herz;
+	public Trump(CardFamily family) {
+		this.trumpf = family;
 	}
 
+	/**
+	 * returns the total points of the given cards
+	 */
 	@Override
 	protected int getPointsOfSpielart(List<Card> cards) {
 		int points = 0;
@@ -26,7 +35,11 @@ public class Trump extends JassGameType {
 			points += getPoint(c);
 		return points;
 	}
-
+	
+	/**
+	 * returns the points of a card in this game kind, consider if the card of the trump
+	 * 
+	 */
 	@Override
 	protected int getPoint(Card card) {
 		switch (card.getValue()) {
@@ -37,7 +50,7 @@ public class Trump extends JassGameType {
 		case ACHT:
 			return 0;
 		case NEUN:
-			// is trumpf neun
+			// is trump nine
 			if (isSameFamily(card,this.trumpf)) {
 				return 14;
 			}
@@ -45,7 +58,7 @@ public class Trump extends JassGameType {
 		case ZEHN:
 			return 10;
 		case BAUER:
-			// is trumpf bauer
+			// is trump famer
 			if (isSameFamily(card,this.trumpf)) {
 				return 20;
 			}
@@ -61,7 +74,13 @@ public class Trump extends JassGameType {
 	}
 
 
-
+	/**
+	 * Compare the two cards given as parameter, consider the current trump
+	 * 
+	 * @param currentlyHighestCard
+	 * @param card
+	 * @return true if second card is higher.
+	 */
 	@Override
 	public boolean isSecondCardHigher(Card highestCard, Card card) {
 
@@ -91,6 +110,11 @@ public class Trump extends JassGameType {
 		return false;
 	}
 
+	/**
+	 * the order for the trump
+	 * @param card
+	 * @return
+	 */
 	public int getTrumpfOrderValue(Card card) {
 
 		switch (card.getValue()) {
@@ -117,9 +141,18 @@ public class Trump extends JassGameType {
 	}
 
 	public String toString() {
-		return "Spielart: Trumpf (" + trumpf.name() + ")";
+		return trumpf.name();
 	}
 
+	/**
+	 * Checks if the card witch the user played is at the current game state
+	 * (including laying card) valid
+	 * 
+	 * @param user
+	 * @param layedCard
+	 * @param r
+	 * @return
+	 */
 	@Override
 	public boolean isPlayedCardVaild(User spl, Card layedCard, Round r) {
 
@@ -184,10 +217,12 @@ public class Trump extends JassGameType {
 		return true;
 	}
 
+	/**
+	 * qualifier for trump: black double, red simple
+	 */
 	@Override
 	public int getQualifier() {
-		//schwarz doppelt, rot einfach
-		return (this.trumpf == CardFamily.SCHAUFEL || this.trumpf == CardFamily.KREUZ) ? 2 : 1;
+		return (this.trumpf == CardFamily.SCHAUFEL || this.trumpf == CardFamily.KREUZ) ? TRUMPBLACKQUALIFIER : TRUMPREDQUALIFIER;
 	}
 
 	public CardFamily getCardFamily() {

@@ -10,100 +10,156 @@
 
 	<ui:define name="content">
 		<div id="Gameplayers">
-			<h2>#{Lang.title_playerstakepart}:</h2>
-			<h:dataTable var="player" value="#{gameBean.players}">
-				<h:column>
-					<f:facet name="header">
-							  #{Lang.name}
-						  </f:facet>
-							#{player.name}
-					</h:column>
-			</h:dataTable>
-
 			<h:panelGroup id="teams">
-				<h2>#{Lang.teams}:</h2>
-				<h:dataTable var="team" value="#{gameBean.teams}">
+
+				<h:dataTable class="infotable" var="team" value="#{gameBean.teams}"
+					rowClasses="rowEven,rowOdd">
 					<h:column>
 						<f:facet name="header">
-							 #{Lang.teamname}
+							 #{Lang.teams}:
 						  </f:facet>
-							#{team.name}
+							#{team.name}<br />
+						<span class="italic">#{team.userString}</span>
 					</h:column>
+
 					<h:column>
 						<f:facet name="header">
-							  #{Lang.points}
+
+						</f:facet>
+						#{team.points} #{Lang.points}
+					</h:column>
+				</h:dataTable>
+				<br />
+				<h:outputText>
+							 #{Lang.trumpis}: <b>#{gameBean.langTrump}</b>
+				</h:outputText>
+				<br />
+				<br />
+				<!--  terminate -->
+				<h:panelGroup>
+					<h:form>
+						<h:commandButton class="button" value="#{Lang.quitgame}"
+							action="#{gameBean.quitgame}">
+							<f:ajax render=":playTable :GameUI :teams" />
+						</h:commandButton>
+					</h:form>
+				</h:panelGroup>
+
+			</h:panelGroup>
+
+
+			<h:panelGroup id="log">
+				<h:dataTable class="infotable" var="msg" value="#{gameBean.log}">
+					<h:column>
+						<f:facet name="header">
+							  #{Lang.logmessages}:
 						  </f:facet>
-						#{team.points}
+						<h:outputText styleClass="logmessage" escape="false"
+							value="#{msg}" />
 					</h:column>
 				</h:dataTable>
 			</h:panelGroup>
+
 		</div>
 
 		<h:panelGroup id="playTable">
-
+			<!--  cards on table -->
 			<h:panelGroup>
 				<div id="PlayTableCards">
-				<ui:repeat value="#{gameBean.guiCards}" var="card">
-					<h:graphicImage library="images"
-						name="cards/#{card.family}-#{card.value}.gif" styleClass="playedCard card-#{card.position}" />
-				</ui:repeat>
+					<ui:repeat value="#{gameBean.guiCards}" var="card">
+						<h:graphicImage library="images"
+							name="cards/#{card.family}-#{card.value}.gif"
+							styleClass="playedCard card-#{card.position}" />
+					</ui:repeat>
+				</div>
+			</h:panelGroup>
+			<!--  announce -->
+			<h:panelGroup rendered="#{gameBean.announcer or gameBean.wiesPossible}">
+				<div class="optionsBeforePlay playoptions">
+					<h:panelGroup rendered="#{gameBean.announcer}">
+
+						<h:form>
+							<h:selectOneMenu value="#{gameBean.trump}">
+								<f:selectItems value="#{gameBean.gameKindsTranslated}"
+									var="kind" itemLabel="kind.label" itemValue="kind.value" />
+							</h:selectOneMenu>
+							<h:commandButton class="button" value="#{Lang.annonce}"
+								action="#{gameBean.announce}">
+								<f:ajax render=":playTable :GameUI" execute="@form" />
+							</h:commandButton>
+							<h:commandButton class="button" value="#{Lang.schieben}"
+								action="#{gameBean.push}">
+								<f:ajax render=":playTable :GameUI :teams" />
+							</h:commandButton>
+						</h:form>
+					</h:panelGroup>
+					<!--  wies -->
+					<h:panelGroup rendered="#{gameBean.wiesPossible}">
+						<h:form>
+							<h:selectOneMenu value="#{gameBean.wies}">
+								<f:selectItems value="#{gameBean.possibleWiesTranslated}"
+									var="kind" itemLabel="kind.label" itemValue="kind.value" />
+							</h:selectOneMenu>
+							<h:commandButton class="button" value="#{Lang.wies}"
+								action="#{gameBean.wiesen}">
+								<f:ajax render=":playTable :GameUI" execute="@form" />
+							</h:commandButton>
+						</h:form>
+
+					</h:panelGroup>
+				</div>
+			</h:panelGroup>
+			<!--  finished options -->
+			<h:panelGroup rendered="#{gameBean.finished}">
+				<div class="optionsAfterPlay playoptions">
+					<h:form>
+						<h:commandButton class="button" value="#{Lang.statistic}"
+							action="#{gameBean.showstatistic}">
+							<f:ajax render=":playTable :GameUI :teams" />
+						</h:commandButton>
+
+						<h:commandButton class="button" value="#{Lang.newgame}"
+							action="#{gameBean.newgame}">
+							<f:ajax render=":playTable :GameUI :teams" />
+						</h:commandButton>
+
+						<h:outputLink class="button"
+							value="https://twitter.com/intent/tweet?hashtags=#{Lang.tweet_tags}#{gameBean.twittertext}">
+							<f:verbatim>
+								<span class="twitter" />#{Lang.tweet_buttontext}</f:verbatim>
+						</h:outputLink>
+
+					</h:form>
 				</div>
 			</h:panelGroup>
 
-			<h:panelGroup rendered="#{gameBean.announcer}">
-				<h:form>
-					<h:selectOneMenu value="#{gameBean.trump}">
-						<f:selectItems value="#{gameBean.gameKinds}" />
-					</h:selectOneMenu>
-					<h:commandButton value="#{Lang.annonce}" action="#{gameBean.announce}">
-						<f:ajax render=":playTable :GameUI" execute="@form" />
-					</h:commandButton>
-					<h:commandButton value="#{Lang.schieben}" action="#{gameBean.push}">
-						<f:ajax render=":playTable :GameUI" />
-					</h:commandButton>
-				</h:form>
-			</h:panelGroup>
-
-		</h:panelGroup>
-		<h:panelGroup id="log">
-			<h:outputText rendered="#{gameBean.trump != null}">
-							 #{Lang.trumpis}: <b>#{gameBean.trump}</b>
-				<br />
-			</h:outputText>
-			<h:dataTable var="msg" value="#{gameBean.log}">
+			<!--  my cards -->
+			<h:panelGrid id="GameUI" columns="1">
 				<h:column>
-					<f:facet name="header">
-							  #{Lang.logmessages}:
-						  </f:facet>
-							#{msg}
-					</h:column>
-			</h:dataTable>
+					<h:form id="cards">
+						<ui:repeat value="#{gameBean.cards}" var="card">
+
+							<h:commandLink action="#{gameBean.playCard}">
+								<f:ajax render=":playTable :GameUI :teams" />
+								<f:param name="cardFamily" value="#{card.family}" />
+								<f:param name="cardValue" value="#{card.value}" />
+
+								<h:graphicImage library="images"
+									name="cards/#{card.family}-#{card.value}.gif"
+									styleClass="handCard" />
+							</h:commandLink>
+						</ui:repeat>
+					</h:form>
+
+				</h:column>
+			</h:panelGrid>
 		</h:panelGroup>
-		<h:panelGrid id="GameUI" columns="1">
-
-			<h:column>
-				<h:form id="cards">
-					<ui:repeat value="#{gameBean.cards}" var="card">
-
-						<h:commandLink action="#{gameBean.playCard}">
-							<f:ajax render=":playTable :GameUI :teams" />
-							<f:param name="cardFamily" value="#{card.family}" />
-							<f:param name="cardValue" value="#{card.value}" />
-							
-							<h:graphicImage library="images"
-								name="cards/#{card.family}-#{card.value}.gif" styleClass="handCard" />
-						</h:commandLink>
-					</ui:repeat>
-				</h:form>
-
-			</h:column>
-		</h:panelGrid>
-
 		<h:outputScript>
 			<!-- enable polling on this page -->
 			reloadUI(#{Lang.reload_time}, "cards", "playTable GameUI log");
 		</h:outputScript>
 	</ui:define>
 </ui:composition>
+
 
 

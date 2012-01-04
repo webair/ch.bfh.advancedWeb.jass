@@ -4,36 +4,41 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	template="../templates/main.xhtml">
 	<ui:define name="title">
-		#{Lang.warteraum}<h:outputText value="#{waitingRoomBean.game.name}" />
+		<h:outputText value="#{Lang.warteraum}" />
+		<h:outputText value="#{waitingRoomBean.game.name}" />
 	</ui:define>
 	<ui:define name="content">
 		<h:form id="WaitForm">
-		#{Lang.beigetretenespieler}:
+		
 			<h:panelGroup id="players">
-
-				<h:dataTable var="p" value="#{waitingRoomBean.players}">
+				<h:dataTable class="infotable" rowClasses="rowEven,rowOdd" var="p"
+					value="#{waitingRoomBean.players}">
 					<h:column>
+						<f:facet name="header">
+							#{Lang.beigetretenespieler}:
+						  </f:facet>
 							#{p.name}
 					</h:column>
 				</h:dataTable>
-
 			</h:panelGroup>
-
-			<h:commandButton value="#{Lang.addcomputer}" action="#{waitingRoomBean.addBot}"
+			<br />
+			<h:commandButton class="button" value="#{Lang.addcomputer}"
+				action="#{waitingRoomBean.addBot}"
 				rendered="#{waitingRoomBean.game.owner == userBean.user}">
 				<f:ajax render="WaitForm:players" />
 			</h:commandButton>
-			<h:commandButton value="#{Lang.startgame}" action="#{waitingRoomBean.start}"
+			<h:commandButton class="button" value="#{Lang.startgame}"
+				action="#{waitingRoomBean.start}"
 				rendered="#{waitingRoomBean.game.owner == userBean.user}" />
 		</h:form>
 
-		<h:form id="HiddenForm" style="display: none;">
+		<h:form id="HiddenForm" class="invisible">
 			<h:commandButton id="invisibleClickTarget"
 				action="#{waitingRoomBean.refresh}">
 				<f:ajax render="WaitForm:players" />
 			</h:commandButton>
 		</h:form>
-		
+
 		<h:outputScript>
 			<!-- enable polling on this page -->
 			//reloadUI(#{Lang.reload_time}, "HiddenForm:", "WaitForm:players");

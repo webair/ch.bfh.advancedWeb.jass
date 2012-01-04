@@ -4,7 +4,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
-import ch.frickler.jass.helper.MessageHelper;
+import ch.frickler.jass.helper.Translator;
 import ch.frickler.jass.service.UserService;
 
 @ManagedBean
@@ -40,18 +40,18 @@ public class RegisterBean {
 		if (!pw1.equals(pw2)) {
 
 			ctx.addMessage(null,
-					MessageHelper.getMessage(ctx, "register_no_pw_match"));
+					Translator.getMessage(ctx, "register_no_pw_match"));
 		} else if (username.equals(pw1)) {
 
-			ctx.addMessage(null, MessageHelper.getMessage(ctx, "user_pw_same"));
+			ctx.addMessage(null, Translator.getMessage(ctx, "user_pw_same"));
 		} else if (!checkUsername()) {
 
 			ctx.addMessage(null,
-					MessageHelper.getMessage(ctx, "register_username_not_free"));
+					Translator.getMessage(ctx, "register_username_not_free"));
 		} else {
 
 			saveUser();
-			ctx.addMessage(null, MessageHelper.getMessage(ctx, "user_created"));
+			ctx.addMessage(null, Translator.getMessage(ctx, "user_created"));
 			nextPage = "login";
 		}
 

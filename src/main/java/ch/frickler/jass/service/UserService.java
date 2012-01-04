@@ -6,9 +6,11 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
+import javax.faces.context.FacesContext;
 import javax.persistence.Query;
 
 import ch.frickler.jass.db.entity.User;
+import ch.frickler.jass.helper.Translator;
 
 public class UserService extends PersistanceService {
 
@@ -85,7 +87,9 @@ public class UserService extends PersistanceService {
 	}
 
 	public User createBot() {
-		User u = new User("bot");
+		FacesContext ctx = FacesContext.getCurrentInstance();
+		String cName = Translator.getString(ctx, "computername");
+		User u = new User(cName);
 		u = mergeObject(u);
 		return u;
 	}

@@ -1,6 +1,7 @@
 package ch.frickler.jass;
 
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
 
@@ -8,26 +9,25 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 
 import ch.frickler.jass.action.ActionAnnounce;
+import ch.frickler.jass.action.ActionAnnounceWies;
 import ch.frickler.jass.action.ActionLayCard;
+import ch.frickler.jass.action.ActionLeaveGame;
 import ch.frickler.jass.db.entity.Card;
-import ch.frickler.jass.db.entity.Game;
-import ch.frickler.jass.db.entity.Game.GameState;
 import ch.frickler.jass.db.entity.Team;
 import ch.frickler.jass.db.entity.User;
+import ch.frickler.jass.db.entity.Wies;
 import ch.frickler.jass.db.enums.CardFamily;
 import ch.frickler.jass.db.enums.CardValue;
 import ch.frickler.jass.db.enums.GameKind;
+import ch.frickler.jass.db.enums.GameState;
+import ch.frickler.jass.helper.Translator;
 import ch.frickler.jass.service.GameService;
 
 /**
- * @author seed
- * Bean for managing the game interactions and the game logic
- */
-/**
- * @author seed
- *
+ * @author seed Bean for managing the game interactions and the game logic
  */
 @ManagedBean
 @SessionScoped
@@ -38,10 +38,9 @@ public class GameBean {
 	 */
 	private Long gameId = null;
 
-
 	/**
-	 * holds the cards from the last round, so we can present them
-	 * for some seconds to the user
+	 * holds the cards from the last round, so we can present them for some
+	 * seconds to the user
 	 */
 	private List<Card> lastCards;
 
@@ -62,6 +61,11 @@ public class GameBean {
 	private String trump = null;
 
 	/**
+	 * holds the current wies
+	 */
+	private String wies = null;
+
+	/**
 	 * the setter for the injection
 	 * 
 	 * @param u
@@ -71,8 +75,7 @@ public class GameBean {
 	}
 
 	/**
-	 * @return the current gameid, reads it from the session 
-	 * when its not set.
+	 * @return the current gameid, reads it from the session when its not set.
 	 */
 	private long getGameId() {
 		if (gameId == null) {
@@ -89,8 +92,7 @@ public class GameBean {
 	 * @return list of players
 	 */
 	public List<User> getPlayers() {
-		return GameManager.getInstance().getGameService(getGameId())
-				.getAllSpieler();
+		return getGameService().getAllSpieler();
 	}
 
 	/**
@@ -99,7 +101,7 @@ public class GameBean {
 	 * @return list of teams
 	 */
 	public List<Team> getTeams() {
-		return GameManager.getInstance().getGameService(getGameId()).getTeams();
+		return getGameService().getTeams();
 	}
 
 	/**
@@ -111,10 +113,8 @@ public class GameBean {
 		return user.getUser().getCards();
 	}
 
-	
 	/**
-	 *  starts a play action, reads the user input and determine 
-	 *  the action
+	 * starts a play action, reads the user input and determine the action
 	 */
 	public void playCard() {
 		FacesContext ctx = FacesContext.getCurrentInstance();
@@ -144,7 +144,7 @@ public class GameBean {
 	 */
 	public List<Card> getCardsOnTable() {
 
-		GameService gs = GameManager.getInstance().getGameService(getGameId());
+		GameService gs = getGameService();
 		// if the last for cards changed, display them...
 		List<Card> lastCards = gs.getLastCards();
 		if (lastCards != null && !lastCards.equals(this.lastCards)) {
@@ -164,12 +164,54 @@ public class GameBean {
 		return GameKind.values();
 	}
 
+	public GameService getGameService() {
+
+		if (_gameService == null) {
+			_gameService = GameManager.getInstance()
+					.getGameService(getGameId());
+		}
+		return _gameService;
+	}
+
+	GameService _gameService = null;
+
+	/**
+	 * 
+	 * @return all game kinds translated in the current language
+	 */
+	public SelectItem[] getGameKindsTranslated() {
+		SelectItem[] kinds = new SelectItem[GameKind.values().length];
+		int i = 0;
+		for (GameKind kind : GameKind.values()) {
+			kinds[i++] = new SelectItem(kind.name(), Translator.getString(
+					FacesContext.getCurrentInstance(), kind.name()));
+		}
+		return kinds;
+	}
+
+	/**
+	 * 
+	 * @return all game kinds translated in the current language
+	 */
+	public SelectItem[] getPossibleWiesTranslated() {
+		List<Wies> possibleWies = Wies.getPossibleWies(user.getUser());
+		SelectItem[] allWies = new SelectItem[possibleWies.size()];
+		int i = 0;
+		for (Wies w : possibleWies) {
+			// System.out.println(w.getKey());
+			allWies[i++] = new SelectItem(w.getKey(), w.getKey());
+			// Translator.getString(
+			// FacesContext.getCurrentInstance(), w.getName()));
+		}
+		return allWies;
+	}
+
 	/**
 	 * @return return if user is the current announcer (Ansager)
 	 */
 	public boolean isAnnouncer() {
-		GameService gs = GameManager.getInstance().getGameService(getGameId());
-		if (gs.getState().equals(Game.GameState.Ansage)) {
+		GameService gs = getGameService();
+		if (gs.getState().equals(GameState.Ansage)) {
 			return gs.getAnsager().equals(user.getUser());
 		}
 		return false;
@@ -179,7 +221,7 @@ public class GameBean {
 	 * @return the current trump, determined by the game service
 	 */
 	public String getTrump() {
-		GameService gs = GameManager.getInstance().getGameService(getGameId());
+		GameService gs = getGameService();
 		if (gs.getState().equals(GameState.Play)) {
 			return gs.getCurrentRound().getGameKind().toString();
 		}
@@ -190,26 +232,100 @@ public class GameBean {
 		this.trump = trump;
 	}
 
+	public void setWies(String wies) {
+		this.wies = wies;
+	}
+
+	public String getWies() {
+		return this.wies;
+	}
+
+	public String getLangTrump() {
+		GameService gs = getGameService();
+		if (gs.getCurrentRound() != null) {
+			GameKind k = gs.getCurrentRound().getGameKind();
+			if (k != null) {
+				return Translator.getString(FacesContext.getCurrentInstance(),
+						k.name());
+			}
+		}
+		return Translator.getString(FacesContext.getCurrentInstance(),
+				"notyetchoosed");
+	}
+
 	/**
 	 * announce the current trump
 	 */
 	public void announce() {
 		GameKind gk = GameKind.valueOf(trump);
-		GameService gs = GameManager.getInstance().getGameService(getGameId());
+		GameService gs = getGameService();
 		new ActionAnnounce(user.getUser(), gk).doAction(gs);
 	}
 
 	public List<String> getLog() {
-		GameService gs = GameManager.getInstance().getGameService(getGameId());
+		GameService gs = getGameService();
 		return gs.getLog();
 	}
 
 	/**
-	 *  push the announcement (Schieben)
+	 * push the announcement (Schieben)
 	 */
 	public void push() {
-		GameService gs = GameManager.getInstance().getGameService(getGameId());
+		GameService gs = getGameService();
 		gs.pushGame();
+	}
+
+	public void quitgame() {
+		GameService gs = getGameService();
+		new ActionLeaveGame(user.getUser()).doAction(gs);
+	}
+	
+	public String newgame(){
+		return "createGame?faces-redirect=true";
+	}
+	
+	public String showstatistic(){
+		return "gameHistory?faces-redirect=true";
+	}
+
+	public boolean isFinished(){
+		return getGameService().getState() == GameState.Terminated;
+	}
+	
+	/**
+	 * it must be the first round, and the user must have a wies in his hand
+	 * cards.
+	 * 
+	 * @return true if user can wies
+	 */
+	public boolean isWiesPossible() {
+		return user.getUser().getCards().size() == 9
+				&& Wies.getPossibleWies(user.getUser()).size() > 0;
+	}
+
+	public void wiesen() {
+		GameService gs = getGameService();
+		new ActionAnnounceWies(user.getUser(), getAnouncedWies()).doAction(gs);
+
+	}
+	
+	public String getTwittertext(){
+		return getGameService().getTwitterText(user.getUser());
+	}
+
+	private List<Card> getAnouncedWies() {
+		List<Card> cards = new ArrayList<Card>();
+		try {
+			String[] arr = wies.split(";");
+			System.out.println("ä wies isch mies: " + wies);
+			for (String a : arr) {
+				cards.add(new Card(CardFamily.valueOf(a.split(",")[0]),
+						CardValue.valueOf(a.split(",")[1])));
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return cards;
 	}
 
 	/**
@@ -218,7 +334,7 @@ public class GameBean {
 	 * @return list of cards
 	 */
 	public List<GuiCard> getGuiCards() {
-		System.out.println("index: " + myIndex);
+		// System.out.println("index: " + myIndex);
 		List<GuiCard> deckCards = new ArrayList<GuiCard>();
 		int i = 4 - myIndex;
 		for (Card c : getCardsOnTable()) {
@@ -231,18 +347,16 @@ public class GameBean {
 
 	/**
 	 * @author seed
-	 *
-	 * inner class for adding player index to the card
+	 * 
+	 *         inner class for adding player index to the card
 	 */
 	public class GuiCard {
-		
-		
+
 		/**
 		 * holds the player indey
 		 */
 		private int position;
-		
-		
+
 		/**
 		 * holds the card entity
 		 */

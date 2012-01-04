@@ -4,14 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 
 import ch.frickler.jass.db.entity.Game;
-import ch.frickler.jass.helper.MessageHelper;
+import ch.frickler.jass.helper.Translator;
 
 @ManagedBean
+@ApplicationScoped
 public class GameListBean {
 
 	/**
@@ -38,6 +40,10 @@ public class GameListBean {
 		list.addAll(GameManager.getInstance().getAvailableGames());
 		return list;
 	}
+	
+	public int getGameCount(){
+		return getGames().size();
+	}
 
 	/**
 	 * action for joining the game
@@ -49,7 +55,7 @@ public class GameListBean {
 		if (userBean.isPlaying()) {
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			ctx.addMessage(null,
-					MessageHelper.getMessage(ctx, "already_playing"));
+					Translator.getMessage(ctx, "already_playing"));
 			return null;
 		}
 		FacesContext ctx = FacesContext.getCurrentInstance();

@@ -21,10 +21,10 @@
 				validatorMessage="#{Lang.err_winpoints}"
 				converterMessage="#{Lang.err_number}"
 				>
-				<f:validateLongRange minimum="1000" maximum="5000" />
+				<f:validateLongRange minimum="500" maximum="5000" />
 				</h:inputText>
 
-				<h:commandButton value="#{Lang.game_create}"
+				<h:commandButton class="button" value="#{Lang.game_create}"
 					action="#{gameFactoryBean.create}" />
 			</h:panelGrid>
 			<h:messages />

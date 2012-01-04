@@ -75,6 +75,10 @@ public class Card implements Serializable, Comparable<Card> {
 	public void setValue(CardValue value) {
 		this.value = value;
 	}
+	
+	public String toString(){
+		return this.family+"."+this.value;
+	}
 
 	/**
 	 * 
@@ -124,7 +128,7 @@ public class Card implements Serializable, Comparable<Card> {
 
 		// different families...
 		// we want the following order: herz, kreuz, ecke, schaufel
-		return getFamilyOrder(o.getFamily()) - getFamilyOrder(this.getFamily());
+		return getFamilyOrder() - getFamilyOrder();
 
 	}
 
@@ -133,18 +137,36 @@ public class Card implements Serializable, Comparable<Card> {
 	 * @param Family
 	 * @return ordernumber
 	 */
-	private int getFamilyOrder(CardFamily f) {
+	public int getFamilyOrder() {
 		int ret = 0;
-		if (CardFamily.HERZ.equals(f)) {
+		if (CardFamily.HERZ.equals(this.getFamily())) {
 			ret = 4;
-		} else if (CardFamily.KREUZ.equals(f)) {
+		} else if (CardFamily.KREUZ.equals(this.getFamily())) {
 			ret = 3;
-		} else if (CardFamily.ECKEN.equals(f)) {
+		} else if (CardFamily.ECKEN.equals(this.getFamily())) {
 			ret = 2;
-		} else if (CardFamily.KREUZ.equals(f)) {
+		} else if (CardFamily.SCHAUFEL.equals(this.getFamily())) {
 			ret = 1;
 		}
 		return ret;
 	}
 
+	public int getFourOfValueWiesPoints() {
+		switch (value) {
+		case SECHS:
+		case SIEBEN:
+		case ACHT:
+		case DAME:
+		case KOENIG:
+		case ASS:
+		case ZEHN:
+			return 100;
+		case BAUER:
+			return 200;
+		case NEUN:
+			return 150;
+		}
+
+		return 0;
+	}
 }

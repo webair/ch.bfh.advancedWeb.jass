@@ -15,8 +15,8 @@
 				<h:outputLabel value="#{Lang.label_password}:" for="password" />
 				<h:inputSecret id="password" value="#{userBean.password}"
 					required="true" requiredMessage="#{Lang.err_password}" />
-				<h:commandButton value="#{Lang.text_login}" action="#{userBean.login}" />
-				<h:link outcome="register.jsf?faces-redirect=true"
+				<h:commandButton class="button" value="#{Lang.text_login}" action="#{userBean.login}" />
+				<h:link class="button" outcome="register.jsf?faces-redirect=true"
 					value="#{Lang.text_register}" />
 			</h:panelGrid>
 			<h:messages />

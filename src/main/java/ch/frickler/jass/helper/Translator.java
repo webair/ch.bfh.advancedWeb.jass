@@ -9,9 +9,9 @@ import javax.faces.context.FacesContext;
  * helper class for creating translated FacesMessages
  * 
  */
-public class MessageHelper {
+public class Translator {
 
-	private static final String UI_PROPERTY = "ch.frickler.jass.res.UI";
+	private static final String UI_PROPERTY = "ch.frickler.jass.res.Lang";
 
 	public static FacesMessage getMessage(FacesContext ctx, String message) {
 		ResourceBundle bundle = ResourceBundle.getBundle(UI_PROPERTY, ctx
@@ -19,5 +19,13 @@ public class MessageHelper {
 
 		return new FacesMessage(bundle.getString(message));
 	}
+	
+	public static String getString(FacesContext ctx, String message) {
+		ResourceBundle bundle = ResourceBundle.getBundle(UI_PROPERTY, ctx
+				.getViewRoot().getLocale());
+
+		return bundle.getString(message);
+	}
+	
 
 }

@@ -20,7 +20,7 @@
 				<h:outputLabel value="#{Lang.label_password2}*:" for="pw2" />
 				<h:inputSecret id="pw2" value="#{registerBean.pw2}"
 					required="true" />
-				<h:commandButton value="#{Lang.text_register}"
+				<h:commandButton class="button" value="#{Lang.text_register}"
 					action="#{registerBean.register}" />
 				<h:outputText value="#{Lang.login_required}" />
 			</h:panelGrid>
