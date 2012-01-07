@@ -12,9 +12,13 @@ import ch.frickler.jass.gametype.TopDown;
 import ch.frickler.jass.gametype.Trump;
 import ch.frickler.jass.gametype.BottomUp;
 
+/**
+ * @author seed
+ * Helper class for the game type
+ */
 public class GameTypeService {
 
-	private JassGameType spielart;
+	private JassGameType gameType;
 	private GameKind type;
 	
 	public GameTypeService(GameKind type){
@@ -25,51 +29,77 @@ public class GameTypeService {
 	private void Init() {
 		switch(type){
 		case BOTTOMUP:
-			spielart = new BottomUp();
+			gameType = new BottomUp();
 			break;
 		case TOPDOWN:
-			spielart = new TopDown();
+			gameType = new TopDown();
 			break;
 		case TRUMPCross:
-			spielart = new Trump(CardFamily.KREUZ);
+			gameType = new Trump(CardFamily.KREUZ);
 			break;
 		case TRUMPBucket:
-			spielart = new Trump(CardFamily.SCHAUFEL);
+			gameType = new Trump(CardFamily.SCHAUFEL);
 			break;
 		case TRUMPHeart:
-			spielart = new Trump(CardFamily.HERZ);
+			gameType = new Trump(CardFamily.HERZ);
 			break;
 		case TRUMPEdge:
-			spielart = new Trump(CardFamily.ECKEN);
+			gameType = new Trump(CardFamily.ECKEN);
 			break;
 		}
 	}
 
+	/**
+	 * @return return the qualifier of the game type
+	 */
 	public int getQualifier() {
-		return spielart.getQualifier();
+		return gameType.getQualifier();
 	}
 
+	/**
+	 * @return true if game type has trump (all except bottom-top and top-down)
+	 */
 	public boolean isTrumpf() {
-		return spielart instanceof Trump;
+		return gameType instanceof Trump;
 	}
 
+	/**
+	 * @return card families of the trump
+	 */
 	public CardFamily getTrumpfCardFamily() {
-		Trump pf = (Trump)spielart;
+		Trump pf = (Trump)gameType;
 		if(pf == null)
 			return null;		
 		return pf.getCardFamily();
 	}
 
+	/**
+	 * @param card
+	 * @param card2
+	 * @return true if second card is higher
+	 */
 	public boolean isSecondCardHigher(Card card, Card card2) {
-		return spielart.isSecondCardHigher(card, card2);
+		return gameType.isSecondCardHigher(card, card2);
 	}
 
+	/**
+	 * @param wonCards
+	 * @return calculates the points of the given cards
+	 */
 	public int countPoints(List<Card> wonCards) {
-		return spielart.getPoints(wonCards);
+		return gameType.getPoints(wonCards);
 	}
 
+	/**
+	 *
+	 * 
+	 * @param spl
+	 * @param layedCard
+	 * @param r
+	 * @return true if the played card is valid
+	 */
 	public boolean isPlayedCardVaild(User spl, Card layedCard, Round r) {
-		return spielart.isPlayedCardVaild(spl, layedCard, r);
+		return gameType.isPlayedCardVaild(spl, layedCard, r);
 	}
 	
 }

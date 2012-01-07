@@ -36,12 +36,25 @@ public class UserService extends PersistanceService {
 		return null;
 	}
 
-	public User createSpieler(String userName, String password, String name) {
+	/**
+	 * method to create a new player
+	 * 
+	 * @param userName
+	 * @param password
+	 * @param name
+	 * @return User instance
+	 */
+	public User createPlayer(String userName, String password, String name) {
 		User u = new User(userName, password, name);
 		u = mergeObject(u);
 		return u;
 	}
 
+	/**
+	 * method to load User from the database
+	 * @param userId
+	 * @return User instance
+	 */
 	public User loadUser(Long userId) {
 		return loadObject(User.class, userId);
 	}
@@ -50,7 +63,7 @@ public class UserService extends PersistanceService {
 	 * Checks if the username is already in the databonk
 	 * 
 	 * @param username
-	 * @return
+	 * @return true if user name is not in use yet
 	 */
 	public boolean isUsernameUnused(String username) {
 
@@ -86,6 +99,10 @@ public class UserService extends PersistanceService {
 		}
 	}
 
+	/**
+	 * method to create a bot
+	 * @return User instance
+	 */
 	public User createBot() {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		String cName = Translator.getString(ctx, "computername");

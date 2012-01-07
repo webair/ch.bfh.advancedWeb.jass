@@ -4,6 +4,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+/**
+ * @author seed
+ * abstract class for persistance services. 
+ */
 public abstract class PersistanceService {
 
 	private EntityManager em;
@@ -17,6 +21,9 @@ public abstract class PersistanceService {
 		em = emf.createEntityManager();
 	}
 
+	/**
+	 * @return instance of the EntityManager
+	 */
 	public EntityManager getEm() {
 		return em;
 	}
