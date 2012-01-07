@@ -134,7 +134,7 @@ public class GameManager {
 	 */
 	public void startGame(Long gameId) {
 		GameService gs = getGameService(gameId);
-		while (gs.getAllSpieler().size() < 4) {
+		while (gs.getAllPlayers().size() < 4) {
 			gs.addSpieler(new UserService().createBot());
 		}
 	}

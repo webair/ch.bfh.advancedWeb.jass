@@ -5,6 +5,10 @@ import java.util.List;
 import ch.frickler.jass.db.entity.Game;
 import ch.frickler.jass.db.entity.User;
 
+/**
+ * @author seed
+ * Singleton class for getting the history of completed games 
+ */
 public class GameHistoryService extends PersistanceService {
 
 	private static GameHistoryService instance;
@@ -13,6 +17,11 @@ public class GameHistoryService extends PersistanceService {
 
 	}
 
+	/**
+	 * Singleton creator method
+	 * 
+	 * @return instance of Gamehistory
+	 */
 	public static GameHistoryService getInstance() {
 		if (instance == null) {
 			instance = new GameHistoryService();
@@ -20,6 +29,12 @@ public class GameHistoryService extends PersistanceService {
 		return instance;
 	}
 
+	/**
+	 * returns a list of completed games where the given user played
+	 * 
+	 * @param user
+	 * @return List of games
+	 */
 	public List<Game> getCompletedGames(User user) {
 		List<Game> g = getEm()
 				.createQuery(

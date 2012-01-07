@@ -35,7 +35,7 @@ public class ActionAnnounce extends JassAction {
 		if (game == null || user == null || type == null) {
 			return false;
 		}
-		return game.isValidAnsager(user);
+		return game.isValidAnncouncer(user);
 
 	}
 

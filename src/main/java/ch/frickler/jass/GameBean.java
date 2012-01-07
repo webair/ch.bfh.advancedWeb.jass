@@ -92,7 +92,7 @@ public class GameBean {
 	 * @return list of players
 	 */
 	public List<User> getPlayers() {
-		return getGameService().getAllSpieler();
+		return getGameService().getAllPlayers();
 	}
 
 	/**
@@ -154,7 +154,7 @@ public class GameBean {
 		}
 
 		User beginner = gs.getCurrentRound().getBeginner();
-		List<User> sortedUsers = gs.getAllSpielerSorted(beginner);
+		List<User> sortedUsers = gs.getAllPlayersSorted(beginner);
 		myIndex = sortedUsers.indexOf(user.getUser());
 
 		return gs.getCurrentRound().getCards();
@@ -212,7 +212,7 @@ public class GameBean {
 	public boolean isAnnouncer() {
 		GameService gs = getGameService();
 		if (gs.getState().equals(GameState.Ansage)) {
-			return gs.getAnsager().equals(user.getUser());
+			return gs.getAnnouncer().equals(user.getUser());
 		}
 		return false;
 	}
@@ -317,7 +317,7 @@ public class GameBean {
 		List<Card> cards = new ArrayList<Card>();
 		try {
 			String[] arr = wies.split(";");
-			System.out.println("ä wies isch mies: " + wies);
+			System.out.println("ï¿½ wies isch mies: " + wies);
 			for (String a : arr) {
 				cards.add(new Card(CardFamily.valueOf(a.split(",")[0]),
 						CardValue.valueOf(a.split(",")[1])));

@@ -17,7 +17,7 @@ public class ActionDealOutCards extends JassAction {
 	@Override
 	public boolean doAction(GameService spiel) {
 
-		spiel.kartenVerteilen();
+		spiel.arrangeCards();
 		return true;
 	}
 

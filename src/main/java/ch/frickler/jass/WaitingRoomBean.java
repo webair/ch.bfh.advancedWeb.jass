@@ -51,7 +51,7 @@ public class WaitingRoomBean {
 	 */
 	public List<User> getPlayers() {
 		return GameManager.getInstance().getGameService(getGameId())
-				.getAllSpieler();
+				.getAllPlayers();
 	}
 
 	/**
