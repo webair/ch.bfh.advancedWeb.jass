@@ -143,7 +143,11 @@ public class GameService extends PersistanceService {
 	public void addSpieler(User player) throws RuntimeException {
 		if (getAllPlayers().size() >= Game.MAXUSER)
 			throw new RuntimeException("wft! zu viele ISpieler");
-
+		if(getTeamOf(player) != null)
+			// user already joins this game.
+			return;
+		
+		
 		if (_game.getTeamAmount() < 2) {
 			Team team = new Team(player);
 			team.setPoints(0);
