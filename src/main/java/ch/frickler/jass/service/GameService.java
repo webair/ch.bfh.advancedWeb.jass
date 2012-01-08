@@ -289,6 +289,7 @@ public class GameService extends PersistanceService {
 	 * method to finish round, and create the new round or finish the game
 	 */
 	private void finishRound() {
+		System.out.println("Finished Round");
 		calculateScore();
 
 		// check wether the game has ended
@@ -310,12 +311,15 @@ public class GameService extends PersistanceService {
 		getCurrentRound().setBeginner(getAnnouncer());
 		getCurrentRound().setCurrentPlayer(getAnnouncer());
 		forceBotTrump();
+		
+		
 	}
 
 	/**
 	 * method to finish the game
 	 */
 	private void finishGame() {
+		System.out.println("finish game");
 		setGameState(GameState.Terminated);
 		for (User u : getAllPlayers()) {
 			u.setPlaying(false);
@@ -402,7 +406,7 @@ public class GameService extends PersistanceService {
 		player.removeCard(layedCard);
 		r.setCurrentPlayer(getAllPlayersSorted(player).get(1));
 		if (allPlayerPlayed()) {
-			finishStich();
+			finishHand();
 			if (r.getCurrentPlayer().getCards().size() == 0) {
 				finishRound();
 			}
@@ -447,7 +451,11 @@ public class GameService extends PersistanceService {
 		return getCurrentRound().getCards().size() == 4;
 	}
 
-	private void finishStich() {
+	/**
+	 * method to finish the current hand
+	 */
+	private void finishHand() {
+		System.out.println("finish hand");
 		Round r = getCurrentRound();
 		User spAnsager;
 		spAnsager = this.placeStich(r.getCards());
@@ -462,6 +470,7 @@ public class GameService extends PersistanceService {
 			placeWies(r.getAnnouncedWies());
 			r.clearWies();
 		}
+		
 	}
 
 	/**
@@ -476,9 +485,11 @@ public class GameService extends PersistanceService {
 		for (int i = 1; i < list.size(); i++) {
 			int compare = highest.compareTo(list.get(i));
 			if (compare == 0) {
-				if (list.get(i).isTrumpf(
-						getGameTypeService().getTrumpfCardFamily())) {
-					highest = list.get(i);
+				if (getGameTypeService().isTrumpf()) {
+					if (list.get(i).isTrumpf(
+							getGameTypeService().getTrumpfCardFamily())) {
+						highest = list.get(i);
+					}
 				}
 			} else if (compare < 0)
 				highest = list.get(i);

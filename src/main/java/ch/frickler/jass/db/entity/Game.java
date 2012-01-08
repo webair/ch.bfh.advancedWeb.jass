@@ -218,6 +218,6 @@ public class Game implements Serializable {
 		for(Team t : getTeams()){
 			players += t.getUsers().size();
 		}		
-		return players == MAXUSER;
+		return players < MAXUSER;
 	}
 }

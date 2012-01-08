@@ -13,7 +13,6 @@ import ch.frickler.jass.db.entity.Game;
 import ch.frickler.jass.helper.Translator;
 
 @ManagedBean
-@ApplicationScoped
 public class GameListBean {
 
 	/**
