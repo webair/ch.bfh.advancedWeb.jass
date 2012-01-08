@@ -27,7 +27,9 @@ import ch.frickler.jass.helper.Translator;
 import ch.frickler.jass.service.GameService;
 
 /**
- * @author seed Bean for managing the game interactions and the game logic
+ * Bean for managing the game interactions and the game logic
+ * @author seed 
+ * 
  */
 @ManagedBean
 @SessionScoped
@@ -79,10 +81,12 @@ public class GameBean {
 	 */
 	private long getGameId() {
 		if (gameId == null) {
+			System.out.println("GameId is relaoded");
 			gameId = (Long) FacesContext.getCurrentInstance()
 					.getExternalContext().getSessionMap()
 					.get(GameManager.GAME_ID_KEY);
 		}
+		System.out.println("GameId is "+gameId);
 		return gameId;
 	}
 
@@ -193,17 +197,25 @@ public class GameBean {
 	 * 
 	 * @return all game kinds translated in the current language
 	 */
-	public SelectItem[] getPossibleWiesTranslated() {
+	public List<SelectItem> getPossibleWiesTranslated() {
 		List<Wies> possibleWies = Wies.getPossibleWies(user.getUser());
-		SelectItem[] allWies = new SelectItem[possibleWies.size()];
+		List<SelectItem> allWies = new ArrayList<SelectItem>();
 		int i = 0;
 		for (Wies w : possibleWies) {
 			// System.out.println(w.getKey());
-			allWies[i++] = new SelectItem(w.getKey(), w.getKey());
+			if(!alreadyWiesed(w))
+			allWies.add(new SelectItem(w.getKey(), w.getKey()));
 			// Translator.getString(
 			// FacesContext.getCurrentInstance(), w.getName()));
 		}
 		return allWies;
+	}
+
+	private boolean alreadyWiesed(Wies w) {
+		
+		getGameService().isWiesAnnonced(w);
+		
+		return false;
 	}
 
 	/**
@@ -275,17 +287,24 @@ public class GameBean {
 		gs.pushGame();
 	}
 
-	public void quitgame() {
+	public String quitgame() {
 		GameService gs = getGameService();
 		new ActionLeaveGame(user.getUser()).doAction(gs);
+		return quitgame("gameHistory?faces-redirect=true");
 	}
 	
+	private String quitgame(String url) {
+		gameId = null;
+		_gameService = null;
+		return url;
+	}
+
 	public String newgame(){
-		return "createGame?faces-redirect=true";
+		return quitgame("createGame?faces-redirect=true");
 	}
 	
 	public String showstatistic(){
-		return "gameHistory?faces-redirect=true";
+		return quitgame("gameHistory?faces-redirect=true");
 	}
 
 	public boolean isFinished(){
@@ -300,7 +319,7 @@ public class GameBean {
 	 */
 	public boolean isWiesPossible() {
 		return user.getUser().getCards().size() == 9
-				&& Wies.getPossibleWies(user.getUser()).size() > 0;
+				&& getPossibleWiesTranslated().size() > 0;
 	}
 
 	public void wiesen() {

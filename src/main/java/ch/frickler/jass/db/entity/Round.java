@@ -157,4 +157,8 @@ public class Round implements Serializable {
 	public void clearWies() {
 		this.wieses = new ArrayList<Wies>();	
 	}
+
+	public List<Wies> getWies() {
+		return this.wieses;
+	}
 }

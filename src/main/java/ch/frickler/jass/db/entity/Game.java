@@ -213,11 +213,12 @@ public class Game implements Serializable {
 	 * does the game still accept players
 	 * @return
 	 */
+	
 	public boolean isAcceptingPlayers(){
 		int players = 0;
 		for(Team t : getTeams()){
 			players += t.getUsers().size();
 		}		
-		return players == MAXUSER;
+		return players < MAXUSER;
 	}
 }

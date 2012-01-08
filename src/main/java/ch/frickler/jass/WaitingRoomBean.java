@@ -59,14 +59,19 @@ public class WaitingRoomBean {
 	 * @return redirect to play page
 	 */
 	public String start() {
+		System.out.println("lets start game "+getGameId());
 		GameManager.getInstance().startGame(getGameId());
-		return "playGame?faces-redirect=true";
+		
+		String redirect = "playGame?faces-redirect=true&gameID="+getGameId();
+		gameId = 0L;
+		return redirect;
 	}
 
 	/**
 	 * action for adding a bot to the given game
 	 */
 	public void addBot() {
+		System.out.println("add computer for "+getGameId());
 		GameManager.getInstance().addUserToGame(new UserService().createBot(),
 				getGameId());
 	}
@@ -78,8 +83,10 @@ public class WaitingRoomBean {
 	 */
 	public String refresh() {
 		if (GameManager.getInstance().gameIsReady(getGameId())) {
+			gameId = 0L;
 			FacesContext ctx = FacesContext.getCurrentInstance();
-
+			System.out.println("Start game with id:"+getGameId()+" name "+ GameManager.getInstance()
+					.getGameService(getGameId()).getName());
 			ExternalContext extContext = ctx.getExternalContext();
 			String url = extContext.encodeActionURL(ctx.getApplication()
 					.getViewHandler()

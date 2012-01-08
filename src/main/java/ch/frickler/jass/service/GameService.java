@@ -326,11 +326,6 @@ public class GameService extends PersistanceService {
 		}
 		getCurrentRound().setGame(_game);
 		mergeObject(_game);
-		
-		
-		//mergeObject(getCurrentRound());
-		
-		
 	}
 
 	/**
@@ -786,6 +781,9 @@ public class GameService extends PersistanceService {
 	 * @param wies
 	 */
 	public void addWies(Wies wies) {
+		if(isWiesAnnonced(wies))
+			return;
+		
 		getCurrentRound().addWies(wies);
 		String log = translateAndFormat("userannouceswies", new String[] { wies
 				.getUser().getName() });
@@ -824,5 +822,22 @@ public class GameService extends PersistanceService {
 			tweettext = "tweet_userplayingstadings";		
 		}
 		return "&text="+translateAndFormat(tweettext, new String[]{ partner.getName(), getTeamOf(user).getName(),otherTeam.getName(), getTeamOf(user).getPoints()+"",otherTeam.getPoints()+"" });
+	}
+
+
+	public boolean isWiesAnnonced(Wies wies) {
+		for(Wies w : getCurrentRound().getWies()){
+			if(w.getKey().equals(wies.getKey())){
+				System.out.println("wies "+wies.getKey()+" already annonced");
+				return true;
+			}
+		}
+		return false;
+	}
+
+
+	public String getName() {
+		
+		return _game.getName();
 	}
 }

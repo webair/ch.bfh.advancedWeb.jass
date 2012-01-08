@@ -100,7 +100,8 @@
 }
 
 body {
-	background-color: #6DE80C;
+	background: url("/BuzzwordJass/javax.faces.resource/cards/background.jpg.jsf?ln=images") repeat scroll 0 transparent;
+	background-color:  #6DE80C;
 	font-family: Verdana, Arial;
 	margin: 0px;
 }

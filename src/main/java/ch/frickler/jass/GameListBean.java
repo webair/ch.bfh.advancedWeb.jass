@@ -52,6 +52,7 @@ public class GameListBean {
 	public String joinGame() {
 		// only join a game if not already playing
 		if (userBean.isPlaying()) {
+			System.out.println("user is already playing cannot join.");
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			ctx.addMessage(null,
 					Translator.getMessage(ctx, "already_playing"));
@@ -61,6 +62,7 @@ public class GameListBean {
 		Map<String, String> params = ctx.getExternalContext()
 				.getRequestParameterMap();
 		long gameId = Integer.parseInt(params.get("gameId"));
+		System.out.println("User wants to join game: "+gameId);
 		GameManager.getInstance().addUserToGame(userBean.getUser(), gameId);
 		ctx.getExternalContext().getSessionMap()
 				.put(GameManager.GAME_ID_KEY, gameId);
