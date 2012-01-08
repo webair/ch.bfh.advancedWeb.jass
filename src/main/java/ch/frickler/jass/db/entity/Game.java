@@ -20,6 +20,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import ch.frickler.jass.db.enums.GameState;
 
@@ -69,8 +70,7 @@ public class Game implements Serializable {
 	@JoinColumn(name = "ID_TEAM2", nullable = true)
 	private Team team2;
 
-	@OneToOne
-	@JoinColumn(name = "CURRENT_ROUND")
+	@Transient
 	private Round currentRound;
 
 	@Column(name = "WINPOINTS", nullable = false)

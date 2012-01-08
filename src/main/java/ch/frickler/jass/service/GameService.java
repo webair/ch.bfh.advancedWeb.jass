@@ -319,7 +319,13 @@ public class GameService extends PersistanceService {
 		setGameState(GameState.Terminated);
 		for (User u : getAllPlayers()) {
 			u.setPlaying(false);
+			mergeObject(u);
 		}
+		for(Team t : getTeams()){
+			mergeObject(t);
+		}
+		mergeObject(getCurrentRound());
+		mergeObject(_game);
 	}
 
 	/**
@@ -614,10 +620,6 @@ public class GameService extends PersistanceService {
 
 	protected void setGameState(GameState state) {
 		_game.setGameState(state);
-	}
-
-	private void writeStatistic(Team winnerTeam, Team team) {
-		// TODO Auto-generated method stub
 	}
 
 	/**
