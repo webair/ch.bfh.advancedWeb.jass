@@ -75,7 +75,7 @@ public class RegisterBean {
 
 		if (nick == null || nick.length() == 0)
 			nick = username;
-
+		System.out.print("create player");
 		u.createPlayer(username, pw1, nick);
 	}
 

@@ -47,6 +47,7 @@ public class UserService extends PersistanceService {
 	public User createPlayer(String userName, String password, String name) {
 		User u = new User(userName, password, name);
 		u = mergeObject(u);
+		System.out.println("player created sucessful");
 		return u;
 	}
 
