@@ -323,13 +323,14 @@ public class GameService extends PersistanceService {
 		setGameState(GameState.Terminated);
 		for (User u : getAllPlayers()) {
 			u.setPlaying(false);
-			mergeObject(u);
 		}
-		for(Team t : getTeams()){
-			mergeObject(t);
-		}
-		mergeObject(getCurrentRound());
+		getCurrentRound().setGame(_game);
 		mergeObject(_game);
+		
+		
+		//mergeObject(getCurrentRound());
+		
+		
 	}
 
 	/**
