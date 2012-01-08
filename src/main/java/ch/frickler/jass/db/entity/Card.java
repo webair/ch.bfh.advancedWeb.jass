@@ -128,7 +128,7 @@ public class Card implements Serializable, Comparable<Card> {
 
 		// different families...
 		// we want the following order: herz, kreuz, ecke, schaufel
-		return getFamilyOrder() - getFamilyOrder();
+		return getFamilyOrder() - o.getFamilyOrder();
 
 	}
 
