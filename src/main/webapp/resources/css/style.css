@@ -242,8 +242,9 @@ td {
 
 .twitter{
 	background: url("https://platform.twitter.com/widgets/images/btn.c5bcc9de085c51bf889f6a8f33128be2.png") no-repeat scroll -24px 0 transparent;
-
     margin-left: -5px;
     padding-left: 25px;
-	}
+}
+#OverviewForm td {
+	height:30px;
 }

@@ -16,8 +16,8 @@
 				<br/>
 			
 			<h:panelGroup id="games">				
-				<h:outputText value="#{Lang.currentlynogamestarted}" rendered="#{empty GameListBean.games}" />
-				<h:dataTable var="game" rowClasses="rowEven,rowOdd" value="#{GameListBean.games}" rendered="#{not empty GameListBean.games}">
+				<h:outputText value="#{Lang.currentlynogamestarted}" rendered="#{empty gameListBean.games}" />
+				<h:dataTable var="game" rowClasses="rowEven,rowOdd" value="#{gameListBean.games}" rendered="#{not empty gameListBean.games}">
 					<h:column>
 						<f:facet name="header">
 							  #{Lang.game_name}
@@ -38,7 +38,7 @@
 					</h:column>
 					<h:column>
 						<h:commandLink class="button" value="#{Lang.join_game}"
-							action="#{GameListBean.joinGame}"
+							action="#{gameListBean.joinGame}"
 							rendered="#{game.acceptingPlayers}">
 							<f:param name="gameId" value="#{game.id}" />
 						</h:commandLink>
