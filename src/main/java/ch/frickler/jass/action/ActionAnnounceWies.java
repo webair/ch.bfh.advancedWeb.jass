@@ -8,6 +8,11 @@ import ch.frickler.jass.db.entity.Wies;
 import ch.frickler.jass.definitions.JassAction;
 import ch.frickler.jass.service.GameService;
 
+/**
+ * With this action the user anounce his Wies
+ * @author kaeserst
+ *
+ */
 public class ActionAnnounceWies extends JassAction {
 
 	List<Card> cards;
