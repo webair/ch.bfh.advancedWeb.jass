@@ -75,6 +75,8 @@ public class GameBean {
 	public void setUser(UserBean u) {
 		user = u;
 	}
+	
+	public int showedLastCard = 0;
 
 	/**
 	 * @return the current gameid, reads it from the session when its not set.
@@ -151,8 +153,16 @@ public class GameBean {
 		GameService gs = getGameService();
 		// if the last for cards changed, display them...
 		List<Card> lastCards = gs.getLastCards();
-		if (lastCards != null && !lastCards.equals(this.lastCards)) {
-			this.lastCards = lastCards;
+		if (lastCards != null && !lastCards.equals(this.lastCards) || showedLastCard > 0) {
+			if (showedLastCard == 0)
+				this.lastCards = lastCards;
+			
+			if (showedLastCard > 1) {
+				showedLastCard = 0;
+			} else {
+				showedLastCard++;
+			}
+			
 			return lastCards;
 
 		}
