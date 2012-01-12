@@ -1,0 +1,80 @@
+<class-diagram version="1.0.6" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="false" nesting-relationships="true">  
+  <class id="1" corner="BOTTOM_RIGHT" language="java" name="ch.frickler.jass.action.ActionDealOutCards" 
+    project="BuzzwordJass" file="/BuzzwordJass/src/main/java/ch/frickler/jass/action/ActionDealOutCards.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="142" y="71"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="false" protected="false" private="false"/>      
+      <operations public="true" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="2" corner="BOTTOM_RIGHT" language="java" name="ch.frickler.jass.action.ActionLeaveGame" 
+    project="BuzzwordJass" file="/BuzzwordJass/src/main/java/ch/frickler/jass/action/ActionLeaveGame.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="391" y="71"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="false" protected="false" private="false"/>      
+      <operations public="true" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="3" corner="BOTTOM_RIGHT" language="java" name="ch.frickler.jass.action.ActionLayCard" 
+    project="BuzzwordJass" file="/BuzzwordJass/src/main/java/ch/frickler/jass/action/ActionLayCard.java" binary="false">    
+    <position height="-1" width="-1" x="626" y="85"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="false" protected="false" private="false"/>      
+      <operations public="true" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="4" corner="BOTTOM_RIGHT" language="java" name="ch.frickler.jass.action.ActionAnnounce" 
+    project="BuzzwordJass" file="/BuzzwordJass/src/main/java/ch/frickler/jass/action/ActionAnnounce.java" binary="false">    
+    <position height="-1" width="-1" x="684" y="266"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="false" protected="false" private="false"/>      
+      <operations public="true" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="5" corner="BOTTOM_RIGHT" language="java" name="ch.frickler.jass.action.ActionAnnounceWies" 
+    project="BuzzwordJass" file="/BuzzwordJass/src/main/java/ch/frickler/jass/action/ActionAnnounceWies.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="126" y="260"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="false" protected="false" private="false"/>      
+      <operations public="true" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="6" corner="BOTTOM_RIGHT" language="java" name="ch.frickler.jass.definitions.JassAction" 
+    project="BuzzwordJass" file="/BuzzwordJass/src/main/java/ch/frickler/jass/definitions/JassAction.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="391" y="437"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="false" protected="false" private="false"/>      
+      <operations public="true" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <generalization id="7">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="6"/>  
+  </generalization>  
+  <generalization id="8">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="6"/>  
+  </generalization>  
+  <generalization id="9">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="6"/>  
+  </generalization>  
+  <generalization id="10">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="6"/>  
+  </generalization>  
+  <generalization id="11">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="6"/>  
+  </generalization>  
+  <classifier-display autosize="true" package="true" initial-value="false" signature="true" visibility="true">    
+    <attributes public="true" package="false" protected="false" private="false"/>    
+    <operations public="true" package="false" protected="false" private="false"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

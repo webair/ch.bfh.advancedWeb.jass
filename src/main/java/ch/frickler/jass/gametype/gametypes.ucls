@@ -1,0 +1,57 @@
+<class-diagram version="1.0.6" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="false" nesting-relationships="true">  
+  <class id="1" corner="BOTTOM_RIGHT" language="java" name="ch.frickler.jass.gametype.TopDown" project="BuzzwordJass" 
+    file="/BuzzwordJass/src/main/java/ch/frickler/jass/gametype/TopDown.java" binary="false">    
+    <position height="-1" width="-1" x="135" y="290"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="2" corner="BOTTOM_RIGHT" language="java" name="ch.frickler.jass.gametype.Trump" project="BuzzwordJass" 
+    file="/BuzzwordJass/src/main/java/ch/frickler/jass/gametype/Trump.java" binary="false">    
+    <position height="-1" width="-1" x="423" y="308"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="3" corner="BOTTOM_RIGHT" language="java" name="ch.frickler.jass.gametype.BottomUp" project="BuzzwordJass" 
+    file="/BuzzwordJass/src/main/java/ch/frickler/jass/gametype/BottomUp.java" binary="false">    
+    <position height="-1" width="-1" x="692" y="297"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="4" corner="BOTTOM_RIGHT" language="java" name="ch.frickler.jass.definitions.JassGameType" 
+    project="BuzzwordJass" file="/BuzzwordJass/src/main/java/ch/frickler/jass/definitions/JassGameType.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="420" y="75"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <generalization id="5">    
+    <bendpoint x="648" y="153"/>    
+    <bendpoint x="624" y="114"/>    
+    <bendpoint x="558" y="94"/>    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="4"/>  
+  </generalization>  
+  <generalization id="6">    
+    <bendpoint x="234" y="116"/>    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="4"/>  
+  </generalization>  
+  <generalization id="7">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </generalization>  
+  <classifier-display autosize="true" package="true" initial-value="false" signature="true" visibility="true">    
+    <attributes public="false" package="false" protected="false" private="false"/>    
+    <operations public="true" package="true" protected="true" private="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

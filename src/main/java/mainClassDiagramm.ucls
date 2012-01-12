@@ -1,0 +1,748 @@
+<class-diagram version="1.0.6" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="false" nesting-relationships="true">  
+  <class id="1" corner="BOTTOM_RIGHT" language="java" name="ch.frickler.jass.WaitingRoomBean" project="BuzzwordJass" 
+    file="/BuzzwordJass/src/main/java/ch/frickler/jass/WaitingRoomBean.java" binary="false">    
+    <position height="48" width="128" x="179" y="51"/>    
+    <display autosize="false" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="true" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="2" corner="BOTTOM_RIGHT" language="java" name="ch.frickler.jass.service.GameManagerService" 
+    project="BuzzwordJass" file="/BuzzwordJass/src/main/java/ch/frickler/jass/service/GameManagerService.java" 
+    binary="false">    
+    <position height="48" width="106" x="23" y="51"/>    
+    <display autosize="false" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="true" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="3" corner="BOTTOM_RIGHT" language="java" name="ch.frickler.jass.GameListBean" project="BuzzwordJass" 
+    file="/BuzzwordJass/src/main/java/ch/frickler/jass/GameListBean.java" binary="false">    
+    <position height="48" width="106" x="347" y="51"/>    
+    <display autosize="false" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="true" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="4" corner="BOTTOM_RIGHT" language="java" name="ch.frickler.jass.RegisterBean" project="BuzzwordJass" 
+    file="/BuzzwordJass/src/main/java/ch/frickler/jass/RegisterBean.java" binary="false">    
+    <position height="48" width="100" x="825" y="51"/>    
+    <display autosize="false" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="true" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="5" corner="BOTTOM_RIGHT" language="java" name="ch.frickler.jass.GameHistoryBean" project="BuzzwordJass" 
+    file="/BuzzwordJass/src/main/java/ch/frickler/jass/GameHistoryBean.java" binary="false">    
+    <position height="48" width="125" x="493" y="51"/>    
+    <display autosize="false" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="true" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="6" corner="BOTTOM_RIGHT" language="java" name="ch.frickler.jass.UserBean" project="BuzzwordJass" 
+    file="/BuzzwordJass/src/main/java/ch/frickler/jass/UserBean.java" binary="false">    
+    <position height="48" width="84" x="616" y="149"/>    
+    <display autosize="false" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="true" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="7" corner="BOTTOM_RIGHT" language="java" name="ch.frickler.jass.GameBean" project="BuzzwordJass" 
+    file="/BuzzwordJass/src/main/java/ch/frickler/jass/GameBean.java" binary="false">    
+    <position height="48" width="85" x="965" y="51"/>    
+    <display autosize="false" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="true" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="8" corner="BOTTOM_RIGHT" language="java" name="ch.frickler.jass.GameBean.GuiCard" project="BuzzwordJass" 
+    file="/BuzzwordJass/src/main/java/ch/frickler/jass/GameBean.java" binary="false">    
+    <position height="48" width="84" x="965" y="149"/>    
+    <display autosize="false" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="true" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="9" corner="BOTTOM_RIGHT" language="java" name="ch.frickler.jass.GameFactoryBean" project="BuzzwordJass" 
+    file="/BuzzwordJass/src/main/java/ch/frickler/jass/GameFactoryBean.java" binary="false">    
+    <position height="48" width="127" x="658" y="51"/>    
+    <display autosize="false" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="true" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="10" corner="BOTTOM_RIGHT" language="java" name="ch.frickler.jass.action.ActionDealOutCards" 
+    project="BuzzwordJass" file="/BuzzwordJass/src/main/java/ch/frickler/jass/action/ActionDealOutCards.java" 
+    binary="false">    
+    <position height="48" width="138" x="49" y="158"/>    
+    <display autosize="false" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="true" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="11" corner="BOTTOM_RIGHT" language="java" name="ch.frickler.jass.action.ActionLeaveGame" 
+    project="BuzzwordJass" file="/BuzzwordJass/src/main/java/ch/frickler/jass/action/ActionLeaveGame.java" 
+    binary="false">    
+    <position height="48" width="126" x="227" y="158"/>    
+    <display autosize="false" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="true" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="12" corner="BOTTOM_RIGHT" language="java" name="ch.frickler.jass.action.ActionLayCard" 
+    project="BuzzwordJass" file="/BuzzwordJass/src/main/java/ch/frickler/jass/action/ActionLayCard.java" binary="false">    
+    <position height="48" width="106" x="393" y="158"/>    
+    <display autosize="false" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="true" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="13" corner="BOTTOM_RIGHT" language="java" name="ch.frickler.jass.action.ActionAnnounceStoeck" 
+    project="BuzzwordJass" file="/BuzzwordJass/src/main/java/ch/frickler/jass/action/ActionAnnounceStoeck.java" 
+    binary="false">    
+    <position height="48" width="156" x="539" y="158"/>    
+    <display autosize="false" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="true" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="14" corner="BOTTOM_RIGHT" language="java" name="ch.frickler.jass.action.ActionAnnounce" 
+    project="BuzzwordJass" file="/BuzzwordJass/src/main/java/ch/frickler/jass/action/ActionAnnounce.java" binary="false">    
+    <position height="48" width="116" x="735" y="158"/>    
+    <display autosize="false" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="true" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="15" corner="BOTTOM_RIGHT" language="java" name="ch.frickler.jass.action.ActionAnnounceWies" 
+    project="BuzzwordJass" file="/BuzzwordJass/src/main/java/ch/frickler/jass/action/ActionAnnounceWies.java" 
+    binary="false">    
+    <position height="48" width="145" x="891" y="158"/>    
+    <display autosize="false" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="true" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="16" corner="BOTTOM_RIGHT" language="java" name="ch.frickler.jass.db.entity.Wies" project="BuzzwordJass" 
+    file="/BuzzwordJass/src/main/java/ch/frickler/jass/db/entity/Wies.java" binary="false">    
+    <position height="-1" width="-1" x="534" y="481"/>    
+    <display autosize="false" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="true" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="17" corner="BOTTOM_RIGHT" language="java" name="ch.frickler.jass.db.entity.User" project="BuzzwordJass" 
+    file="/BuzzwordJass/src/main/java/ch/frickler/jass/db/entity/User.java" binary="false">    
+    <position height="-1" width="-1" x="672" y="287"/>    
+    <display autosize="false" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="true" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="18" corner="BOTTOM_RIGHT" language="java" name="ch.frickler.jass.db.entity.Team" project="BuzzwordJass" 
+    file="/BuzzwordJass/src/main/java/ch/frickler/jass/db/entity/Team.java" binary="false">    
+    <position height="-1" width="-1" x="767" y="481"/>    
+    <display autosize="false" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="true" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="19" corner="BOTTOM_RIGHT" language="java" name="ch.frickler.jass.db.entity.Card" project="BuzzwordJass" 
+    file="/BuzzwordJass/src/main/java/ch/frickler/jass/db/entity/Card.java" binary="false">    
+    <position height="-1" width="-1" x="322" y="378"/>    
+    <display autosize="false" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="true" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="20" corner="BOTTOM_RIGHT" language="java" name="ch.frickler.jass.db.entity.Round" project="BuzzwordJass" 
+    file="/BuzzwordJass/src/main/java/ch/frickler/jass/db/entity/Round.java" binary="false">    
+    <position height="-1" width="-1" x="555" y="362"/>    
+    <display autosize="false" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="true" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="21" corner="BOTTOM_RIGHT" language="java" name="ch.frickler.jass.db.entity.Game" project="BuzzwordJass" 
+    file="/BuzzwordJass/src/main/java/ch/frickler/jass/db/entity/Game.java" binary="false">    
+    <position height="-1" width="-1" x="410" y="342"/>    
+    <display autosize="false" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="true" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <enumeration id="22" corner="BOTTOM_RIGHT" language="java" name="ch.frickler.jass.db.enums.GameKind" 
+    project="BuzzwordJass" file="/BuzzwordJass/src/main/java/ch/frickler/jass/db/enums/GameKind.java" binary="false">    
+    <position height="48" width="116" x="284" y="458"/>    
+    <display autosize="false" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="true" protected="false" private="false"/>    
+    </display>  
+  </enumeration>  
+  <enumeration id="23" corner="BOTTOM_RIGHT" language="java" name="ch.frickler.jass.db.enums.CardValue" 
+    project="BuzzwordJass" file="/BuzzwordJass/src/main/java/ch/frickler/jass/db/enums/CardValue.java" binary="false">    
+    <position height="48" width="116" x="128" y="458"/>    
+    <display autosize="false" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="true" protected="false" private="false"/>    
+    </display>  
+  </enumeration>  
+  <enumeration id="24" corner="BOTTOM_RIGHT" language="java" name="ch.frickler.jass.db.enums.GameState" 
+    project="BuzzwordJass" file="/BuzzwordJass/src/main/java/ch/frickler/jass/db/enums/GameState.java" binary="false">    
+    <position height="-1" width="-1" x="811" y="28"/>    
+    <display autosize="false" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="true" protected="false" private="false"/>    
+    </display>  
+  </enumeration>  
+  <enumeration id="25" corner="BOTTOM_RIGHT" language="java" name="ch.frickler.jass.db.enums.CardFamily" 
+    project="BuzzwordJass" file="/BuzzwordJass/src/main/java/ch/frickler/jass/db/enums/CardFamily.java" binary="false">    
+    <position height="48" width="116" x="596" y="458"/>    
+    <display autosize="false" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="true" protected="false" private="false"/>    
+    </display>  
+  </enumeration>  
+  <class id="26" corner="BOTTOM_RIGHT" language="java" name="ch.frickler.jass.definitions.JassGameType" 
+    project="BuzzwordJass" file="/BuzzwordJass/src/main/java/ch/frickler/jass/definitions/JassGameType.java" 
+    binary="false">    
+    <position height="48" width="115" x="836" y="422"/>    
+    <display autosize="false" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="true" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="27" corner="BOTTOM_RIGHT" language="java" name="ch.frickler.jass.definitions.JassAction" 
+    project="BuzzwordJass" file="/BuzzwordJass/src/main/java/ch/frickler/jass/definitions/JassAction.java" 
+    binary="false">    
+    <position height="48" width="115" x="354" y="239"/>    
+    <display autosize="false" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="true" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="28" corner="BOTTOM_RIGHT" language="java" name="ch.frickler.jass.gametype.TopDown" project="BuzzwordJass" 
+    file="/BuzzwordJass/src/main/java/ch/frickler/jass/gametype/TopDown.java" binary="false">    
+    <position height="48" width="114" x="664" y="566"/>    
+    <display autosize="false" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="true" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="29" corner="BOTTOM_RIGHT" language="java" name="ch.frickler.jass.gametype.Trump" project="BuzzwordJass" 
+    file="/BuzzwordJass/src/main/java/ch/frickler/jass/gametype/Trump.java" binary="false">    
+    <position height="48" width="114" x="1019" y="472"/>    
+    <display autosize="false" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="true" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="30" corner="BOTTOM_RIGHT" language="java" name="ch.frickler.jass.gametype.BottomUp" project="BuzzwordJass" 
+    file="/BuzzwordJass/src/main/java/ch/frickler/jass/gametype/BottomUp.java" binary="false">    
+    <position height="48" width="114" x="457" y="548"/>    
+    <display autosize="false" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="true" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="31" corner="BOTTOM_RIGHT" language="java" name="ch.frickler.jass.service.GameHistoryService" 
+    project="BuzzwordJass" file="/BuzzwordJass/src/main/java/ch/frickler/jass/service/GameHistoryService.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="869" y="574"/>    
+    <display autosize="false" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="true" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="32" corner="BOTTOM_RIGHT" language="java" name="ch.frickler.jass.service.GameService" 
+    project="BuzzwordJass" file="/BuzzwordJass/src/main/java/ch/frickler/jass/service/GameService.java" binary="false">    
+    <position height="-1" width="-1" x="752" y="373"/>    
+    <display autosize="false" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="true" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="33" corner="BOTTOM_RIGHT" language="java" name="ch.frickler.jass.service.GameTypeService" 
+    project="BuzzwordJass" file="/BuzzwordJass/src/main/java/ch/frickler/jass/service/GameTypeService.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="738" y="438"/>    
+    <display autosize="false" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="true" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="34" corner="BOTTOM_RIGHT" language="java" name="ch.frickler.jass.service.PersistanceService" 
+    project="BuzzwordJass" file="/BuzzwordJass/src/main/java/ch/frickler/jass/service/PersistanceService.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="767" y="230"/>    
+    <display autosize="false" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="true" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="35" corner="BOTTOM_RIGHT" language="java" name="ch.frickler.jass.service.UserService" 
+    project="BuzzwordJass" file="/BuzzwordJass/src/main/java/ch/frickler/jass/service/UserService.java" binary="false">    
+    <position height="-1" width="-1" x="893" y="318"/>    
+    <display autosize="false" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="true" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="36" corner="BOTTOM_RIGHT" language="java" name="ch.frickler.jass.helper.Translator" project="BuzzwordJass" 
+    file="/BuzzwordJass/src/main/java/ch/frickler/jass/helper/Translator.java" binary="false">    
+    <position height="48" width="97" x="210" y="241"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="true" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="37" corner="BOTTOM_RIGHT" language="java" name="ch.frickler.jass.err.MyExceptionHandler" 
+    project="BuzzwordJass" file="/BuzzwordJass/src/main/java/ch/frickler/jass/err/MyExceptionHandler.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="935" y="384"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="true" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="38" corner="BOTTOM_RIGHT" language="java" name="ch.frickler.jass.err.MyExceptionHandlerFactory" 
+    project="BuzzwordJass" file="/BuzzwordJass/src/main/java/ch/frickler/jass/err/MyExceptionHandlerFactory.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="994" y="250"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="true" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="39" corner="BOTTOM_RIGHT" language="java" name="ch.frickler.jass.auth.AuthenticationFilter" 
+    project="BuzzwordJass" file="/BuzzwordJass/src/main/java/ch/frickler/jass/auth/AuthenticationFilter.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="356" y="561"/>    
+    <display autosize="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="true" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <association id="40">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="41" name="userBean"/>      
+      <multiplicity id="42" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="43">    
+    <end type="SOURCE" refId="30"/>    
+    <end type="TARGET" refId="26"/>  
+  </generalization>  
+  <association id="44">    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="45" name="user"/>      
+      <multiplicity id="46" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="47">    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="48" name="lastCards"/>      
+      <multiplicity id="49" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="19" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="50">    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="51" name="gameState"/>      
+      <multiplicity id="52" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="24" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="53">    
+    <bendpoint x="760" y="460"/>    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="54" name="woncards"/>      
+      <multiplicity id="55" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="19" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="56">    
+    <end type="SOURCE" refId="20" navigable="false">      
+      <attribute id="57" name="game"/>      
+      <multiplicity id="58" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="21" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="59">    
+    <end type="SOURCE" refId="20" navigable="false">      
+      <attribute id="60" name="gameKind"/>      
+      <multiplicity id="61" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="22" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="62">    
+    <end type="SOURCE" refId="14" navigable="false">      
+      <attribute id="63" name="type"/>      
+      <multiplicity id="64" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="22" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="65">    
+    <end type="SOURCE" refId="29" navigable="false">      
+      <attribute id="66" name="trumpf"/>      
+      <multiplicity id="67" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="25" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="68">    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="69" name="card"/>      
+      <multiplicity id="70" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="19" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="71">    
+    <end type="SOURCE" refId="20" navigable="false">      
+      <attribute id="72" name="wieses"/>      
+      <multiplicity id="73" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="16" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="74">    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="75" name="user"/>      
+      <multiplicity id="76" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="77">    
+    <end type="SOURCE" refId="35"/>    
+    <end type="TARGET" refId="34"/>  
+  </generalization>  
+  <association id="78">    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="79" name="_gameService"/>      
+      <multiplicity id="80" minimum="0" maximum="1">        
+        <position height="14" width="18" x="804" y="368"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="32" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="81">    
+    <end type="SOURCE" refId="32" navigable="false">      
+      <attribute id="82" name="gametypeService"/>      
+      <multiplicity id="83" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="33" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="84">    
+    <end type="SOURCE" refId="32" navigable="false">      
+      <attribute id="85" name="_game"/>      
+      <multiplicity id="86" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="21" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="87">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="27"/>  
+  </generalization>  
+  <generalization id="88">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="27"/>  
+  </generalization>  
+  <association id="89">    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="90" name="user"/>      
+      <multiplicity id="91" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="92">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="93" name="games"/>      
+      <multiplicity id="94" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="21" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="95">    
+    <bendpoint x="630" y="372"/>    
+    <end type="SOURCE" refId="20" navigable="false">      
+      <attribute id="96" name="beginner"/>      
+      <multiplicity id="97" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="98">    
+    <bendpoint x="672" y="284"/>    
+    <bendpoint x="672" y="372"/>    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="99" name="nextAnnouncer"/>      
+      <multiplicity id="100" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="101">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="27"/>  
+  </generalization>  
+  <association id="102">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="103" name="instance"/>      
+      <multiplicity id="104" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="105">    
+    <bendpoint x="609" y="372"/>    
+    <end type="SOURCE" refId="20" navigable="false">      
+      <attribute id="106" name="currentplayer"/>      
+      <multiplicity id="107" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="108">    
+    <end type="SOURCE" refId="31" navigable="false">      
+      <attribute id="109" name="instance"/>      
+      <multiplicity id="110" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="31" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="111">    
+    <end type="SOURCE" refId="19" navigable="false">      
+      <attribute id="112" name="value"/>      
+      <multiplicity id="113" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="23" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="114">    
+    <end type="SOURCE" refId="32" navigable="false">      
+      <attribute id="115" name="lastCards"/>      
+      <multiplicity id="116" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="19" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="117">    
+    <end type="SOURCE" refId="33" navigable="false">      
+      <attribute id="118" name="type"/>      
+      <multiplicity id="119" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="22" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="120">    
+    <bendpoint x="714" y="284"/>    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="121" name="team1">        
+        <position height="14" width="33" x="615" y="229"/>      
+      </attribute>      
+      <multiplicity id="122" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="123">    
+    <end type="SOURCE" refId="19" navigable="false">      
+      <attribute id="124" name="family"/>      
+      <multiplicity id="125" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="25" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="126">    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="127" name="user1"/>      
+      <multiplicity id="128" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="129">    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="130" name="currentRound"/>      
+      <multiplicity id="131" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="20" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="132">    
+    <bendpoint x="479" y="460"/>    
+    <end type="SOURCE" refId="16" navigable="false">      
+      <attribute id="133" name="cards"/>      
+      <multiplicity id="134" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="19" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="135">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="27"/>  
+  </generalization>  
+  <association id="136">    
+    <end type="SOURCE" refId="16" navigable="false">      
+      <attribute id="137" name="user"/>      
+      <multiplicity id="138" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="139">    
+    <bendpoint x="439" y="372"/>    
+    <bendpoint x="439" y="460"/>    
+    <end type="SOURCE" refId="20" navigable="false">      
+      <attribute id="140" name="cards"/>      
+      <multiplicity id="141" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="19" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="142">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="27"/>  
+  </generalization>  
+  <association id="143">    
+    <bendpoint x="693" y="284"/>    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="144" name="team2"/>      
+      <multiplicity id="145" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="146">    
+    <end type="SOURCE" refId="29"/>    
+    <end type="TARGET" refId="26"/>  
+  </generalization>  
+  <association id="147">    
+    <end type="SOURCE" refId="15" navigable="false">      
+      <attribute id="148" name="cards"/>      
+      <multiplicity id="149" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="19" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="150">    
+    <end type="SOURCE" refId="33" navigable="false">      
+      <attribute id="151" name="gameType"/>      
+      <multiplicity id="152" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="26" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="153">    
+    <bendpoint x="842" y="284"/>    
+    <bendpoint x="842" y="372"/>    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="154" name="owner"/>      
+      <multiplicity id="155" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="156">    
+    <bendpoint x="651" y="372"/>    
+    <end type="SOURCE" refId="20" navigable="false">      
+      <attribute id="157" name="playerwithstoeck"/>      
+      <multiplicity id="158" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="159">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="26"/>  
+  </generalization>  
+  <association id="160">    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="161" name="card"/>      
+      <multiplicity id="162" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="19" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="163">    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="164" name="user2"/>      
+      <multiplicity id="165" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="166">    
+    <end type="SOURCE" refId="17" navigable="false">      
+      <attribute id="167" name="cards"/>      
+      <multiplicity id="168" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="19" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="169">    
+    <end type="SOURCE" refId="27" navigable="false">      
+      <attribute id="170" name="user"/>      
+      <multiplicity id="171" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="172">    
+    <end type="SOURCE" refId="31"/>    
+    <end type="TARGET" refId="34"/>  
+  </generalization>  
+  <association id="173">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="174" name="userBean">        
+        <position height="14" width="51" x="507" y="218"/>      
+      </attribute>      
+      <multiplicity id="175" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="176">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="8"/>  
+  </nesting>  
+  <generalization id="177">    
+    <end type="SOURCE" refId="32"/>    
+    <end type="TARGET" refId="34"/>  
+  </generalization>  
+  <generalization id="178">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="27"/>  
+  </generalization>  
+  <association id="179">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="180" name="services"/>      
+      <multiplicity id="181" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="32" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <classifier-display autosize="true" package="true" initial-value="false" signature="true" visibility="true">    
+    <attributes public="false" package="false" protected="false" private="false"/>    
+    <operations public="false" package="true" protected="false" private="false"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

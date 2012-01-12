@@ -13,6 +13,7 @@
 				<h:inputText id="username" value="#{userBean.username}"
 					required="true" requiredMessage="#{Lang.err_username}" />
 				<h:outputLabel value="#{Lang.label_password}:" for="password" />
+				
 				<h:inputSecret id="password" value="#{userBean.password}"
 					required="true" requiredMessage="#{Lang.err_password}" />
 				<h:commandButton class="button" value="#{Lang.text_login}" action="#{userBean.login}" />

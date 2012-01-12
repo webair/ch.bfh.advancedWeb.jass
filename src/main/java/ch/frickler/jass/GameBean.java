@@ -24,6 +24,7 @@ import ch.frickler.jass.db.enums.CardValue;
 import ch.frickler.jass.db.enums.GameKind;
 import ch.frickler.jass.db.enums.GameState;
 import ch.frickler.jass.helper.Translator;
+import ch.frickler.jass.service.GameManagerService;
 import ch.frickler.jass.service.GameService;
 
 /**
@@ -84,7 +85,7 @@ public class GameBean {
 			System.out.println("GameId is relaoded");
 			gameId = (Long) FacesContext.getCurrentInstance()
 					.getExternalContext().getSessionMap()
-					.get(GameManager.GAME_ID_KEY);
+					.get(GameManagerService.GAME_ID_KEY);
 		}
 		System.out.println("GameId is "+gameId);
 		return gameId;
@@ -136,7 +137,7 @@ public class GameBean {
 			}
 		}
 		if (found != null) {
-			new ActionLayCard(user.getUser(), found).doAction(GameManager
+			new ActionLayCard(user.getUser(), found).doAction(GameManagerService
 					.getInstance().getGameService(getGameId()));
 		}
 	}
@@ -171,7 +172,7 @@ public class GameBean {
 	public GameService getGameService() {
 
 		if (_gameService == null) {
-			_gameService = GameManager.getInstance()
+			_gameService = GameManagerService.getInstance()
 					.getGameService(getGameId());
 		}
 		return _gameService;

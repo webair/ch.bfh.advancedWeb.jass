@@ -11,6 +11,7 @@ import javax.faces.context.FacesContext;
 
 import ch.frickler.jass.db.entity.Game;
 import ch.frickler.jass.db.entity.User;
+import ch.frickler.jass.service.GameManagerService;
 import ch.frickler.jass.service.UserService;
 
 /**
@@ -33,7 +34,7 @@ public class WaitingRoomBean {
 		if (gameId == 0L) {
 			gameId = (Long) FacesContext.getCurrentInstance()
 					.getExternalContext().getSessionMap()
-					.get(GameManager.GAME_ID_KEY);
+					.get(GameManagerService.GAME_ID_KEY);
 		}
 		return gameId;
 	}
@@ -42,7 +43,7 @@ public class WaitingRoomBean {
 	 * @return game instance
 	 */
 	public Game getGame() {
-		return GameManager.getInstance().getGame(getGameId());
+		return GameManagerService.getInstance().getGame(getGameId());
 	}
 
 	/**
@@ -50,7 +51,7 @@ public class WaitingRoomBean {
 	 * @return list of all players for the current game
 	 */
 	public List<User> getPlayers() {
-		return GameManager.getInstance().getGameService(getGameId())
+		return GameManagerService.getInstance().getGameService(getGameId())
 				.getAllPlayers();
 	}
 
@@ -60,7 +61,7 @@ public class WaitingRoomBean {
 	 */
 	public String start() {
 		System.out.println("lets start game "+getGameId());
-		GameManager.getInstance().startGame(getGameId());
+		GameManagerService.getInstance().startGame(getGameId());
 		
 		String redirect = "playGame?faces-redirect=true&gameID="+getGameId();
 		gameId = 0L;
@@ -72,7 +73,7 @@ public class WaitingRoomBean {
 	 */
 	public void addBot() {
 		System.out.println("add computer for "+getGameId());
-		GameManager.getInstance().addUserToGame(new UserService().createBot(),
+		GameManagerService.getInstance().addUserToGame(new UserService().createBot(),
 				getGameId());
 	}
 
@@ -82,10 +83,10 @@ public class WaitingRoomBean {
 	 * @return redirect for reloading page
 	 */
 	public String refresh() {
-		if (GameManager.getInstance().gameIsReady(getGameId())) {
+		if (GameManagerService.getInstance().gameIsReady(getGameId())) {
 			gameId = 0L;
 			FacesContext ctx = FacesContext.getCurrentInstance();
-			System.out.println("Start game with id:"+getGameId()+" name "+ GameManager.getInstance()
+			System.out.println("Start game with id:"+getGameId()+" name "+ GameManagerService.getInstance()
 					.getGameService(getGameId()).getName());
 			ExternalContext extContext = ctx.getExternalContext();
 			String url = extContext.encodeActionURL(ctx.getApplication()

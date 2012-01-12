@@ -76,8 +76,8 @@
 			<!--  announce -->
 			<h:panelGroup rendered="#{gameBean.announcer or gameBean.wiesPossible}">
 				<div class="optionsBeforePlay playoptions">
+					<div class="chooseactionlabel">#{Lang.chooseaction}:</div>
 					<h:panelGroup rendered="#{gameBean.announcer}">
-
 						<h:form>
 							<h:selectOneMenu value="#{gameBean.trump}">
 								<f:selectItems value="#{gameBean.gameKindsTranslated}"
@@ -95,7 +95,7 @@
 					</h:panelGroup>
 					<!--  wies -->
 					<h:panelGroup rendered="#{gameBean.wiesPossible}">
-						<h:form>
+					<h:form>
 							<h:selectOneMenu value="#{gameBean.wies}">
 								<f:selectItems value="#{gameBean.possibleWiesTranslated}"
 									var="kind" itemLabel="kind.label" itemValue="kind.value" />
@@ -112,6 +112,7 @@
 			<!--  finished options -->
 			<h:panelGroup rendered="#{gameBean.finished}">
 				<div class="optionsAfterPlay playoptions">
+				<div class="chooseactionlabel">#{Lang.chooseaction}:</div>
 					<h:form>
 						<h:commandButton class="button" value="#{Lang.statistic}"
 							action="#{gameBean.showstatistic}">

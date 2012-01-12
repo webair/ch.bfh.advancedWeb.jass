@@ -11,6 +11,7 @@ import javax.faces.context.FacesContext;
 
 import ch.frickler.jass.db.entity.Game;
 import ch.frickler.jass.helper.Translator;
+import ch.frickler.jass.service.GameManagerService;
 
 @ManagedBean
 public class GameListBean {
@@ -36,7 +37,7 @@ public class GameListBean {
 	 */
 	public List<Game> getGames() {
 		List<Game> list = new ArrayList<Game>();
-		list.addAll(GameManager.getInstance().getAvailableGames());
+		list.addAll(GameManagerService.getInstance().getAvailableGames());
 		return list;
 	}
 	
@@ -63,9 +64,9 @@ public class GameListBean {
 				.getRequestParameterMap();
 		long gameId = Integer.parseInt(params.get("gameId"));
 		System.out.println("User wants to join game: "+gameId);
-		GameManager.getInstance().addUserToGame(userBean.getUser(), gameId);
+		GameManagerService.getInstance().addUserToGame(userBean.getUser(), gameId);
 		ctx.getExternalContext().getSessionMap()
-				.put(GameManager.GAME_ID_KEY, gameId);
+				.put(GameManagerService.GAME_ID_KEY, gameId);
 		return "waitingRoom?faces-redirect=true";
 	}
 }

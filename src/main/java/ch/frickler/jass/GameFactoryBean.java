@@ -5,6 +5,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 
 import ch.frickler.jass.helper.Translator;
+import ch.frickler.jass.service.GameManagerService;
 
 /**
  * @author seed
@@ -47,12 +48,12 @@ public class GameFactoryBean {
 					Translator.getMessage(ctx, "already_playing"));
 			return null;
 		}
-		GameManager gm = GameManager.getInstance();
+		GameManagerService gm = GameManagerService.getInstance();
 		Long gameId = gm.createGame(getName(), user.getUser(),
 				getWinningPoints());
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ctx.getExternalContext().getSessionMap()
-				.put(GameManager.GAME_ID_KEY, gameId);
+				.put(GameManagerService.GAME_ID_KEY, gameId);
 		return "waitingRoom?faces-redirect=true";
 	}
 

@@ -1,4 +1,4 @@
-package ch.frickler.jass;
+package ch.frickler.jass.service;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -8,15 +8,13 @@ import java.util.Map;
 import ch.frickler.jass.db.entity.Game;
 import ch.frickler.jass.db.entity.User;
 import ch.frickler.jass.db.enums.GameState;
-import ch.frickler.jass.service.GameService;
-import ch.frickler.jass.service.UserService;
 
 /**
  * @author seed
  * 
  * class for managing the games
  */
-public class GameManager {
+public class GameManagerService {
 
 	/**
 	 *  constant for game id key
@@ -26,7 +24,7 @@ public class GameManager {
 	/**
 	 * holds game manager instance (singleton)
 	 */
-	private static GameManager instance;
+	private static GameManagerService instance;
 
 	/**
 	 *  Map of games <id , game>
@@ -44,7 +42,7 @@ public class GameManager {
 	 */
 	private long gameCount = 0L;
 
-	private GameManager() {
+	private GameManagerService() {
 
 	}
 
@@ -53,9 +51,9 @@ public class GameManager {
 	 * 
 	 * @return instance of GameManager
 	 */
-	public static GameManager getInstance() {
+	public static GameManagerService getInstance() {
 		if (instance == null) {
-			instance = new GameManager();
+			instance = new GameManagerService();
 		}
 		return instance;
 
