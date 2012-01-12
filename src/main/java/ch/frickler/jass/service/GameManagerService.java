@@ -10,9 +10,8 @@ import ch.frickler.jass.db.entity.User;
 import ch.frickler.jass.db.enums.GameState;
 
 /**
- * @author seed
- * 
  * class for managing the games
+ * @author seed
  */
 public class GameManagerService {
 

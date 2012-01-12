@@ -14,7 +14,7 @@ import ch.frickler.jass.service.UserService;
 /**
  * 
  * Bean to represent a user and his authentication
- * 
+ * @author seed
  */
 @ManagedBean
 @SessionScoped

@@ -2,16 +2,18 @@ package ch.frickler.jass.db.entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
-import ch.frickler.jass.GameFactoryBean;
 import ch.frickler.jass.db.enums.CardFamily;
 import ch.frickler.jass.db.enums.CardValue;
 
 public class Wies implements Serializable, Comparable<Wies> {
 
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	List<Card> cards = new ArrayList<Card>();
 	User user;
 

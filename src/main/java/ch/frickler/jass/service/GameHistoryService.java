@@ -6,8 +6,9 @@ import ch.frickler.jass.db.entity.Game;
 import ch.frickler.jass.db.entity.User;
 
 /**
- * @author seed
  * Singleton class for getting the history of completed games 
+ * @author seed
+ * 
  */
 public class GameHistoryService extends PersistanceService {
 

@@ -27,9 +27,9 @@ import ch.frickler.jass.helper.Translator;
 import ch.frickler.jass.definitions.JassAction;
 
 /**
+ * Class for connecting the game logic with the persistance store
  * @author seed
  *
- * Class for connecting the game logic with the persistance store
  */
 public class GameService extends PersistanceService {
 
@@ -380,13 +380,14 @@ public class GameService extends PersistanceService {
 	 * @param args
 	 * @return formatted & translated key
 	 */
+	
 	public String translateAndFormat(String key, String[] args) {
 		String res = Translator.getString(FacesContext.getCurrentInstance(),
 				key);
 		if (res.length() == 0)
 			return "Translation Key " + key + " not found";
-
-		return String.format(res, args);
+		
+		return String.format(res, (Object[])args);
 	}
 
 	
@@ -586,7 +587,6 @@ public class GameService extends PersistanceService {
 		return _game.getWinPoints();
 	}
 
-	@SuppressWarnings("unused")
 	private Team getLeadingTeam() {
 		Team leading = null;
 		for (Team t : _game.getTeams()) {
@@ -597,6 +597,7 @@ public class GameService extends PersistanceService {
 		return leading;
 	}
 
+	@SuppressWarnings("unused")
 	private Team getLoosingTeam() {
 		Team loosing = null;
 		for (Team t : _game.getTeams()) {

@@ -5,8 +5,9 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 /**
+ * abstract class for persistance services
  * @author seed
- * abstract class for persistance services. 
+ * 
  */
 public abstract class PersistanceService {
 

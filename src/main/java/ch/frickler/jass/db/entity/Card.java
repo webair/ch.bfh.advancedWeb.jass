@@ -13,7 +13,6 @@ import javax.persistence.Table;
 
 import ch.frickler.jass.db.enums.CardFamily;
 import ch.frickler.jass.db.enums.CardValue;
-import ch.frickler.jass.db.enums.GameKind;
 
 /**
  * this class is the implementation for the Entity: Card the card consists of a

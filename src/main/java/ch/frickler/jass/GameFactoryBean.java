@@ -8,9 +8,10 @@ import ch.frickler.jass.helper.Translator;
 import ch.frickler.jass.service.GameManagerService;
 
 /**
+ * 
+ * Factory Bean to create new games
  * @author seed
  * 
- * Bean to create a new game
  */
 @ManagedBean
 public class GameFactoryBean {

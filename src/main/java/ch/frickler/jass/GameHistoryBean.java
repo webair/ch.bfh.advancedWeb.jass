@@ -9,9 +9,10 @@ import ch.frickler.jass.db.entity.Game;
 import ch.frickler.jass.service.GameHistoryService;
 
 /**
+ * Class to manage the history page
  * @author seed
  *
- * managed the presentation of the history
+ * 
  */
 @ManagedBean
 public class GameHistoryBean {

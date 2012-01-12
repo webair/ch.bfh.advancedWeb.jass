@@ -15,10 +15,11 @@ import ch.frickler.jass.service.GameManagerService;
 import ch.frickler.jass.service.UserService;
 
 /**
+ * Bean for handling the waiting room page. it startes a game & notifies the user if a game
+ * has started
  * @author seed
- *
- * Bean for handling the waiting room page
  */
+
 @ManagedBean
 @SessionScoped
 public class WaitingRoomBean {
