@@ -4,6 +4,4 @@
 .metadata
 target
 build
-src/test/java/ch/frickler/jass/fri/
-
-/doc
+doc
