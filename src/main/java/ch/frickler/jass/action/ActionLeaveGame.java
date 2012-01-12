@@ -4,7 +4,11 @@ import ch.frickler.jass.db.entity.User;
 import ch.frickler.jass.definitions.JassAction;
 import ch.frickler.jass.service.GameService;
 
-
+/**
+ * This action is fired if the user quits the game.
+ * @author kaeserst
+ *
+ */
 public class ActionLeaveGame extends JassAction {
 
 	public ActionLeaveGame(User user) {

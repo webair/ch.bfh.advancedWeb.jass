@@ -6,6 +6,11 @@ import ch.frickler.jass.db.enums.GameKind;
 import ch.frickler.jass.definitions.JassAction;
 import ch.frickler.jass.service.GameService;
 
+/**
+ * This action is used for anouncing the next trump
+ * @author kaeserst
+ *
+ */
 public class ActionAnnounce extends JassAction {
 
 	private GameKind type;

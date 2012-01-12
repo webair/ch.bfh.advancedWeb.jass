@@ -7,7 +7,11 @@ import ch.frickler.jass.definitions.JassAction;
 import ch.frickler.jass.service.GameService;
 
 
-
+/**
+ * This action handles the dealing out of the cards.
+ * @author kaeserst
+ *
+ */
 public class ActionDealOutCards extends JassAction {
 
 	public ActionDealOutCards() {

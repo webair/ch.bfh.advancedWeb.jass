@@ -5,6 +5,11 @@ import ch.frickler.jass.db.entity.User;
 import ch.frickler.jass.definitions.JassAction;
 import ch.frickler.jass.service.GameService;
 
+/**
+ * With this action the user lays a card.
+ * @author kaeserst
+ *
+ */
 public class ActionLayCard extends JassAction {
 
 	public ActionLayCard(User user) {
