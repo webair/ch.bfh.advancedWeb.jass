@@ -9,13 +9,7 @@ import javax.persistence.Persistence;
 import org.junit.After;
 import org.junit.Before;
  
-/**
- * Abstract superclass for all persistance based tests
- * 
- * TODO Maybe use @BeforeClass instead of @Before
- * 
- * @author krigu
- */
+
 public abstract class PersistenceBasedTest {
 
 	private EntityManager em;

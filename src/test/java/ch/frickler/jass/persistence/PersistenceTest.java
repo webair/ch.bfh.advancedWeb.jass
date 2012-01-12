@@ -1,14 +1,8 @@
 package ch.frickler.jass.persistence;
 
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.util.List;
-
 import org.junit.Test;
-
-import ch.frickler.jass.db.entity.Game;
-import ch.frickler.jass.db.entity.User;
 
 public class PersistenceTest extends AbstractEntityTest {
 
