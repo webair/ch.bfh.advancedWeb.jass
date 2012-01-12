@@ -1,6 +1,5 @@
 package ch.frickler.jass.action;
 
-import ch.frickler.jass.db.entity.Game;
 import ch.frickler.jass.db.entity.User;
 import ch.frickler.jass.db.enums.GameKind;
 import ch.frickler.jass.definitions.JassAction;

@@ -12,6 +12,11 @@ import javax.persistence.Query;
 import ch.frickler.jass.db.entity.User;
 import ch.frickler.jass.helper.Translator;
 
+/**
+ * Class to connect the user entity with the user session
+ * @author seed
+ *
+ */
 public class UserService extends PersistanceService {
 
 	/**

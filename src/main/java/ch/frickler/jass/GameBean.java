@@ -1,7 +1,6 @@
 package ch.frickler.jass;
 
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
 
@@ -201,7 +200,7 @@ public class GameBean {
 	public List<SelectItem> getPossibleWiesTranslated() {
 		List<Wies> possibleWies = Wies.getPossibleWies(user.getUser());
 		List<SelectItem> allWies = new ArrayList<SelectItem>();
-		int i = 0;
+		//int i = 0;
 		for (Wies w : possibleWies) {
 			// System.out.println(w.getKey());
 			if(!alreadyWiesed(w))

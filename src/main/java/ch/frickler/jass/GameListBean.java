@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
@@ -13,6 +12,14 @@ import ch.frickler.jass.db.entity.Game;
 import ch.frickler.jass.helper.Translator;
 import ch.frickler.jass.service.GameManagerService;
 
+
+
+/**
+ * 
+ * Class to manage the list games page and actions to join or create a new game
+ * @author seed
+ *
+ */
 @ManagedBean
 public class GameListBean {
 

@@ -13,8 +13,9 @@ import ch.frickler.jass.gametype.Trump;
 import ch.frickler.jass.gametype.BottomUp;
 
 /**
- * @author seed
  * Helper class for the game type
+ * @author seed
+ * 
  */
 public class GameTypeService {
 

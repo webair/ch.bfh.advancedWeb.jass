@@ -4,20 +4,16 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import ch.frickler.jass.db.enums.CardFamily;
 import ch.frickler.jass.db.enums.CardValue;
 
 /**
  * With this class it is possible to wies the hand ward
+ * 
  * @author kaeserst
- *
  */
 public class Wies implements Serializable, Comparable<Wies> {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	List<Card> cards = new ArrayList<Card>();
 	User user;
@@ -116,18 +112,17 @@ public class Wies implements Serializable, Comparable<Wies> {
 
 	public static List<Wies> getPossibleWies(User u) {
 		List<Card> allCards = u.getCards();
-		
-		//fill the array for searching a wies
+
+		// fill the array for searching a wies
 		int[][] cardArray = new int[CardValue.values().length][CardFamily
 				.values().length];
 		List<Wies> wies = new ArrayList<Wies>();
 		for (Card c : allCards) {
-			//System.out.println((c.getOrderValue() - 6) + " : "
-			//		+ (c.getFamilyOrder() - 1) + " card: " + c.toString());
+			// System.out.println((c.getOrderValue() - 6) + " : "
+			// + (c.getFamilyOrder() - 1) + " card: " + c.toString());
 			cardArray[c.getOrderValue() - 6][c.getFamilyOrder() - 1] = 1;
 		}
-		
-		
+
 		// get for of same value
 		for (int i = 0; i < CardValue.values().length; i++) {
 			if (cardArray[i][0] + cardArray[i][1] + cardArray[i][2]

@@ -7,6 +7,12 @@ import javax.faces.context.FacesContext;
 import ch.frickler.jass.helper.Translator;
 import ch.frickler.jass.service.UserService;
 
+/**
+ * Class to manage the register page, containts the action to register a new user
+ * and save the crediantials and name to the database
+ * @author seed
+ *
+ */
 @ManagedBean
 @RequestScoped
 public class RegisterBean {
