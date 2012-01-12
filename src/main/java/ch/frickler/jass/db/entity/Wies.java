@@ -2,16 +2,23 @@ package ch.frickler.jass.db.entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
-import ch.frickler.jass.GameFactoryBean;
+
 import ch.frickler.jass.db.enums.CardFamily;
 import ch.frickler.jass.db.enums.CardValue;
 
+/**
+ * With this class it is possible to wies the hand ward
+ * @author kaeserst
+ *
+ */
 public class Wies implements Serializable, Comparable<Wies> {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	List<Card> cards = new ArrayList<Card>();
 	User user;
 
@@ -104,7 +111,6 @@ public class Wies implements Serializable, Comparable<Wies> {
 			return true;
 
 		// TODO check if in order
-
 		return false;
 	}
 
